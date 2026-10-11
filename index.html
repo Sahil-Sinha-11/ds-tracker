@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DSA Tracker</title>
+<meta name="description" content="October 2026 placement prep tracker: DSA, OS, DBMS, CN and System Design.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✅</text></svg>">
+<style>
+:root{
+  --bg:#f6f7fb; --card:#fff; --text:#1c2333; --muted:#6b7385; --line:#e4e7ef;
+  --accent:#4f46e5; --ok:#16a34a; --ok-bg:#e9f8ee; --late:#dc2626; --late-bg:#fdecec; --today-bg:#fff7db;
+  --c-dsa:#3b82f6; --c-os:#f97316; --c-dbms:#8b5cf6; --c-cn:#14b8a6; --c-sd:#ec4899;
+  --c-core:#ca8a04; --c-log:#64748b; --c-catch:#22c55e; --c-opt:#0ea5e9; --c-rev:#9ca3af;
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#0f1220; --card:#181c2e; --text:#e6e8f0; --muted:#9aa1b5; --line:#2a2f45;
+    --ok-bg:#12301f; --late-bg:#3a1717; --today-bg:#33290f;}
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:16px}
+header{display:flex;flex-wrap:wrap;align-items:center;gap:12px;justify-content:space-between;margin-bottom:12px}
+h1{font-size:22px;margin:0}
+.sub{color:var(--muted);font-size:13px}
+.overall{flex:1 1 220px;max-width:320px}
+.bar{height:10px;border-radius:99px;background:var(--line);overflow:hidden}
+.bar>i{display:block;height:100%;border-radius:99px;background:var(--accent);transition:width .3s}
+.tabs{display:flex;gap:6px;margin:12px 0;overflow-x:auto}
+.tabs button{border:1px solid var(--line);background:var(--card);color:var(--text);padding:8px 14px;border-radius:99px;cursor:pointer;font:inherit;white-space:nowrap}
+.tabs button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 12px}
+.chip{font-size:12px;padding:3px 10px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--text);cursor:pointer}
+.chip.on{color:#fff;border-color:transparent}
+.day{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:12px;overflow:hidden}
+.day.isToday{outline:2px solid #f5b300}
+.dayhead{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line)}
+.dayhead b{flex:1}
+.dayhead .mini{width:90px}
+.badge{font-size:11px;padding:2px 8px;border-radius:99px;background:#f5b300;color:#000;font-weight:600}
+.task{display:flex;align-items:flex-start;gap:10px;padding:9px 14px;border-bottom:1px solid var(--line)}
+.task:last-child{border-bottom:0}
+.task.done{background:var(--ok-bg)}
+.task.done .txt{text-decoration:line-through;color:var(--muted)}
+.task.late{background:var(--late-bg)}
+.task input[type=checkbox]{width:20px;height:20px;margin-top:2px;accent-color:var(--ok);flex:none;cursor:pointer}
+.body{flex:1;min-width:0}
+.tag{display:inline-block;font-size:11px;font-weight:600;color:#fff;padding:1px 8px;border-radius:99px;margin-right:6px;vertical-align:1px}
+.meta{display:none;gap:8px;margin-top:8px;flex-wrap:wrap}
+.task.open .meta{display:flex}
+.meta select,.meta input{font:inherit;font-size:13px;padding:5px 8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--text)}
+.meta input{flex:1;min-width:160px}
+.more{border:0;background:none;color:var(--muted);cursor:pointer;font-size:18px;line-height:1;padding:0 4px}
+.conf{font-size:11px;margin-left:6px;font-weight:600}
+.conf.Shaky{color:#d97706}.conf.Redo{color:var(--late)}.conf.Easy{color:var(--ok)}
+.when{font-size:12px;color:var(--late);margin-left:6px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+.row{display:grid;grid-template-columns:110px 1fr 64px;align-items:center;gap:10px;margin:8px 0;font-size:14px}
+.row .n{text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
+.empty{text-align:center;color:var(--muted);padding:28px}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.tools button,.tools label{font:inherit;font-size:13px;border:1px solid var(--line);background:var(--card);color:var(--text);padding:7px 12px;border-radius:8px;cursor:pointer}
+footer{color:var(--muted);font-size:12px;margin:18px 0 30px}
+h2{font-size:16px;margin:0 0 6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>October Prep Tracker</h1>
+      <div class="sub" id="todayLabel"></div>
+    </div>
+    <div class="overall">
+      <div class="sub" id="overallLabel" style="margin-bottom:4px"></div>
+      <div class="bar"><i id="overallBar" style="width:0"></i></div>
+    </div>
+  </header>
+
+  <nav class="tabs" id="tabs">
+    <button data-tab="today" class="on">Today</button>
+    <button data-tab="plan">Full plan</button>
+    <button data-tab="progress">Progress</button>
+    <button data-tab="later">November</button>
+  </nav>
+  <div class="chips" id="chips"></div>
+  <main id="view"></main>
+
+  <div class="tools">
+    <button id="exportBtn">Export progress</button>
+    <label>Import progress<input type="file" id="importFile" accept="application/json" hidden></label>
+    <button id="resetBtn">Reset</button>
+  </div>
+  <footer>Ticks are saved in this browser. Use Export / Import to move them to another device.</footer>
+</div>
+
+<script src="tasks.js"></script>
+<script>
+const COLORS={"DSA":"--c-dsa","OS":"--c-os","DBMS":"--c-dbms","CN":"--c-cn","System Design":"--c-sd","Core CS":"--c-core","Mistake log":"--c-log","Catch-up":"--c-catch","Optional DSA":"--c-opt","Revision":"--c-rev"};
+const TRACKED=["DSA","OS","DBMS","CN","System Design","Core CS","Mistake log","Catch-up"];
+const KEY="dsa-tracker-v1";
+let state={done:{},conf:{},notes:{}};
+try{const s=JSON.parse(localStorage.getItem(KEY)); if(s) state=Object.assign(state,s);}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}};
+
+let tab="today", filter=null, openId=null;
+const pad=n=>String(n).padStart(2,"0");
+const now=new Date(); const TODAY=`${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}`;
+const fmt=d=>new Date(d+"T00:00").toLocaleDateString(undefined,{weekday:"short",day:"numeric",month:"short"});
+const color=s=>`var(${COLORS[s]||"--c-rev"})`;
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const october=TASKS.filter(t=>t.week!=="November");
+const matches=t=>!filter||t.subject===filter;
+
+function taskRow(t,showLate){
+  const done=!!state.done[t.id], late=!done&&showLate&&t.date&&t.date<TODAY, c=state.conf[t.id];
+  return `<div class="task ${done?"done":""} ${late?"late":""} ${openId===t.id?"open":""}" data-id="${t.id}">
+    <input type="checkbox" ${done?"checked":""} aria-label="Done">
+    <div class="body">
+      <span class="tag" style="background:${color(t.subject)}">${esc(t.subject)}</span><span class="txt">${esc(t.task)}</span>
+      ${c?`<span class="conf ${c}">${c}</span>`:""}${late?`<span class="when">from ${fmt(t.date)}</span>`:""}
+      ${state.notes[t.id]?`<div class="sub">📝 ${esc(state.notes[t.id])}</div>`:""}
+      <div class="meta">
+        <select data-k="conf"><option value="">Confidence…</option>${["Easy","Shaky","Redo"].map(o=>`<option ${c===o?"selected":""}>${o}</option>`).join("")}</select>
+        <input data-k="notes" placeholder="Note / what tripped you up" value="${esc(state.notes[t.id]||"")}">
+      </div>
+    </div>
+    <button class="more" title="Confidence and notes">⋯</button>
+  </div>`;
+}
+function dayBlock(date,list,opts={}){
+  const d=list.filter(t=>state.done[t.id]).length, pct=list.length?d/list.length*100:0;
+  return `<section class="day ${date===TODAY?"isToday":""}"><div class="dayhead"><b>${opts.title||fmt(date)}</b>
+    ${date===TODAY?'<span class="badge">TODAY</span>':""}<span class="sub">${d}/${list.length}</span>
+    <div class="bar mini"><i style="width:${pct}%;background:var(--ok)"></i></div></div>
+    ${list.map(t=>taskRow(t,opts.late)).join("")}</section>`;
+}
+function groupByDate(list){const m=new Map();list.forEach(t=>{const k=t.date||"none";(m.get(k)||m.set(k,[]).get(k)).push(t)});return m;}
+
+function render(){
+  // header
+  const tracked=october.filter(t=>TRACKED.includes(t.subject));
+  const dn=tracked.filter(t=>state.done[t.id]).length;
+  document.getElementById("todayLabel").textContent=new Date().toLocaleDateString(undefined,{weekday:"long",day:"numeric",month:"long"});
+  document.getElementById("overallLabel").textContent=`October: ${dn} of ${tracked.length} tasks done (${Math.round(dn/tracked.length*100)}%)`;
+  document.getElementById("overallBar").style.width=dn/tracked.length*100+"%";
+  // chips
+  const subjects=tab==="later"?["Optional DSA","Revision"]:TRACKED;
+  document.getElementById("chips").innerHTML=tab==="progress"?"":["All",...subjects].map(s=>{
+    const on=(s==="All"&&!filter)||s===filter;
+    return `<button class="chip ${on?"on":""}" data-s="${s}" style="${on?`background:${s==="All"?"var(--accent)":color(s)}`:""}">${s}</button>`}).join("");
+  const v=document.getElementById("view");
+  if(tab==="today"){
+    const todays=october.filter(t=>t.date===TODAY&&matches(t));
+    const overdue=october.filter(t=>t.date<TODAY&&!state.done[t.id]&&matches(t));
+    let h="";
+    if(todays.length) h+=dayBlock(TODAY,todays);
+    else{const next=october.find(t=>t.date>TODAY); h+=`<div class="card empty">${next?`Nothing scheduled today. The plan starts ${fmt(next.date)}.`:"October is done. On to November revision!"}</div>`;}
+    if(overdue.length) h+=dayBlock("x",overdue,{title:"⏳ Left over from earlier days",late:true});
+    v.innerHTML=h;
+  }else if(tab==="plan"||tab==="later"){
+    const src=(tab==="plan"?october:TASKS.filter(t=>t.week==="November")).filter(matches);
+    let h="",lastWeek="";
+    for(const [date,list] of groupByDate(src)){
+      if(tab==="plan"&&list[0].week!==lastWeek){lastWeek=list[0].week;h+=`<h2 style="margin-top:18px">${lastWeek} · ${{"Week 1":"OS week","Week 2":"DBMS week","Week 3":"CN week"}[lastWeek]||""}</h2>`;}
+      h+=dayBlock(date,list,date==="none"?{title:"Optional problems (only if you're ahead)"}:{});
+    }
+    v.innerHTML=h||`<div class="card empty">No tasks for this filter.</div>`;
+  }else{
+    const row=(label,list,col)=>{const d=list.filter(t=>state.done[t.id]).length,p=list.length?d/list.length*100:0;
+      return `<div class="row"><span>${label}</span><div class="bar"><i style="width:${p}%;background:${col}"></i></div><span class="n">${d}/${list.length}</span></div>`};
+    const flagged=TASKS.filter(t=>state.conf[t.id]==="Shaky"||state.conf[t.id]==="Redo");
+    v.innerHTML=`<div class="card"><h2>By subject</h2>${TRACKED.map(s=>row(s,october.filter(t=>t.subject===s),color(s))).join("")}</div>
+      <div class="card"><h2>By week</h2>${["Week 1","Week 2","Week 3"].map(w=>row(w,october.filter(t=>t.week===w),"var(--accent)")).join("")}</div>
+      <div class="card"><h2>November revision list</h2><div class="sub" style="margin-bottom:8px">Everything you marked Shaky or Redo.</div>
+      ${flagged.length?flagged.map(t=>taskRow(t,false)).join(""):'<div class="empty">Nothing marked yet. Use ⋯ on a task to set its confidence.</div>'}</div>`;
+  }
+}
+
+document.getElementById("tabs").onclick=e=>{const b=e.target.closest("button");if(!b)return;tab=b.dataset.tab;filter=null;
+  document.querySelectorAll("#tabs button").forEach(x=>x.classList.toggle("on",x===b));render();};
+document.getElementById("chips").onclick=e=>{const b=e.target.closest(".chip");if(!b)return;filter=b.dataset.s==="All"?null:b.dataset.s;render();};
+const view=document.getElementById("view");
+view.addEventListener("change",e=>{
+  const row=e.target.closest(".task");if(!row)return;const id=+row.dataset.id;
+  if(e.target.type==="checkbox"){state.done[id]=e.target.checked;if(!e.target.checked)delete state.done[id];}
+  else{const k=e.target.dataset.k;if(e.target.value)state[k][id]=e.target.value;else delete state[k][id];}
+  save();render();
+});
+view.addEventListener("click",e=>{if(e.target.classList.contains("more")){const id=+e.target.closest(".task").dataset.id;openId=openId===id?null:id;render();}});
+document.getElementById("exportBtn").onclick=()=>{
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(state,null,1)],{type:"application/json"}));
+  a.download=`dsa-tracker-progress-${TODAY}.json`;a.click();};
+document.getElementById("importFile").onchange=async e=>{
+  const f=e.target.files[0];if(!f)return;
+  try{const s=JSON.parse(await f.text());if(!s.done)throw 0;state=Object.assign({done:{},conf:{},notes:{}},s);save();render();alert("Progress imported.");}
+  catch(err){alert("That file doesn't look like a tracker export.");}
+  e.target.value="";};
+document.getElementById("resetBtn").onclick=()=>{if(confirm("Clear all ticks, confidence and notes in this browser?")){state={done:{},conf:{},notes:{}};save();render();}};
+render();
+</script>
+</body>
+</html>
