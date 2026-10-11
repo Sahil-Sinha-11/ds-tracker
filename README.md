@@ -7,6 +7,6 @@ A one-page tracker for my October 2026 placement prep: DSA, OS, DBMS, Computer N
 - **Progress** has a bar per subject and per week, and the November revision list (tasks marked Shaky / Redo).
 - Tick a task to mark it done. Use ⋯ to set confidence (Easy / Shaky / Redo) and add a note.
 
-Progress is saved in the browser (localStorage). Use **Export / Import** to move it to another device.
+The page has a simple sign-in screen. Only a salted hash of the ID and password is stored in the code. Progress is saved in the browser (localStorage). Use **Export / Import** to move it to another device.
 
 To change the plan, edit `tasks.js`.
