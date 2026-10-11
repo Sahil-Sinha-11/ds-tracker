@@ -249,6 +249,23 @@ table.pt{width:100%;border-collapse:collapse}
 .pt tr.editrow .edit{display:flex;gap:8px;flex-wrap:wrap}
 .pt tr.editrow .input{flex:1;min-width:200px}
 .mdiff{display:none!important;margin-right:6px;height:18px;font-size:11px}
+.lec-sum{display:flex;align-items:center;gap:10px;margin-top:8px;flex-wrap:wrap}
+.lec-toggle{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface-2);border-radius:var(--r-sm);padding:4px 10px;font-size:13px;cursor:pointer;color:var(--text)}
+.lec-toggle:hover{border-color:var(--accent)}
+.lec-toggle b{font-weight:600}
+.lec-toggle svg{width:16px;height:16px;color:var(--accent-dark)}
+.lec-n{font-size:12px;color:var(--text-2)}
+.lec-sum .bar{width:72px}
+.lecs{list-style:none;margin:10px 0 4px;padding:4px 0;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--surface)}
+.lecs li{display:flex;align-items:center;gap:10px;padding:5px 12px;font-size:13px}
+.lecs li + li{border-top:1px solid var(--line)}
+.lecs label{display:flex;align-items:center;gap:10px;flex:1;min-width:0;cursor:pointer}
+.lecs input{accent-color:var(--success);width:16px;height:16px;margin:0;flex:none}
+.lecs .code{font-variant-numeric:tabular-nums;color:var(--text-2);width:52px;flex:none;font-size:12px}
+.lecs .lt{min-width:0}
+.lecs input:checked ~ .lt{color:var(--text-2);text-decoration:line-through}
+.lecs .dur{font-size:12px;color:var(--text-2)}
+.lec-opt{font-size:12px;color:var(--text-2);margin-top:10px}
 .flag{display:inline-flex;align-items:center;gap:4px;font-size:12px;color:var(--text-2)}
 .flag svg{width:14px;height:14px}
 
@@ -337,6 +354,9 @@ details.tbl th{font-weight:500;color:var(--text-2)}
   .row,.card-h,.mini{padding-left:14px;padding-right:14px}
   .card-b,.today-sum{padding-left:14px;padding-right:14px}
   .kpi-split > div{padding:12px 14px}
+  .lecs li{padding:6px 10px;gap:8px}
+  .lecs label{gap:8px}
+  .lecs .code{width:42px;font-size:11px}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -398,6 +418,7 @@ details.tbl th{font-weight:500;color:var(--text-2)}
 
 <script src="tasks.js"></script>
 <script src="problems.js"></script>
+<script src="lectures.js"></script>
 <script>
 /* ---------- Icons (outline, 24px grid) ---------- */
 const ICONS={
@@ -420,6 +441,7 @@ const ICONS={
   edit:'<path d="M4.5 19.5h3.5L19 8.5 15.5 5 4.5 16v3.5zM13.5 7l3.5 3.5"/>',
   arrow:'<path d="M5 12h14M13.5 6.5L19 12l-5.5 5.5"/>',
   check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+  play:'<circle cx="12" cy="12" r="8.5"/><path d="M10.2 8.8v6.4l5.2-3.2-5.2-3.2z"/>',
   flag:'<path d="M5.5 21V4.5M5.5 4.5h11l-2 4 2 4h-11"/>',
 };
 const ic=(n,cls="i")=>`<svg class="${cls}" viewBox="0 0 24 24" aria-hidden="true">${ICONS[n]}</svg>`;
@@ -462,7 +484,7 @@ $("themeBtn").onclick=()=>{const t=document.documentElement.dataset.theme==="dar
 /* ---------- Data & state ---------- */
 const TASKS=window.TASKS, PROBLEMS=window.PROBLEMS;
 const KEY="dsa-tracker-v1";
-const blank=()=>({done:{},conf:{},notes:{},at:{},pdone:{},pconf:{},pnotes:{},star:{}});
+const blank=()=>({done:{},conf:{},notes:{},at:{},pdone:{},pconf:{},pnotes:{},star:{},lec:{}});
 let state=blank();
 try{const s=JSON.parse(localStorage.getItem(KEY));if(s)state=Object.assign(blank(),s);}catch(e){}
 const save=()=>store.set(localStorage,KEY,JSON.stringify(state));
@@ -500,6 +522,22 @@ const pStar=p=>p.id in state.star?!!state.star[p.id]:p.star;
 const pRevise=p=>["Shaky","Redo"].includes(pConf(p));
 const pStatus=p=>pSolved(p)?"solved":(pConf(p)||pNote(p))?"progress":"todo";
 const tRevise=t=>["Shaky","Redo"].includes(state.conf[t.id]);
+const LECS=window.OS_LECTURES||[],OS_PLAYLIST=window.OS_PLAYLIST;
+const lecsFor=t=>t.subject==="OS"?LECS.filter(x=>x.day===t.date):[];
+const LEC_REQ=LECS.filter(x=>x.day&&x.day!=="optional");
+const dur=s=>{const m=Math.round(s/60);return m>=60?`${Math.floor(m/60)} h${m%60?` ${m%60} min`:""}`:`${m} min`;};
+const clock=s=>`${Math.floor(s/60)}:${pad(s%60)}`;
+const openLec=new Set();
+function lecItem(x){return `<li><label><input type="checkbox" data-act="lec" data-code="${x.code}" data-fk="lec-${x.code}" ${state.lec[x.code]?"checked":""}><span class="code">${x.code}</span><span class="lt">${esc(x.title)}</span></label><span class="dur num">${clock(x.sec)}</span></li>`;}
+function lectureBlock(t){
+  const L=lecsFor(t);if(!L.length)return "";
+  const w=L.filter(x=>state.lec[x.code]).length,sec=L.reduce((a,x)=>a+x.sec,0),k="l"+t.id,open=openLec.has(k);
+  const opt=t.date==="2026-10-17"?LECS.filter(x=>x.day==="optional"):[];
+  return `<div class="lec-sum"><button class="lec-toggle" data-act="lec-open" data-key="${k}" data-fk="lo-${k}" aria-expanded="${open}">${ic("play")}<span><b>${L.length} lecture${L.length>1?"s":""}</b> · about ${dur(sec/1.5)} at 1.5x</span></button>
+    <span class="lec-n num">${w}/${L.length} watched</span><div class="bar"><i style="width:${pct(w,L.length)}%"></i></div></div>
+    ${open?`<ul class="lecs">${L.map(lecItem).join("")}</ul>${opt.length?`<div class="lec-opt">Optional, only if you're ahead (${opt.length})</div><ul class="lecs">${opt.map(lecItem).join("")}</ul>`:""}
+    <a class="link" href="${OS_PLAYLIST}" target="_blank" rel="noopener" style="margin-top:6px">Open the Gate Smashers OS playlist${ic("ext")}</a>`:""}`;
+}
 const ltc=p=>`https://leetcode.com/problemset/?search=${encodeURIComponent(p.name)}`;
 
 /* ---------- Shared pieces ---------- */
@@ -520,6 +558,7 @@ function taskRow(t,o={}){
     <label class="check"><input type="checkbox" data-act="task-done" data-id="${t.id}" data-fk="cb-${key}" ${done?"checked":""} aria-label="${esc(t.task)}"><span></span></label>
     <div class="body"><div class="title">${esc(t.task)}</div>
       ${meta.length?`<div class="meta">${meta.join("")}</div>`:""}
+      ${lectureBlock(t)}
       ${note?`<div class="note">${esc(note)}</div>`:""}
       <div class="edit">${editFields("task",t.id,c,note)}</div>
     </div>
@@ -729,7 +768,7 @@ function pageTopics(){
   }).join("");
   const subj=[["OS","Week 1 · 11–17 Oct"],["DBMS","Week 2 · 18–24 Oct"],["CN","Week 3 · 25–31 Oct"],["System Design","SOLID, patterns, then LLD"]].map(([s,w])=>{
     const L=october.filter(t=>t.subject===s),d=L.filter(isDone).length,nx=L.find(t=>!isDone(t));
-    return `<div class="card tcard" style="cursor:default"><div class="t1"><b>${s}</b><span class="num">${d}/${L.length}</span></div><div class="bar"><i style="width:${pct(d,L.length)}%"></i></div><div class="diffs"><span>${w}</span></div><div class="next">${nx?`Next: <b>${esc(nx.task.split(/[:,(]/)[0])}</b>`:"All done"}</div></div>`;
+    return `<div class="card tcard" style="cursor:default"><div class="t1"><b>${s}</b><span class="num">${d}/${L.length}</span></div><div class="bar"><i style="width:${pct(d,L.length)}%"></i></div><div class="diffs"><span>${w}</span>${s==="OS"?`<span>Lectures ${LEC_REQ.filter(x=>state.lec[x.code]).length}/${LEC_REQ.length}</span>`:""}</div><div class="next">${nx?`Next: <b>${esc(nx.task.split(/[:,(]/)[0])}</b>`:"All done"}</div></div>`;
   }).join("");
   return phead("Topics","DSA by topic from your tracker, and the core subjects in the October plan.")+
     `<div class="section-title" style="margin-top:0"><h2>DSA topics</h2><span>${TOPICS.length} topics · tap one to see its problems</span></div><div class="tgrid">${cards}</div>
@@ -812,6 +851,7 @@ view.addEventListener("change",e=>{
   const el=e.target,a=el.dataset.act,id=+el.dataset.id;
   if(a==="task-done"){setTaskDone(TASKS.find(t=>t.id===id),el.checked);changed();}
   else if(a==="p-done"){setSolved(probById.get(id),el.checked);changed();}
+  else if(a==="lec"){if(el.checked)state.lec[el.dataset.code]=TODAY;else delete state.lec[el.dataset.code];changed();}
   else if(a==="task-conf"||a==="task-note"){const k=a==="task-conf"?"conf":"notes";if(el.value.trim())state[k][id]=el.value.trim();else delete state[k][id];changed();}
   else if(a==="p-conf"||a==="p-note"){setMeta(probById.get(id),a==="p-conf"?"conf":"note",el.value.trim());changed();}
   else if(el.dataset.pf){pf[el.dataset.pf]=el.value;problemsBody();}
@@ -819,7 +859,8 @@ view.addEventListener("change",e=>{
 view.addEventListener("input",e=>{if(e.target.id==="pf-q"){pf.q=e.target.value;problemsBody();}});
 view.addEventListener("click",e=>{
   const b=e.target.closest("[data-act]");if(!b)return;const a=b.dataset.act;
-  if(a==="open"){openRow=openRow===b.dataset.key?null:b.dataset.key;render();if(openRow){const f=view.querySelector(`.open .edit .select, .editrow .select`);if(f)f.focus();}}
+  if(a==="lec-open"){const k=b.dataset.key;openLec.has(k)?openLec.delete(k):openLec.add(k);render();}
+  else if(a==="open"){openRow=openRow===b.dataset.key?null:b.dataset.key;render();if(openRow){const f=view.querySelector(`.open .edit .select, .editrow .select`);if(f)f.focus();}}
   else if(a==="p-star"){const p=probById.get(+b.dataset.id),v=!pStar(p);if(v===p.star)delete state.star[p.id];else state.star[p.id]=v;save();if(route==="problems")problemsBody();else render();const el=view.querySelector(`[data-fk="st-p${p.id}"]`);if(el)el.focus();}
   else if(a==="pf-diff"){pf.diff=b.dataset.v;view.querySelectorAll('[data-act="pf-diff"]').forEach(x=>x.setAttribute("aria-pressed",x.dataset.v===pf.diff));problemsBody();}
   else if(a==="clear-pf"){Object.assign(pf,{q:"",topic:"",diff:"",status:""});$("q").value="";render();}
