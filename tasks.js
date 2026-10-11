@@ -5,21 +5,24 @@ window.TASKS = [
   "date": "2026-10-11",
   "week": "Week 1",
   "subject": "DSA",
-  "task": "Reorder List"
+  "task": "Reorder List",
+  "pid": 98
  },
  {
   "id": 2,
   "date": "2026-10-11",
   "week": "Week 1",
   "subject": "DSA",
-  "task": "Copy List with Random Pointer"
+  "task": "Copy List with Random Pointer",
+  "pid": 99
  },
  {
   "id": 3,
   "date": "2026-10-11",
   "week": "Week 1",
   "subject": "DSA",
-  "task": "Reverse Nodes in k-Group"
+  "task": "Reverse Nodes in k-Group",
+  "pid": 100
  },
  {
   "id": 4,
@@ -47,21 +50,24 @@ window.TASKS = [
   "date": "2026-10-12",
   "week": "Week 1",
   "subject": "DSA",
-  "task": "LRU Cache"
+  "task": "LRU Cache",
+  "pid": 101
  },
  {
   "id": 8,
   "date": "2026-10-12",
   "week": "Week 1",
   "subject": "DSA",
-  "task": "LFU Cache"
+  "task": "LFU Cache",
+  "pid": 102
  },
  {
   "id": 9,
   "date": "2026-10-12",
   "week": "Week 1",
   "subject": "DSA",
-  "task": "Merge k Sorted Lists"
+  "task": "Merge k Sorted Lists",
+  "pid": 103
  },
  {
   "id": 10,
@@ -89,21 +95,24 @@ window.TASKS = [
   "date": "2026-10-13",
   "week": "Week 1",
   "subject": "DSA",
-  "task": "Construct BT from Preorder+Inorder"
+  "task": "Construct BT from Preorder+Inorder",
+  "pid": 113
  },
  {
   "id": 14,
   "date": "2026-10-13",
   "week": "Week 1",
   "subject": "DSA",
-  "task": "Serialize/Deserialize BT"
+  "task": "Serialize/Deserialize BT",
+  "pid": 114
  },
  {
   "id": 15,
   "date": "2026-10-13",
   "week": "Week 1",
   "subject": "DSA",
-  "task": "BST Iterator"
+  "task": "BST Iterator",
+  "pid": 119
  },
  {
   "id": 16,
@@ -131,28 +140,32 @@ window.TASKS = [
   "date": "2026-10-14",
   "week": "Week 1",
   "subject": "DSA",
-  "task": "Construct BST from Preorder"
+  "task": "Construct BST from Preorder",
+  "pid": 120
  },
  {
   "id": 20,
   "date": "2026-10-14",
   "week": "Week 1",
   "subject": "DSA",
-  "task": "Recover BST"
+  "task": "Recover BST",
+  "pid": 121
  },
  {
   "id": 21,
   "date": "2026-10-14",
   "week": "Week 1",
   "subject": "DSA",
-  "task": "Delete Node in BST"
+  "task": "Delete Node in BST",
+  "pid": 122
  },
  {
   "id": 22,
   "date": "2026-10-14",
   "week": "Week 1",
   "subject": "DSA",
-  "task": "Insert into BST"
+  "task": "Insert into BST",
+  "pid": 123
  },
  {
   "id": 23,
@@ -180,35 +193,40 @@ window.TASKS = [
   "date": "2026-10-15",
   "week": "Week 1",
   "subject": "DSA",
-  "task": "Power of Two"
+  "task": "Power of Two",
+  "pid": 124
  },
  {
   "id": 27,
   "date": "2026-10-15",
   "week": "Week 1",
   "subject": "DSA",
-  "task": "Single Number"
+  "task": "Single Number",
+  "pid": 130
  },
  {
   "id": 28,
   "date": "2026-10-15",
   "week": "Week 1",
   "subject": "DSA",
-  "task": "Reverse Bits"
+  "task": "Reverse Bits",
+  "pid": 127
  },
  {
   "id": 29,
   "date": "2026-10-15",
   "week": "Week 1",
   "subject": "DSA",
-  "task": "Min Bit Flips"
+  "task": "Min Bit Flips",
+  "pid": 128
  },
  {
   "id": 30,
   "date": "2026-10-15",
   "week": "Week 1",
   "subject": "DSA",
-  "task": "Counting Bits"
+  "task": "Counting Bits",
+  "pid": 125
  },
  {
   "id": 31,
@@ -236,21 +254,24 @@ window.TASKS = [
   "date": "2026-10-16",
   "week": "Week 1",
   "subject": "DSA",
-  "task": "Divide Two Integers"
+  "task": "Divide Two Integers",
+  "pid": 126
  },
  {
   "id": 35,
   "date": "2026-10-16",
   "week": "Week 1",
   "subject": "DSA",
-  "task": "Sum of Two Integers"
+  "task": "Sum of Two Integers",
+  "pid": 131
  },
  {
   "id": 36,
   "date": "2026-10-16",
   "week": "Week 1",
   "subject": "DSA",
-  "task": "Min Flips to Make a OR b = c"
+  "task": "Min Flips to Make a OR b = c",
+  "pid": 132
  },
  {
   "id": 37,
@@ -292,21 +313,24 @@ window.TASKS = [
   "date": "2026-10-18",
   "week": "Week 2",
   "subject": "DSA",
-  "task": "Implement Trie"
+  "task": "Implement Trie",
+  "pid": 204
  },
  {
   "id": 43,
   "date": "2026-10-18",
   "week": "Week 2",
   "subject": "DSA",
-  "task": "Counting Words With a Given Prefix"
+  "task": "Counting Words With a Given Prefix",
+  "pid": 209
  },
  {
   "id": 44,
   "date": "2026-10-18",
   "week": "Week 2",
   "subject": "DSA",
-  "task": "Design Add and Search Words"
+  "task": "Design Add and Search Words",
+  "pid": 206
  },
  {
   "id": 45,
@@ -334,21 +358,24 @@ window.TASKS = [
   "date": "2026-10-19",
   "week": "Week 2",
   "subject": "DSA",
-  "task": "Maximum XOR of Two Numbers"
+  "task": "Maximum XOR of Two Numbers",
+  "pid": 200
  },
  {
   "id": 49,
   "date": "2026-10-19",
   "week": "Week 2",
   "subject": "DSA",
-  "task": "Remove Sub-Folders"
+  "task": "Remove Sub-Folders",
+  "pid": 208
  },
  {
   "id": 50,
   "date": "2026-10-19",
   "week": "Week 2",
   "subject": "DSA",
-  "task": "Sum of Prefix Scores"
+  "task": "Sum of Prefix Scores",
+  "pid": 207
  },
  {
   "id": 51,
@@ -376,14 +403,16 @@ window.TASKS = [
   "date": "2026-10-20",
   "week": "Week 2",
   "subject": "DSA",
-  "task": "Word Search II"
+  "task": "Word Search II",
+  "pid": 205
  },
  {
   "id": 55,
   "date": "2026-10-20",
   "week": "Week 2",
   "subject": "DSA",
-  "task": "Maximum XOR With an Element From Array"
+  "task": "Maximum XOR With an Element From Array",
+  "pid": 201
  },
  {
   "id": 56,
@@ -411,28 +440,32 @@ window.TASKS = [
   "date": "2026-10-21",
   "week": "Week 2",
   "subject": "DSA",
-  "task": "Largest Rectangle in Histogram"
+  "task": "Largest Rectangle in Histogram",
+  "pid": 26
  },
  {
   "id": 60,
   "date": "2026-10-21",
   "week": "Week 2",
   "subject": "DSA",
-  "task": "Next Greater Element II"
+  "task": "Next Greater Element II",
+  "pid": 28
  },
  {
   "id": 61,
   "date": "2026-10-21",
   "week": "Week 2",
   "subject": "DSA",
-  "task": "Next Permutation"
+  "task": "Next Permutation",
+  "pid": 32
  },
  {
   "id": 62,
   "date": "2026-10-21",
   "week": "Week 2",
   "subject": "DSA",
-  "task": "Zigzag Conversion"
+  "task": "Zigzag Conversion",
+  "pid": 8
  },
  {
   "id": 63,
@@ -460,28 +493,32 @@ window.TASKS = [
   "date": "2026-10-22",
   "week": "Week 2",
   "subject": "DSA",
-  "task": "Find Median from Data Stream"
+  "task": "Find Median from Data Stream",
+  "pid": 34
  },
  {
   "id": 67,
   "date": "2026-10-22",
   "week": "Week 2",
   "subject": "DSA",
-  "task": "IPO"
+  "task": "IPO",
+  "pid": 33
  },
  {
   "id": 68,
   "date": "2026-10-22",
   "week": "Week 2",
   "subject": "DSA",
-  "task": "Time Based Key-Value Store"
+  "task": "Time Based Key-Value Store",
+  "pid": 71
  },
  {
   "id": 69,
   "date": "2026-10-22",
   "week": "Week 2",
   "subject": "DSA",
-  "task": "Search a 2D Matrix"
+  "task": "Search a 2D Matrix",
+  "pid": 75
  },
  {
   "id": 70,
@@ -509,28 +546,32 @@ window.TASKS = [
   "date": "2026-10-23",
   "week": "Week 2",
   "subject": "DSA",
-  "task": "Max Points from Cards"
+  "task": "Max Points from Cards",
+  "pid": 87
  },
  {
   "id": 74,
   "date": "2026-10-23",
   "week": "Week 2",
   "subject": "DSA",
-  "task": "Substrings Containing All Three Chars"
+  "task": "Substrings Containing All Three Chars",
+  "pid": 90
  },
  {
   "id": 75,
   "date": "2026-10-23",
   "week": "Week 2",
   "subject": "DSA",
-  "task": "Binary Subarrays With Sum"
+  "task": "Binary Subarrays With Sum",
+  "pid": 91
  },
  {
   "id": 76,
   "date": "2026-10-23",
   "week": "Week 2",
   "subject": "DSA",
-  "task": "Shortest Subarray with Sum ≥ K"
+  "task": "Shortest Subarray with Sum ≥ K",
+  "pid": 88
  },
  {
   "id": 77,
@@ -572,28 +613,32 @@ window.TASKS = [
   "date": "2026-10-25",
   "week": "Week 3",
   "subject": "DSA",
-  "task": "Stock III"
+  "task": "Stock III",
+  "pid": 178
  },
  {
   "id": 83,
   "date": "2026-10-25",
   "week": "Week 3",
   "subject": "DSA",
-  "task": "Stock with Cooldown"
+  "task": "Stock with Cooldown",
+  "pid": 179
  },
  {
   "id": 84,
   "date": "2026-10-25",
   "week": "Week 3",
   "subject": "DSA",
-  "task": "Stock with Transaction Fee"
+  "task": "Stock with Transaction Fee",
+  "pid": 180
  },
  {
   "id": 85,
   "date": "2026-10-25",
   "week": "Week 3",
   "subject": "DSA",
-  "task": "Number of LIS"
+  "task": "Number of LIS",
+  "pid": 185
  },
  {
   "id": 86,
@@ -621,21 +666,24 @@ window.TASKS = [
   "date": "2026-10-26",
   "week": "Week 3",
   "subject": "DSA",
-  "task": "Maximal Rectangle (reuses histogram)"
+  "task": "Maximal Rectangle (reuses histogram)",
+  "pid": 186
  },
  {
   "id": 90,
   "date": "2026-10-26",
   "week": "Week 3",
   "subject": "DSA",
-  "task": "Russian Doll Envelopes"
+  "task": "Russian Doll Envelopes",
+  "pid": 189
  },
  {
   "id": 91,
   "date": "2026-10-26",
   "week": "Week 3",
   "subject": "DSA",
-  "task": "Wildcard Matching"
+  "task": "Wildcard Matching",
+  "pid": 183
  },
  {
   "id": 92,
@@ -663,21 +711,24 @@ window.TASKS = [
   "date": "2026-10-27",
   "week": "Week 3",
   "subject": "DSA",
-  "task": "Clone Graph"
+  "task": "Clone Graph",
+  "pid": 149
  },
  {
   "id": 96,
   "date": "2026-10-27",
   "week": "Week 3",
   "subject": "DSA",
-  "task": "Pacific Atlantic Water Flow"
+  "task": "Pacific Atlantic Water Flow",
+  "pid": 150
  },
  {
   "id": 97,
   "date": "2026-10-27",
   "week": "Week 3",
   "subject": "DSA",
-  "task": "Operations to Make Network Connected"
+  "task": "Operations to Make Network Connected",
+  "pid": 160
  },
  {
   "id": 98,
@@ -705,14 +756,16 @@ window.TASKS = [
   "date": "2026-10-28",
   "week": "Week 3",
   "subject": "DSA",
-  "task": "Swim in Rising Water"
+  "task": "Swim in Rising Water",
+  "pid": 161
  },
  {
   "id": 102,
   "date": "2026-10-28",
   "week": "Week 3",
   "subject": "DSA",
-  "task": "Critical Connections (Tarjan's bridges)"
+  "task": "Critical Connections (Tarjan's bridges)",
+  "pid": 163
  },
  {
   "id": 103,
@@ -740,28 +793,32 @@ window.TASKS = [
   "date": "2026-10-29",
   "week": "Week 3",
   "subject": "DSA",
-  "task": "Find Index of First Occurrence (learn KMP)"
+  "task": "Find Index of First Occurrence (learn KMP)",
+  "pid": 191
  },
  {
   "id": 107,
   "date": "2026-10-29",
   "week": "Week 3",
   "subject": "DSA",
-  "task": "Longest Happy Prefix"
+  "task": "Longest Happy Prefix",
+  "pid": 192
  },
  {
   "id": 108,
   "date": "2026-10-29",
   "week": "Week 3",
   "subject": "DSA",
-  "task": "Longest Palindromic Substring"
+  "task": "Longest Palindromic Substring",
+  "pid": 198
  },
  {
   "id": 109,
   "date": "2026-10-29",
   "week": "Week 3",
   "subject": "DSA",
-  "task": "Repeated String Match"
+  "task": "Repeated String Match",
+  "pid": 190
  },
  {
   "id": 110,
@@ -789,35 +846,40 @@ window.TASKS = [
   "date": "2026-10-30",
   "week": "Week 3",
   "subject": "DSA",
-  "task": "Hand of Straights"
+  "task": "Hand of Straights",
+  "pid": 141
  },
  {
   "id": 114,
   "date": "2026-10-30",
   "week": "Week 3",
   "subject": "DSA",
-  "task": "Candy"
+  "task": "Candy",
+  "pid": 143
  },
  {
   "id": 115,
   "date": "2026-10-30",
   "week": "Week 3",
   "subject": "DSA",
-  "task": "Max Events That Can Be Attended"
+  "task": "Max Events That Can Be Attended",
+  "pid": 142
  },
  {
   "id": 116,
   "date": "2026-10-30",
   "week": "Week 3",
   "subject": "DSA",
-  "task": "K Negations"
+  "task": "K Negations",
+  "pid": 139
  },
  {
   "id": 117,
   "date": "2026-10-30",
   "week": "Week 3",
   "subject": "DSA",
-  "task": "Range Sum Query - Mutable (learn segment tree basics)"
+  "task": "Range Sum Query - Mutable (learn segment tree basics)",
+  "pid": 210
  },
  {
   "id": 118,
@@ -866,168 +928,192 @@ window.TASKS = [
   "date": null,
   "week": "November",
   "subject": "Optional DSA",
-  "task": "My Calendar III"
+  "task": "My Calendar III",
+  "pid": 211
  },
  {
   "id": 125,
   "date": null,
   "week": "November",
   "subject": "Optional DSA",
-  "task": "Maximum Sum Queries"
+  "task": "Maximum Sum Queries",
+  "pid": 212
  },
  {
   "id": 126,
   "date": null,
   "week": "November",
   "subject": "Optional DSA",
-  "task": "Subarrays Distinct Element Sum of Squares II"
+  "task": "Subarrays Distinct Element Sum of Squares II",
+  "pid": 213
  },
  {
   "id": 127,
   "date": null,
   "week": "November",
   "subject": "Optional DSA",
-  "task": "Block Placement Queries"
+  "task": "Block Placement Queries",
+  "pid": 214
  },
  {
   "id": 128,
   "date": null,
   "week": "November",
   "subject": "Optional DSA",
-  "task": "Shortest Path in a Weighted Tree"
+  "task": "Shortest Path in a Weighted Tree",
+  "pid": 215
  },
  {
   "id": 129,
   "date": null,
   "week": "November",
   "subject": "Optional DSA",
-  "task": "Max Area Rectangle With Point Constraints II"
+  "task": "Max Area Rectangle With Point Constraints II",
+  "pid": 216
  },
  {
   "id": 130,
   "date": null,
   "week": "November",
   "subject": "Optional DSA",
-  "task": "Max Sum of Subsequence With Non-adjacent Elements"
+  "task": "Max Sum of Subsequence With Non-adjacent Elements",
+  "pid": 217
  },
  {
   "id": 131,
   "date": null,
   "week": "November",
   "subject": "Optional DSA",
-  "task": "Booking Concert Tickets"
+  "task": "Booking Concert Tickets",
+  "pid": 218
  },
  {
   "id": 132,
   "date": null,
   "week": "November",
   "subject": "Optional DSA",
-  "task": "LIS II"
+  "task": "LIS II",
+  "pid": 219
  },
  {
   "id": 133,
   "date": null,
   "week": "November",
   "subject": "Optional DSA",
-  "task": "Shortest Palindrome"
+  "task": "Shortest Palindrome",
+  "pid": 193
  },
  {
   "id": 134,
   "date": null,
   "week": "November",
   "subject": "Optional DSA",
-  "task": "Find Substring With Given Hash Value"
+  "task": "Find Substring With Given Hash Value",
+  "pid": 194
  },
  {
   "id": 135,
   "date": null,
   "week": "November",
   "subject": "Optional DSA",
-  "task": "Min Time to Revert Word II"
+  "task": "Min Time to Revert Word II",
+  "pid": 195
  },
  {
   "id": 136,
   "date": null,
   "week": "November",
   "subject": "Optional DSA",
-  "task": "Longest Common Subpath"
+  "task": "Longest Common Subpath",
+  "pid": 196
  },
  {
   "id": 137,
   "date": null,
   "week": "November",
   "subject": "Optional DSA",
-  "task": "Subarrays That Match a Pattern II"
+  "task": "Subarrays That Match a Pattern II",
+  "pid": 197
  },
  {
   "id": 138,
   "date": null,
   "week": "November",
   "subject": "Optional DSA",
-  "task": "Max Product of Two Palindromic Substrings"
+  "task": "Max Product of Two Palindromic Substrings",
+  "pid": 199
  },
  {
   "id": 139,
   "date": null,
   "week": "November",
   "subject": "Optional DSA",
-  "task": "Median of Two Sorted Arrays"
+  "task": "Median of Two Sorted Arrays",
+  "pid": 66
  },
  {
   "id": 140,
   "date": null,
   "week": "November",
   "subject": "Optional DSA",
-  "task": "Partition Array to Minimize Sum Difference"
+  "task": "Partition Array to Minimize Sum Difference",
+  "pid": 173
  },
  {
   "id": 141,
   "date": null,
   "week": "November",
   "subject": "Optional DSA",
-  "task": "Parsing a Boolean Expression"
+  "task": "Parsing a Boolean Expression",
+  "pid": 187
  },
  {
   "id": 142,
   "date": null,
   "week": "November",
   "subject": "Optional DSA",
-  "task": "Construct String With Repeat Limit"
+  "task": "Construct String With Repeat Limit",
+  "pid": 140
  },
  {
   "id": 143,
   "date": null,
   "week": "November",
   "subject": "Optional DSA",
-  "task": "Count Prefix and Suffix Pairs II"
+  "task": "Count Prefix and Suffix Pairs II",
+  "pid": 203
  },
  {
   "id": 144,
   "date": null,
   "week": "November",
   "subject": "Optional DSA",
-  "task": "Max Number Whose Sum of Prices ≤ K"
+  "task": "Max Number Whose Sum of Prices ≤ K",
+  "pid": 133
  },
  {
   "id": 145,
   "date": null,
   "week": "November",
   "subject": "Optional DSA",
-  "task": "Multiply Strings"
+  "task": "Multiply Strings",
+  "pid": 38
  },
  {
   "id": 146,
   "date": null,
   "week": "November",
   "subject": "Optional DSA",
-  "task": "Closest Primes in Range"
+  "task": "Closest Primes in Range",
+  "pid": 43
  },
  {
   "id": 147,
   "date": null,
   "week": "November",
   "subject": "Optional DSA",
-  "task": "Bulb Switcher"
+  "task": "Bulb Switcher",
+  "pid": 46
  },
  {
   "id": 148,
