@@ -1,6 +1,6 @@
 # Prep Desk
 
-A calm study desk for my October 2026 placement prep: DSA, OS, DBMS, Computer Networks and System Design (SOLID → design patterns → LLD). November is for revision.
+A calm study desk for my October 2026 placement prep: DSA, OS, DBMS, Computer Networks and System Design (an LLD problem set: OOP basics → class relationships → SOLID → design patterns → full LLD rounds). November is for revision.
 
 - **Dashboard**: today's plan, overall DSA progress, a 21-day consistency grid, topic breakdown, revision queue and recently solved problems.
 - **Problems**: all 219 problems from my LeetCode tracker with topic, difficulty, plan date, confidence and bookmarks. Search, filter and sort.
@@ -12,5 +12,5 @@ Tick a task or problem to mark it done. The pencil button sets confidence (Confi
 
 The page has a simple sign-in screen. Only a salted hash of the ID and password is stored in the code. Progress is saved in the browser (localStorage); use **Export / Import** in the profile menu to move it to another device. Light theme by default, with a dark theme toggle in the top bar.
 
-- `tasks.js` is the October plan (DSA tasks link to problems with `pid`).
+- `tasks.js` is the October plan (DSA tasks link to problems with `pid`; System Design tasks carry an `lld` object with the problem number, concept, difficulty and section).
 - `problems.js` is the problem list from the tracker docx (`solved` = done before October, `star` = bookmarked).

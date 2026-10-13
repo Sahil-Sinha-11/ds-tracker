@@ -188,6 +188,7 @@ svg.i{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-widt
 .row .meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:4px;font-size:12px;color:var(--text-2)}
 .row .meta .dot{width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.6}
 .row .note{font-size:13px;color:var(--text-2);margin-top:4px}
+.row .hint{font-size:12px;color:var(--text-2);margin-top:4px;font-style:italic}
 .row .edit{display:none;gap:8px;margin-top:10px;flex-wrap:wrap}
 .row.open .edit{display:flex}
 .row .edit .input{flex:1;min-width:180px;height:34px}
@@ -552,12 +553,15 @@ function taskRow(t,o={}){
   const late=!done&&o.late&&t.date&&t.date<TODAY;
   const meta=o.bare?[]:[`<span>${esc(t.subject==="Optional DSA"?"DSA":t.subject)}</span>`];
   if(p)meta.push(`<span class="badge ${p.difficulty}">${p.difficulty}</span>`,`<span>${esc(p.topic)}</span>`);
+  const x=t.lld;
+  if(x){meta.push(`<span class="badge ${x.diff}">${x.diff}</span>`,`<span>${esc(x.concept)}</span>`);if(x.opt)meta.push(`<span class="badge">Optional</span>`);if(x.fav)meta.push(`<span class="badge today">★ Favourite</span>`);}
   if(late)meta.push(`<span class="badge late">From ${fmt(t.date,{day:"numeric",month:"short"})}</span>`);
   if(c)meta.push(confBadge(c));
   return `<div class="row ${done?"done":""} ${openRow===key?"open":""}">
     <label class="check"><input type="checkbox" data-act="task-done" data-id="${t.id}" data-fk="cb-${key}" ${done?"checked":""} aria-label="${esc(t.task)}"><span></span></label>
     <div class="body"><div class="title">${esc(t.task)}</div>
       ${meta.length?`<div class="meta">${meta.join("")}</div>`:""}
+      ${x&&x.hint?`<div class="hint">${esc(x.hint)}</div>`:""}
       ${lectureBlock(t)}
       ${note?`<div class="note">${esc(note)}</div>`:""}
       <div class="edit">${editFields("task",t.id,c,note)}</div>
@@ -766,13 +770,19 @@ function pageTopics(){
     const nextTxt=d===L.length?"All solved":nx?`Next: <b>${esc(nx.name)}</b> · ${ptask(nx).date===TODAY?"today":fmt(ptask(nx).date,{weekday:"short",day:"numeric"})}`:`${left} left, none scheduled in October`;
     return `<a class="card tcard" href="#problems?topic=${encodeURIComponent(tp)}"><div class="t1"><b>${esc(tp)}</b><span class="num">${d}/${L.length}</span></div><div class="bar"><i style="width:${pct(d,L.length)}%"></i></div><div class="diffs">${diffs}</div><div class="next">${nextTxt}</div></a>`;
   }).join("");
-  const subj=[["OS","Week 1 · 11–17 Oct"],["DBMS","Week 2 · 18–24 Oct"],["CN","Week 3 · 25–31 Oct"],["System Design","SOLID, patterns, then LLD"]].map(([s,w])=>{
+  const subj=[["OS","Week 1 · 11–17 Oct"],["DBMS","Week 2 · 18–24 Oct"],["CN","Week 3 · 25–31 Oct"],["System Design","LLD problems: OOP → patterns → LLD rounds"]].map(([s,w])=>{
     const L=october.filter(t=>t.subject===s),d=L.filter(isDone).length,nx=L.find(t=>!isDone(t));
     return `<div class="card tcard" style="cursor:default"><div class="t1"><b>${s}</b><span class="num">${d}/${L.length}</span></div><div class="bar"><i style="width:${pct(d,L.length)}%"></i></div><div class="diffs"><span>${w}</span>${s==="OS"?`<span>Lectures ${LEC_REQ.filter(x=>state.lec[x.code]).length}/${LEC_REQ.length}</span>`:""}</div><div class="next">${nx?`Next: <b>${esc(nx.task.split(/[:,(]/)[0])}</b>`:"All done"}</div></div>`;
   }).join("");
+  const LLD=TASKS.filter(t=>t.lld),secs=[...new Set(LLD.map(t=>t.lld.section))];
+  const lld=secs.map(sec=>{
+    const L=LLD.filter(t=>t.lld.section===sec),d=L.filter(isDone).length,nx=L.find(t=>!isDone(t)),opt=L.filter(t=>t.lld.opt).length;
+    return `<a class="card tcard" href="#plan?f=System%20Design"><div class="t1"><b>${esc(sec)}</b><span class="num">${d}/${L.length}</span></div><div class="bar"><i style="width:${pct(d,L.length)}%"></i></div><div class="diffs"><span>${fmt(L[0].date,{day:"numeric",month:"short"})}${L[L.length-1].date!==L[0].date?` – ${fmt(L[L.length-1].date,{day:"numeric",month:"short"})}`:""}</span>${opt?`<span>${opt===L.length?"All optional":opt+" optional"}</span>`:""}</div><div class="next">${nx?`Next: <b>${esc(nx.task)}</b> · ${esc(nx.lld.concept)}`:"All done"}</div></a>`;
+  }).join("");
   return phead("Topics","DSA by topic from your tracker, and the core subjects in the October plan.")+
     `<div class="section-title" style="margin-top:0"><h2>DSA topics</h2><span>${TOPICS.length} topics · tap one to see its problems</span></div><div class="tgrid">${cards}</div>
-     <div class="section-title"><h2>Core subjects</h2><span>Counted in plan sessions</span></div><div class="tgrid">${subj}</div>`;
+     <div class="section-title"><h2>Core subjects</h2><span>Counted in plan sessions</span></div><div class="tgrid">${subj}</div>
+     <div class="section-title"><h2>LLD problems</h2><span>${LLD.filter(isDone).length}/${LLD.length} done · L3 Elevator and L4 BookMyShow are in November</span></div><div class="tgrid">${lld}</div>`;
 }
 
 /* Analytics */
@@ -840,6 +850,7 @@ function render(){
 function readHash(){
   const [r,qs]=location.hash.slice(1).split("?");
   route=ROUTES.some(x=>x.id===r)?r:"dashboard";
+  if(route==="plan"&&qs!==undefined){const f=new URLSearchParams(qs).get("f");if(f!==null)planFilter=f;}
   if(route==="problems"&&qs!==undefined){const u=new URLSearchParams(qs);Object.assign(pf,{q:u.get("q")||"",topic:u.get("topic")||"",diff:u.get("diff")||"",status:u.get("status")||""});}
 }
 window.addEventListener("hashchange",()=>{readHash();openRow=null;closeNav();if(signedIn()){render();window.scrollTo(0,0);const h=$("ptitle");if(h)h.focus({preventScroll:true});}});
