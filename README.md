@@ -1,9 +1,9 @@
 # Prep Desk
 
-**Midnight Study Club.** A night-city study desk for my October 2026 placement prep: DSA, OS, DBMS, Computer Networks and System Design (an LLD problem set: OOP basics → class relationships → SOLID → design patterns → full LLD rounds). November is for revision.
+**Morning Bloom.** A light, daylight study desk for my October 2026 placement prep: DSA, OS, DBMS, Computer Networks and System Design (an LLD problem set: OOP basics → class relationships → SOLID → design patterns → full LLD rounds). November is for revision.
 
-- **Home**: a cinematic hero ("Enter your focus state") over a night photograph of Tokyo, with floating geometric figures, today's revision topic and progress, the current study block, today's focus time and a Start focus session button. Below it: today's plan, overall DSA progress, a 21-day consistency grid, topic breakdown, revision queue and recently solved problems.
-- **Focus mode** (`#focus`): a Pomodoro timer over a night-city scene. Focus 25 min, short break 5, long break 15 after every 4 focus sessions, all editable. Start, pause, resume, reset, skip, mode switch, ambience toggle, a choice of six scenes, and a task picker tied to the daily blocks (DSA revision, system design, new DSA problems, MTP, the core subject of the week, or anything else) with a specific problem or task. Breaks can start on their own when a focus session ends; focus never does. A chime, an on-page note and (if you allow it) a desktop notification mark each finish. Space starts and pauses.
+- **Home**: a daylight hero ("Let's grow a little today") on a soft pastel wash with floating pastel-glass figures, today's revision topic and progress, the current study block, today's focus time and a Start revision or Start focus session button. Below it: today's plan, overall DSA progress, a 21-day consistency grid, topic breakdown, revision queue and recently solved problems.
+- **Focus mode** (`#focus`): a Pomodoro timer on frosted cream over a daylight scene or a YouTube video of your choice (muted unless you turn sound on), with a veil slider to keep it readable. Focus 25 min, short break 5, long break 15 after every 4 focus sessions, all editable. Start, pause, resume, reset, skip, mode switch, ambience toggle, a choice of six daylight scenes, and a task picker tied to the daily blocks (DSA revision, system design, new DSA problems, MTP, the core subject of the week, or anything else) with a specific problem or task. Breaks can start on their own when a focus session ends; focus never does. A chime, an on-page note and (if you allow it) a desktop notification mark each finish. Space starts and pauses.
 - **Problems**: all 219 problems from my LeetCode tracker with topic, difficulty, plan date, confidence and bookmarks. Search, filter and sort.
 - **Study plan**: every day of 11–31 October, filterable by subject.
 - **Revision**: the daily topic rotation (Recursion → Binary Search → Two Pointers → Graphs → Dynamic Programming, then back), per-topic due/overdue counts, an overdue queue, revision-topic corrections and interval settings. Below that, everything marked Shaky or Redo, bookmarks by topic, the November schedule and optional problems.
@@ -40,11 +40,11 @@ Everything lives in the same localStorage key under `pomo` (settings, the curren
 
 ## Visuals
 
-`scene.js` builds the scenery: photo layers, a generated night skyline used when a photo can't load, the reusable figures (torus rings, glass spheres, cube, wire globe, orbits, a JS-projected icosahedron, ribbons, light fields) and canvas particles and rain. `midnight.css` is the theme. GSAP (with ScrollTrigger, from cdnjs) runs the hero entrance, the rotating goal line, scroll parallax and reveals, cursor parallax, Focus Mode transitions and the bars and rings growing to their real values. Each page's tweens live in one `gsap.context` that is reverted before the next render.
+`scene.js` builds the scenery: photo layers, a generated daylight skyline used when a photo can't load, the YouTube background layer, the reusable figures (torus rings, glass spheres, cube, wire globe, orbits, a JS-projected icosahedron, ribbons, light fields) and canvas particles and rain. `bloom.css` is the theme. GSAP (with ScrollTrigger, from cdnjs) runs the hero entrance, the rotating goal line, scroll parallax and reveals, cursor parallax, Focus Mode transitions and the bars and rings growing to their real values. Each page's tweens live in one `gsap.context` that is reverted before the next render.
 
 Motion stops when it isn't seen: canvases pause off screen and in hidden tabs, the home scene is still on other pages, and Focus Mode tears its scene down when you leave. With reduced motion turned on in the OS, or **Ambient effects: off** in the profile menu or Focus Mode, the figures and photos stay as a still composition and the site works the same.
 
-Theme: midnight (dark) by default, with a light "dawn" theme on the sun/moon toggle.
+Theme: Morning Bloom (light) by default: warm ivory, forest-green text, sage and powder blue for actions, peach and lavender as accents. A soft evening (dark) theme is on the sun/moon toggle.
 
 ### Photo credits
 
@@ -52,9 +52,11 @@ Free photos under the [Unsplash License](https://unsplash.com/license), hotlinke
 
 | Scene | Photo | Photographer |
 |---|---|---|
-| Home, Tokyo Tower | [Tokyo tower illuminated at night](https://unsplash.com/photos/tokyo-tower-illuminated-at-night-with-city-skyline-t1JoTScJs-c) | [T Y](https://unsplash.com/@tyr123) |
-| Window (default focus) | [A view of a city at night from a window](https://unsplash.com/photos/a-view-of-a-city-at-night-from-a-window-g5uM0Yjjbww) | [Nguyen Phan Nam Anh](https://unsplash.com/@dying_apricity) |
-| Osaka rain (default break) | [Rainy city street with neon signs](https://unsplash.com/photos/rainy-city-street-at-night-with-glowing-neon-signs-G0KVzxBb2xo) | [Cuvii](https://unsplash.com/@cuvii) |
-| Night street | [A city street at night in the rain](https://unsplash.com/photos/a-city-street-at-night-in-the-rain-02mWrtCxMSM) | [Joshua Tsu](https://unsplash.com/@joshdatsu) |
-| Skyline (sign-in) | [A city skyline at night](https://unsplash.com/photos/a-city-skyline-at-night-B61yI-uO_oI) | [rawkkim](https://unsplash.com/@rawkkim) |
-| Shibuya | [Aerial view of a city skyline at night](https://unsplash.com/photos/aerial-view-of-a-city-skyline-at-night-RDlhSZR4SR8) | [Sarmat Batagov](https://unsplash.com/@batag_) |
+| Morning mist (default focus, sign-in) | [City skyline in morning fog](https://unsplash.com/photos/city-skyline-shrouded-in-morning-fog-with-trees-below-rwxhaiv9EzQ) | [osamu nakazawa](https://unsplash.com/@onaka) |
+| Sunrise | [City skyline at sunrise](https://unsplash.com/photos/city-skyline-with-tall-modern-buildings-at-sunrise-sXPsWMPCuXk) | [Leo_Visions](https://unsplash.com/@leo_visions_) |
+| Window desk | [Bright home office by a window](https://unsplash.com/photos/bright-home-office-with-desk-chair-and-window-lwLreiMS25k) | [Franco Debartolo](https://unsplash.com/@francotheshooter) |
+| High above | [Cityscape through glass windows](https://unsplash.com/photos/cityscape-with-reflections-viewed-through-modern-glass-windows-EWp8wvGz7pw) | [Janet Ganbold](https://unsplash.com/@j4net999) |
+| After rain | [Building reflected in a puddle](https://unsplash.com/photos/reflection-of-building-in-a-puddle-on-cobblestone-street-WrFbquFR4wY) | [Philippe Bontemps](https://unsplash.com/@philippeb) |
+| Pastel sky (default break) | [Pink clouds over a city skyline](https://unsplash.com/photos/pink-wispy-clouds-over-city-skyline-at-dusk-LiyFUoQcXSM) | [Jim Luo](https://unsplash.com/@jimluo) |
+
+Suggested background videos are embedded from YouTube (youtube-nocookie.com) and stay with their channels: Velvet Rain, Pierce and ExtraCloudinary.
