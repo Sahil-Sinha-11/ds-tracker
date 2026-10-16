@@ -366,3 +366,23 @@ button.hx-cell{border:0;background:none;text-align:left;cursor:pointer;font:inhe
   .fx-ring .prg{transition:none}
 }
 .calm .fig-f,.calm .wob,.calm .spin,.calm .cube,.calm .gyro,.calm .lf,.calm .rb-line,.calm .sky .flk,.calm .sky .blk{animation:none!important}
+
+/* Session lengths under the Focus Mode timer */
+.fx-len{display:flex;flex-direction:column;align-items:center;gap:10px}
+.fx-len-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.fx-step{display:flex;flex-direction:column;align-items:center;gap:5px;padding:8px 10px;border-radius:16px;border:1px solid var(--glass-line);background:rgba(8,12,26,.42);backdrop-filter:blur(10px)}
+.fx-step[data-on="true"]{border-color:rgba(170,190,255,.45);background:rgba(24,32,64,.55)}
+.fx-step .l{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(200,214,250,.75)}
+.fx-step .ctl{display:flex;align-items:center;gap:4px}
+.fx-step button{width:30px;height:30px;border-radius:50%;border:1px solid var(--glass-line);background:rgba(8,12,26,.5);color:#E8EDF8;font-size:17px;line-height:1;cursor:pointer}
+.fx-step button:hover:not(:disabled){background:rgba(24,32,64,.8)}
+.fx-step button:disabled{opacity:.35;cursor:default}
+.fx-step input{width:46px;height:30px;border:0;border-bottom:1px solid rgba(170,190,255,.3);background:transparent;color:#F6F8FF;font:600 17px/1 inherit;text-align:center;font-variant-numeric:tabular-nums;-moz-appearance:textfield}
+.fx-step input::-webkit-inner-spin-button,.fx-step input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+.fx-step input:focus{outline:none;border-bottom-color:#9DB6FF}
+.fx-step .u{font-size:11px;color:rgba(200,214,250,.6);margin-right:2px}
+.fx-presets{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;align-items:center}
+.fx-presets .lbl{font-size:11px;color:rgba(200,212,245,.6);margin-right:2px}
+.fx-presets button{height:28px;padding:0 11px;border-radius:999px;border:1px solid var(--glass-line);background:rgba(8,12,26,.42);color:rgba(214,224,250,.82);font-size:12px;cursor:pointer;font-variant-numeric:tabular-nums}
+.fx-presets button[aria-pressed="true"]{background:rgba(232,237,255,.16);color:#fff;border-color:rgba(232,237,255,.35)}
+@media (max-width:640px){.fx-len-row{gap:6px;flex-wrap:nowrap}.fx-step{padding:6px}.fx-step .l{font-size:10px;letter-spacing:.04em}.fx-step .ctl{gap:2px}.fx-step button{width:28px;height:28px;font-size:15px}.fx-step input{width:32px;font-size:16px}.fx-step .u{display:none}}
