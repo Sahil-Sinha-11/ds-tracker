@@ -636,6 +636,7 @@ dialog.dlg::backdrop{background:rgba(22,26,22,.3)}
 <script src="lectures.js"></script>
 <script src="revision.js"></script>
 <script src="pomodoro.js"></script>
+<script src="oa.js"></script>
 <script src="scene.js"></script>
 <script>
 /* ---------- Icons (outline, 24px grid) ---------- */
@@ -673,6 +674,7 @@ const ICONS={
   sliders:'<path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/>',
   bell:'<path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 2h-15l1.5-2zM10 20.5a2 2 0 0 0 4 0"/>',
   image:'<rect x="3.5" y="5" width="17" height="14" rx="2"/><path d="M3.5 16l5-5 4 4 2.5-2.5 5.5 5.5"/><circle cx="15.5" cy="9.5" r="1.5"/>',
+  target:'<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r=".8"/>',
   coffee:'<path d="M4.5 9.5h12v4.5a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5V9.5zM16.5 11h1.5a2.5 2.5 0 0 1 0 5h-1.6M8 3.5c-.6 1 .6 1.8 0 3M12 3.5c-.6 1 .6 1.8 0 3"/>',
 };
 const ic=(n,cls="i")=>`<svg class="${cls}" viewBox="0 0 24 24" aria-hidden="true">${ICONS[n]}</svg>`;
@@ -724,7 +726,8 @@ const KEY="dsa-tracker-v1";
 // rev: per-problem revision history, rcat: revision-topic overrides, rcfg: revision settings,
 // rlog: finished sessions, sess: the current session, custom: problems added after the docx import,
 // pomo: the Focus Mode timer, its settings and the log of focus and break sessions (see pomodoro.js).
-const blank=()=>({done:{},conf:{},notes:{},at:{},pdone:{},pconf:{},pnotes:{},star:{},lec:{},rev:{},rcat:{},rcfg:{},rlog:[],sess:null,custom:[],pomo:null});
+// oa: OA practice slots by id ({r: solved|partial|missed, q: the question you did, d: date logged}).
+const blank=()=>({done:{},conf:{},notes:{},at:{},pdone:{},pconf:{},pnotes:{},star:{},lec:{},rev:{},rcat:{},rcfg:{},rlog:[],sess:null,custom:[],pomo:null,oa:{}});
 let state=blank();
 try{const s=JSON.parse(localStorage.getItem(KEY));if(s)state=Object.assign(blank(),s);}catch(e){}
 const save=()=>store.set(localStorage,KEY,JSON.stringify(state));
@@ -832,6 +835,7 @@ const ROUTES=[
   {id:"problems",label:"Problems",icon:"problems"},
   {id:"plan",label:"Study plan",icon:"plan"},
   {id:"revision",label:"Revision",icon:"revision"},
+  {id:"oa",label:"OA practice",icon:"target"},
   {id:"topics",label:"Topics",icon:"topics"},
   {id:"analytics",label:"Analytics",icon:"analytics"},
   {id:"session",label:"Revision session",icon:"revision",hidden:true},
@@ -1081,6 +1085,63 @@ function pageTopics(){
      <div class="section-title"><h2>LLD problems</h2><span>${LLD.filter(isDone).length}/${LLD.length} done · L3 Elevator and L4 BookMyShow are in November</span></div><div class="tgrid">${lld}</div>`;
 }
 
+/* OA practice (sequence in oa.js) */
+const OA_DAYS=window.OA_DAYS||[],OA_PHASES=window.OA_PHASES||[],OA_CO=window.OA_COMPANIES||{};
+const OA_RES=[["solved","Solved"],["partial","Partly"],["missed","Didn't get it"]];
+const oaSlot=id=>{for(const d of OA_DAYS){const x=d.slots.find(s=>s.id===id);if(x)return Object.assign({day:d},x);}return null;};
+const oaEntry=id=>(state.oa=state.oa||{})[id]||(state.oa[id]={});
+const oaClean=id=>{const o=state.oa[id];if(o&&!o.r&&!o.q)delete state.oa[id];};
+const oaGet=x=>(state.oa||{})[x.id]||{};
+const oaDone=x=>!!oaGet(x).r;
+// Tonight's day; before the sequence starts, the first day; after it ends, the last day.
+const oaToday=()=>OA_DAYS.find(d=>d.date===TODAY)||(OA_DAYS.length&&TODAY<OA_DAYS[0].date?OA_DAYS[0]:null);
+function oaSlotRow(x,day){
+  const o=oaGet(x),co=OA_CO[x.co]||{};
+  return `<div class="row oa-slot ${o.r?"done":""}" data-oa="${x.id}">
+    <div class="body"><div class="title">${esc(x.focus)}</div>
+      <div class="meta"><span class="badge">${esc(x.co)}</span><span>${x.min} min</span>${co.find?`<span>Find: ${esc(co.find)}</span>`:""}</div>
+      <div class="oa-ctl"><input class="input" data-act="oa-q" data-id="${x.id}" data-fk="oaq-${x.id}" value="${esc(o.q||"")}" placeholder="Question you did (name or link)" aria-label="Question for ${esc(x.focus)}">
+        <div class="seg" role="group" aria-label="How it went">${OA_RES.map(([v,l])=>`<button data-act="oa-res" data-id="${x.id}" data-v="${v}" data-fk="oar-${x.id}-${v}" aria-pressed="${o.r===v}">${l}</button>`).join("")}</div></div>
+    </div>
+    ${day.date===TODAY?`<div class="tail"><button class="iconbtn" data-act="focus-open" data-k="oa" data-oid="${x.id}" aria-label="Focus session for ${esc(x.focus)}" data-tip="Start a focus session">${ic("play2")}</button></div>`:""}
+  </div>`;
+}
+function pageOA(){
+  const all=OA_DAYS.flatMap(d=>d.slots.map(s=>Object.assign({day:d},s))),done=all.filter(oaDone),solved=all.filter(x=>oaGet(x).r==="solved").length;
+  const D=oaToday(),first=OA_DAYS[0],last=OA_DAYS[OA_DAYS.length-1];
+  const redo=all.filter(x=>["partial","missed"].includes(oaGet(x).r));
+  const blk=blocks().find(b=>b.k==="oa"),slot=blk?`${t12(blk.sm)}–${t12(blk.em)}`:"8:45–10:45 PM";
+  let tonight;
+  if(D){
+    const n=D.slots.filter(oaDone).length,ph=OA_PHASES.find(p=>p.k===D.phase)||{};
+    const when=D.date===TODAY?`Tonight · ${slot}`:`Starts ${fmt(D.date,{weekday:"long",day:"numeric",month:"short"})} · ${slot}`;
+    tonight=`<section class="card span-12"><div class="card-h"><h2>${when}</h2><span class="sub">Day ${D.n} of ${OA_DAYS.length} · ${esc(D.title)}${D.mock?" · timed mock":""}</span><span class="right num">${n}/${D.slots.length}</span></div>
+      <div class="card-b"><p class="muted" style="margin:0">${esc(ph.name||"")}: ${esc(ph.why||"")}</p></div>
+      <div class="rows">${D.slots.map(x=>oaSlotRow(x,D)).join("")}</div></section>`;
+  }else tonight=`<section class="card span-12 empty"><b>The October OA sequence is over</b>${redo.length?`Work through the ${redo.length} redo${redo.length>1?"s":""} below first.`:"Repeat the mocks with fresh papers."}</section>`;
+  const phases=OA_PHASES.map(p=>{const L=OA_DAYS.filter(d=>d.phase===p.k).flatMap(d=>d.slots);return progressRow(p.name,L.filter(oaDone).length,L.length);}).join("");
+  const seq=OA_DAYS.map(d=>{
+    const n=d.slots.filter(oaDone).length,cos=[...new Set(d.slots.map(x=>x.co))].join(", "),past=d.date<TODAY&&n<d.slots.length;
+    return `<details class="oa-day ${d.date===TODAY?"is-today":""}" ${d.date===TODAY?"open":""}><summary><span class="num">${fmt(d.date,{weekday:"short",day:"numeric",month:"short"})}</span><b>${esc(d.title)}</b><span class="muted">${esc(cos)}</span>${d.mock?`<span class="badge">Mock</span>`:""}${d.date===TODAY?`<span class="badge today">Today</span>`:past?`<span class="badge late">${d.slots.length-n} left</span>`:""}<span class="num right">${n}/${d.slots.length}</span></summary>
+      <div class="rows">${d.slots.map(x=>oaSlotRow(x,d)).join("")}</div></details>`;}).join("");
+  const redoRows=redo.length?`<div class="rows">${redo.map(x=>{const o=oaGet(x);return `<div class="row"><div class="body"><div class="title">${esc(o.q||x.focus)}</div><div class="meta"><span class="badge">${esc(x.co)}</span><span>${esc(x.focus)}</span><span class="badge ${o.r==="missed"?"late":""}">${o.r==="missed"?"Didn't get it":"Partly"}</span><span>${fmt(x.day.date,{day:"numeric",month:"short"})}</span></div></div></div>`;}).join("")}</div>`
+    :`<div class="empty" style="border-top:1px solid var(--line)"><b>Nothing to redo yet</b>Anything you mark Partly or Didn't get it lands here, so you can retry it in November.</div>`;
+  return phead("OA <em>practice</em>",`Two hours of OA questions every night, ${slot}, then an hour of new problems. ${fmt(first.date,{day:"numeric",month:"short"})} – ${fmt(last.date,{day:"numeric",month:"short"})}.`)+`
+    <div class="tiles">
+      <div class="card tile"><div class="lbl">Questions attempted</div><div class="v num">${done.length} <small>/ ${all.length}</small></div></div>
+      <div class="card tile"><div class="lbl">Solved fully</div><div class="v num">${solved}</div></div>
+      <div class="card tile"><div class="lbl">To redo</div><div class="v num">${redo.length}</div></div>
+      <div class="card tile"><div class="lbl">Mocks done</div><div class="v num">${OA_DAYS.filter(d=>d.mock&&d.slots.every(oaDone)).length} <small>/ ${OA_DAYS.filter(d=>d.mock).length}</small></div></div>
+    </div>
+    <div class="grid">${tonight}
+      <section class="card span-6"><div class="card-h"><h2>Phases</h2><span class="sub">Widest question bank first, then your top recruiters</span></div><div class="card-b">${phases}
+        <p class="hint" style="margin:12px 0 0">Each slot is 30 minutes on a timer. Stuck at 30? Read the approach, write the code yourself, mark it Partly.</p></div></section>
+      <section class="card span-6"><div class="card-h"><h2>Redo list</h2><span class="right num">${redo.length}</span></div>${redoRows}</section>
+    </div>
+    <div class="section-title"><h2>Full sequence</h2><span>15 nights · mocks on Saturdays and 28 Oct</span></div>
+    <div class="card oa-seq">${seq}</div>`;
+}
+
 /* Analytics */
 function colChart(items,unit){
   // items: [{label, v (0-100 or count), tip, future}]
@@ -1219,6 +1280,7 @@ function blockSub(b){
   if(b.k==="rev"){const s=activeSess()||finishedToday();return `${catName(todayCat())}${s?` · ${Object.keys(s.done).length}/${s.queue.length} revised`:""}`;}
   if(b.k==="sd"){const L=october.filter(t=>t.date===TODAY&&t.subject==="System Design");return L.length?`${L.filter(isDone).length}/${L.length} LLD problems today`:"LLD problems and notes";}
   if(b.k==="dsa"){const L=october.filter(t=>t.date===TODAY&&t.subject==="DSA");return L.length?`${L.filter(isDone).length}/${L.length} planned problems · log extras as you go`:"New problems from the tracker";}
+  if(b.k==="oa"){const D=oaToday();return D&&D.date===TODAY?`${D.title} · ${D.slots.filter(oaDone).length}/${D.slots.length} done`:"OA questions, 30 min each";}
   if(b.k==="mtp")return "Flexible academic block";
   return "";
 }
@@ -1504,7 +1566,7 @@ const PM=window.POMO;
 const pm=()=>PM.ensure(state);
 const pcfg=()=>PM.cfg(pm());
 let fxPanel=null,lastRoute="dashboard";
-const KINDS=[{k:"rev",label:"DSA revision"},{k:"sd",label:"System design"},{k:"dsa",label:"New DSA problems"},{k:"mtp",label:"MTP"},{k:"core",label:"Core subject"},{k:"other",label:"Other"}];
+const KINDS=[{k:"rev",label:"DSA revision"},{k:"sd",label:"System design"},{k:"oa",label:"OA practice"},{k:"dsa",label:"New DSA problems"},{k:"mtp",label:"MTP"},{k:"core",label:"Core subject"},{k:"other",label:"Other"}];
 const KIND=Object.fromEntries(KINDS.map(x=>[x.k,x]));
 const CORE=["OS","DBMS","CN","Core CS"];
 function coreName(){const t=october.find(t=>t.date===TODAY&&CORE.includes(t.subject));const wk=weekOf(TODAY);return t?t.subject:wk?WEEKNAME[wk].replace(" week",""):"Core CS";}
@@ -1514,7 +1576,8 @@ function taskFor(k,item,custom){
   let base=k==="core"?coreName():KIND[k].label,sub="";
   if(k==="rev")sub=RV.CAT[todayCat()].name;
   if(k==="mtp")sub="Flexible academic work";
-  if(item){if(item.type==="p"){const p=probById.get(item.id);if(p)sub=p.name;}else{const t=TASKS.find(x=>x.id===item.id);if(t)sub=t.task.split(/[:(]/)[0].trim();}}
+  if(k==="oa"){const D=oaToday();if(D&&D.date===TODAY)sub=D.title;}
+  if(item){if(item.type==="p"){const p=probById.get(item.id);if(p)sub=p.name;}else if(item.type==="o"){const x=oaSlot(item.id);if(x)sub=`${x.co}: ${x.focus}`;}else{const t=TASKS.find(x=>x.id===item.id);if(t)sub=t.task.split(/[:(]/)[0].trim();}}
   if(custom)sub=custom;
   return {k,label:sub?`${base} · ${sub}`:base,item:item||null,custom:custom||""};
 }
@@ -1529,6 +1592,7 @@ function itemOptions(k){
   if(k==="rev"){const s=activeSess();return [{g:`${RV.CAT[todayCat()].name} queue`,L:(s?RV.remaining(s):queueFor(todayCat()).queue).map(id=>probById.get(id)).filter(Boolean).map(P)}];}
   if(k==="dsa"){const T0=october.filter(t=>t.subject==="DSA"&&t.pid&&(t.date===TODAY||(t.date<TODAY&&!isDone(t)))),ids=new Set(T0.map(t=>t.pid));
     return [{g:"Planned",L:T0.map(t=>probById.get(t.pid)).filter(Boolean).map(P)},{g:"Unsolved in the tracker",L:PROBLEMS.filter(p=>!pSolved(p)&&!ids.has(p.id)).map(P)}];}
+  if(k==="oa"){const D=oaToday();return D?[{g:`${fmt(D.date)} · ${D.title}`,L:D.slots.map(x=>({v:"o"+x.id,l:`${x.co}: ${x.focus}`}))}]:[];}
   if(k==="sd")return [{g:"System design tasks",L:october.filter(t=>t.subject==="System Design"&&!isDone(t)).slice(0,16).map(T)}];
   if(k==="core")return [{g:"Core subject tasks",L:october.filter(t=>CORE.includes(t.subject)&&(t.date===TODAY||(t.date<TODAY&&!isDone(t)))).map(T)}];
   return [];
@@ -1787,6 +1851,7 @@ function renderChrome(){
     let cnt="";
     if(r.id==="dashboard"){const L=october.filter(t=>t.date===TODAY);if(L.length)cnt=`${L.filter(isDone).length}/${L.length}`;}
     if(r.id==="revision"){const n=overdueAll().length;if(n)cnt=n;}
+    if(r.id==="oa"){const D=oaToday();if(D&&D.date===TODAY)cnt=`${D.slots.filter(oaDone).length}/${D.slots.length}`;}
     const live=r.id==="focus"&&pm().cur.status==="running";
     return `<a href="#${r.id}" ${route===r.id||(r.id==="revision"&&route==="session")?'aria-current="page"':""} ${r.id==="revision"&&cnt!==""?`data-tip="${cnt} overdue for revision"`:live?'data-tip="Timer running"':""}>${ic(r.icon)}${r.label}${cnt!==""?`<span class="cnt">${cnt}</span>`:""}${live?'<span class="live" aria-label="running"></span>':""}</a>`;}).join("");
   const s=PROBLEMS.filter(pSolved).length;
@@ -1801,7 +1866,7 @@ function render(){
   $("app").classList.toggle("focus",route==="session"&&!!activeSess());
   $("app").classList.toggle("immersive",route==="focus");
   $("app").dataset.route=route;
-  const page={dashboard:pageDashboard,focus:pageFocus,problems:pageProblems,plan:pagePlan,revision:pageRevision,topics:pageTopics,analytics:pageAnalytics,session:pageSession}[route];
+  const page={dashboard:pageDashboard,focus:pageFocus,problems:pageProblems,plan:pagePlan,revision:pageRevision,oa:pageOA,topics:pageTopics,analytics:pageAnalytics,session:pageSession}[route];
   v.innerHTML=page();
   if(route==="problems")problemsBody();
   if(fk){const el=v.querySelector(`[data-fk="${fk}"]`);if(el)el.focus({preventScroll:true});}
@@ -1907,6 +1972,7 @@ view.addEventListener("change",e=>{
   else if(a==="task-conf"||a==="task-note"){const k=a==="task-conf"?"conf":"notes";if(el.value.trim())state[k][id]=el.value.trim();else delete state[k][id];changed();}
   else if(a==="p-conf"||a==="p-note"){setMeta(probById.get(id),a==="p-conf"?"conf":"note",el.value.trim());changed();}
   else if(a==="p-cat"){setCat(probById.get(id),el.value);fx.flash=`[data-fk="${el.dataset.fk}"]`;changed();toast(`${probById.get(id).name} → ${catName(RV.catOf(probById.get(id),state))}.`);}
+  else if(a==="oa-q"){const o=oaEntry(id);o.q=el.value.trim();oaClean(id);changed();}
   else if(a==="s-text"){setSessText(id,el.dataset.f,el.value.trim());save();}
   else if(a==="s-ins"){const s=activeSess();if(s&&s.cur!=null){draftOf(s,s.cur).ins=el.checked;changed();}}
   else if(a==="rot-set"){Object.assign(state.rcfg,RV.anchorFor(TODAY,el.value));const s=activeSess();changed();toast(`Today is ${catName(el.value)}.${s&&s.cat!==el.value?" The running session keeps its topic.":""}`);}
@@ -1939,13 +2005,14 @@ view.addEventListener("click",e=>{
   else if(a==="clear-pf"){Object.assign(pf,{q:"",topic:"",diff:"",status:""});$("q").value="";render();}
   else if(a==="plan-f"){planFilter=b.dataset.v;render();}
   else if(a==="jump-today"){const c=$("today-card");if(c){c.scrollIntoView({behavior:"smooth",block:"start"});const cb=c.querySelector("input");if(cb)cb.focus({preventScroll:true});}}
+  else if(a==="oa-res"){const id=+b.dataset.id,o=oaEntry(id),v=b.dataset.v;if(o.r===v)delete o.r;else{o.r=v;o.d=TODAY;}oaClean(id);fx.flash=`[data-oa="${id}"]`;changed();}
   else if(a==="rev-start"){startSession();}
   else if(a==="rev-resume"){fx.sessIn=true;location.hash="#session";}
   else if(a==="rev-pull"){const ids=soonest();if(ids.length)startSession(ids);}
   else if(a==="go-cats"){setTimeout(()=>{const d=$("catsBox");if(d){d.open=true;d.scrollIntoView({behavior:"smooth",block:"start"});}},60);}
   else if(a==="log-open"){openLog();}
   else if(a==="cfg-reset"){const r=state.rcfg;state.rcfg={};["anchor","anchorCat","blocks"].forEach(k=>{if(r[k]!=null)state.rcfg[k]=r[k];});changed();toast("Intervals back to the defaults.");}
-  else if(a==="focus-open"){openFocus(b.dataset.k,b.dataset.pid?{type:"p",id:+b.dataset.pid}:b.dataset.tid?{type:"t",id:+b.dataset.tid}:null);}
+  else if(a==="focus-open"){openFocus(b.dataset.k,b.dataset.pid?{type:"p",id:+b.dataset.pid}:b.dataset.tid?{type:"t",id:+b.dataset.tid}:b.dataset.oid?{type:"o",id:+b.dataset.oid}:null);}
   else if(a==="focus-exit"){fxPanel=null;location.hash="#"+(lastRoute&&lastRoute!=="focus"?lastRoute:"dashboard");}
   else if(a.startsWith("pomo-")){pomoAction(a,b);}
   else if(a==="jump-plan"){const c=$("todayCard");if(c){c.scrollIntoView({behavior:motionOK?"smooth":"auto",block:"start"});const cb=c.querySelector("input");if(cb)cb.focus({preventScroll:true});}}

@@ -22,7 +22,8 @@
       {k:"mtp",label:"MTP research",s:"10:00",e:"12:00",on:true,flex:true},
       {k:"rev",label:"DSA revision",s:"14:00",e:"17:00",on:true},
       {k:"sd",label:"System design",s:"18:00",e:"20:00",on:true},
-      {k:"dsa",label:"New DSA problems",s:"20:45",e:"23:45",on:true},
+      {k:"oa",label:"OA practice",s:"20:45",e:"22:45",on:true},
+      {k:"dsa",label:"New DSA problems",s:"22:45",e:"23:45",on:true},
     ],
   };
   const clone=o=>JSON.parse(JSON.stringify(o));
@@ -30,7 +31,11 @@
     const c=clone(DEFAULTS),o=(state&&state.rcfg)||{};
     for(const k of ["anchor","anchorCat","sessionMin"])if(o[k]!=null)c[k]=o[k];
     for(const k of ["iv","slowMin","estMin"])if(o[k])Object.assign(c[k],o[k]);
-    if(Array.isArray(o.blocks))c.blocks=c.blocks.map(b=>Object.assign(b,o.blocks.find(x=>x.k===b.k)||{}));
+    if(Array.isArray(o.blocks))c.blocks=c.blocks.map(b=>{
+      let x=o.blocks.find(y=>y.k===b.k)||{};
+      // Saved before the OA block existed: the old 8:45–11:45 new-problems slot gives way to OA practice.
+      if(b.k==="dsa"&&x.s==="20:45"&&x.e==="23:45"){x=Object.assign({},x);delete x.s;delete x.e;}
+      return Object.assign(b,x);});
     return c;
   }
 

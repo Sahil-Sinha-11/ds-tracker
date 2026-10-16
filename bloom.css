@@ -440,3 +440,16 @@ button.hx-cell{border:0;background:none;text-align:left;cursor:pointer;font:inhe
 
 /* Headings take focus after a page change for screen readers; no ring for that */
 [tabindex="-1"]:focus-visible{box-shadow:none}
+
+/* OA practice */
+.oa-ctl{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px}
+.oa-ctl .input{flex:1 1 220px;min-width:0;height:34px}
+.oa-ctl .seg{flex:0 0 auto}
+.oa-seq{padding:0}
+.oa-day{border-top:1px solid var(--line)}
+.oa-day:first-child{border-top:0}
+.oa-day > summary{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:12px 16px;cursor:pointer;list-style:none}
+.oa-day > summary::-webkit-details-marker{display:none}
+.oa-day > summary .num:first-child{min-width:92px;color:var(--text-2)}
+.oa-day > summary .right{margin-left:auto}
+.oa-day.is-today > summary{background:var(--success-soft)}
