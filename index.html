@@ -85,6 +85,7 @@ svg.i{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-widt
 .badge.conf-Redo{background:var(--error-soft);color:var(--hard)}
 .badge.today{background:var(--accent-dark);color:var(--on-accent)}
 .badge.late{background:var(--error-soft);color:var(--hard)}
+.badge svg.i{width:13px;height:13px;margin-right:4px}
 
 /* ---------- Checkbox ---------- */
 .check{position:relative;flex:none;width:20px;height:20px;margin-top:1px}
@@ -99,7 +100,7 @@ svg.i{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-widt
 
 /* ---------- Bars ---------- */
 .bar{height:6px;border-radius:99px;background:var(--surface-2);overflow:hidden}
-.bar i{display:block;height:100%;border-radius:99px;background:var(--accent);transition:width .35s ease}
+.bar i{display:block;height:100%;border-radius:99px;background:var(--accent)}
 .bar.lg{height:8px}
 
 /* ---------- Sign in ---------- */
@@ -320,6 +321,156 @@ details.tbl th{font-weight:500;color:var(--text-2)}
 #tip{position:fixed;z-index:50;pointer-events:none;background:var(--text);color:var(--bg);font-size:12px;padding:6px 9px;border-radius:6px;max-width:240px;opacity:0;transition:opacity .1s;line-height:1.4}
 #tip.on{opacity:1}
 
+/* ---------- Topic revision ---------- */
+.eyebrow{font-size:12px;font-weight:500;color:var(--text-2);text-transform:uppercase;letter-spacing:.06em}
+.hero{padding:22px 22px 18px;display:flex;flex-direction:column;gap:16px}
+.hero-top{display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.hero-top .t{flex:1;min-width:200px}
+.hero h2{font-size:26px;letter-spacing:-.02em;margin-top:4px}
+.hero .lead{color:var(--text-2);margin-top:2px;font-size:13px}
+.hero .btn.primary{height:42px;padding:0 18px;font-size:14px}
+.hero .btn.primary svg{transition:transform .2s ease}
+.hero .btn.primary:hover svg{transform:translateX(3px)}
+.stats{display:flex;gap:0;flex-wrap:wrap;border:1px solid var(--line);border-radius:var(--r-sm);overflow:hidden}
+.stats > div{flex:1 1 90px;padding:10px 14px;min-width:0}
+.stats > div + div{border-left:1px solid var(--line)}
+.stats b{display:block;font-size:20px;font-weight:600;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.stats span{font-size:12px;color:var(--text-2)}
+.stats .warn b{color:var(--hard)}
+.qprev{border-top:1px solid var(--line)}
+.qprev .mini:first-child{border-top:0}
+.kind{display:inline-flex;align-items:center;height:20px;padding:0 7px;border-radius:6px;font-size:11px;font-weight:500;white-space:nowrap;background:var(--surface-2);color:var(--text-2)}
+.kind.overdue{background:var(--error-soft);color:var(--hard)}
+.kind.due{background:var(--warning-soft);color:var(--med)}
+.kind.recall{background:var(--success-soft);color:var(--success)}
+.kind.done{background:var(--success-soft);color:var(--success)}
+.rot{position:relative;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));background:var(--surface-2);border-radius:10px;padding:4px}
+.rot .ind{position:absolute;top:4px;bottom:4px;left:4px;width:calc((100% - 8px)/5);border-radius:8px;background:var(--surface);box-shadow:0 1px 3px rgba(38,50,41,.12)}
+:root[data-theme="dark"] .rot .ind{background:var(--s1);box-shadow:none}
+.rot .p{position:relative;z-index:1;text-align:center;padding:8px 4px;min-width:0}
+.rot .p b{display:block;font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rot .p span{font-size:11px;color:var(--text-2)}
+.rot .p.on b{color:var(--accent-dark);font-weight:600}
+.rot .sh{display:none}
+.ccard{padding:16px 18px;display:flex;flex-direction:column;gap:10px}
+.ccard.is-today{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.ccard .t1{display:flex;align-items:baseline;gap:8px}
+.ccard .t1 b{flex:1;font-weight:600}
+.ccard .nums{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;color:var(--text-2)}
+.ccard .nums b{color:var(--text);font-weight:600}
+.ccard .nums .od b{color:var(--hard)}
+.ccard .nx{font-size:12px;color:var(--text-2)}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.cfg{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px 16px}
+.cfg label{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:500}
+.cfg label small{font-weight:400;color:var(--text-2);font-size:12px}
+.cfg .input{width:100%}
+details.more > summary{cursor:pointer;list-style:none}
+details.more > summary::-webkit-details-marker{display:none}
+details.more > summary .chev{margin-left:auto;transition:transform .2s;color:var(--text-2)}
+details.more[open] > summary .chev{transform:rotate(90deg)}
+.catrow{display:flex;align-items:center;gap:10px;padding:8px 18px;border-top:1px solid var(--line);font-size:13px}
+.catrow .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500}
+.catrow .select{height:32px;font-size:13px;max-width:190px}
+/* timeline */
+.tl-track{position:relative;height:10px;border-radius:99px;background:var(--surface-2);margin:2px 0 10px}
+.tl-track i{position:absolute;top:0;bottom:0;border-radius:99px;background:var(--s2)}
+.tl-track i.rev{background:var(--accent-dark)}
+.tl-track .now{position:absolute;top:-4px;bottom:-4px;width:2px;border-radius:2px;background:var(--hard)}
+.tl-row{display:grid;grid-template-columns:118px 1fr auto;gap:10px;align-items:center;padding:8px 0;font-size:13px;border-top:1px solid var(--line)}
+.tl-row:first-of-type{border-top:0}
+.tl-row .tm{color:var(--text-2);font-variant-numeric:tabular-nums;font-size:12px}
+.tl-row .lb{min-width:0}
+.tl-row .lb b{font-weight:500;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tl-row .lb span{font-size:12px;color:var(--text-2);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tl-row.is-now .lb b{color:var(--accent-dark);font-weight:600}
+.tl-row.is-past{opacity:.6}
+.tl-row .lb .sw{display:inline-block;width:8px;height:8px;border-radius:2px;display:inline-block;margin-right:6px;background:var(--s2)}
+.tl-row .lb .sw.rev{background:var(--accent-dark)}
+.blk-edit{display:grid;grid-template-columns:minmax(0,1.3fr) 1fr 1fr auto;gap:8px;align-items:center;padding:8px 0;border-top:1px solid var(--line);font-size:13px}
+.blk-edit .input{height:32px;width:100%;padding:0 8px}
+.blk-edit .muted{font-size:12px}
+.tog{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2);cursor:pointer}
+.tog input{accent-color:var(--accent-dark)}
+/* dots for weekly consistency */
+.wk{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;text-align:center;font-size:11px;color:var(--text-2)}
+.wk i{display:block;height:28px;border-radius:6px;background:var(--s0);margin-bottom:4px;border:1px solid transparent}
+.wk i.part{background:var(--s1)}.wk i.full{background:var(--s3)}
+.wk i.today{border-color:var(--accent-dark)}
+.cov{display:flex;flex-direction:column;gap:2px;margin-top:6px}
+.trend{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:var(--r-sm);background:var(--surface-2);font-size:13px}
+.trend b{font-weight:600}
+.trend .arrow{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--surface);flex:none}
+.trend.up .arrow{color:var(--success)}.trend.down .arrow{color:var(--hard)}
+/* session workspace */
+@media (min-width:901px){.shell.focus{grid-template-columns:1fr}.shell.focus .side{display:none}.shell.focus .main{border-left:0}}
+.shell.focus .search{visibility:hidden}
+.sess-pill{display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 12px;border-radius:99px;background:var(--accent-dark);color:var(--on-accent);font-size:13px;font-weight:500;text-decoration:none;white-space:nowrap}
+.sess-pill i{width:7px;height:7px;border-radius:50%;background:#9FD3AE;box-shadow:0 0 0 3px rgba(159,211,174,.25)}
+.sess-pill.paused i{background:var(--warning);box-shadow:none}
+.sess-head{display:flex;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:18px}
+.sess-head .t{flex:1;min-width:220px}
+.sess-head h1{font-size:28px;letter-spacing:-.02em;margin-top:2px}
+.sess-head .t p{margin:2px 0 0;color:var(--text-2);font-size:13px}
+.clock{min-width:200px}
+.clock .big{font-size:30px;font-weight:600;letter-spacing:-.02em;line-height:1.1;font-variant-numeric:tabular-nums}
+.clock .sub{font-size:12px;color:var(--text-2);margin:2px 0 8px}
+.clock.over .big{color:var(--med)}
+.sess-actions{display:flex;gap:8px;flex-wrap:wrap}
+.sess-grid{display:grid;grid-template-columns:320px minmax(0,1fr);gap:16px;align-items:start}
+.qlist{position:sticky;top:76px;max-height:calc(100vh - 96px);overflow:auto}
+.qgroup{padding:10px 16px 4px;font-size:11px;font-weight:500;color:var(--text-2);text-transform:uppercase;letter-spacing:.06em;display:flex;justify-content:space-between}
+.qitem{display:flex;align-items:center;gap:10px;width:100%;padding:9px 16px;border:0;background:none;text-align:left;cursor:pointer;border-left:3px solid transparent;font-size:13px}
+.qitem:hover{background:var(--hover)}
+.qitem[aria-current="true"]{background:var(--surface-2);border-left-color:var(--accent-dark)}
+.qitem .nm{flex:1;min-width:0;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.qitem.is-done .nm{color:var(--text-2)}
+.qitem .est{font-size:11px;color:var(--text-2);font-variant-numeric:tabular-nums}
+.cur-card{padding:20px 22px;display:flex;flex-direction:column;gap:18px}
+.cur-h{display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.cur-h .t{flex:1;min-width:200px}
+.cur-h h2{font-size:20px;letter-spacing:-.01em}
+.cur-h .meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;align-items:center;font-size:12px;color:var(--text-2)}
+.att{text-align:right}
+.att .big{font-size:22px;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.1}
+.att span{font-size:12px;color:var(--text-2)}
+.hist{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--line);border-radius:var(--r-sm)}
+.hist > div{padding:10px 12px;min-width:0}
+.hist > div + div{border-left:1px solid var(--line)}
+.hist b{display:block;font-size:15px;font-weight:600;font-variant-numeric:tabular-nums}
+.hist span{font-size:12px;color:var(--text-2)}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fgrid .full{grid-column:1/-1}
+.fld{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:500}
+.fld small{font-weight:400;color:var(--text-2);font-size:12px}
+.ta{min-height:76px;resize:vertical;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--surface);padding:9px 12px;font:inherit;font-weight:400;color:inherit;outline:none;line-height:1.5}
+.ta:focus{border-color:var(--accent);box-shadow:var(--focus)}
+.rate{display:grid;grid-template-columns:auto 1fr;gap:10px 16px;align-items:center;padding:14px 16px;border-radius:var(--r-sm);background:var(--bg);border:1px solid var(--line)}
+.rate > span{font-size:13px;font-weight:500}
+.seg{display:inline-flex;flex-wrap:wrap;gap:4px}
+.seg button{height:32px;min-width:36px;padding:0 12px;border-radius:7px;border:1px solid var(--line);background:var(--surface);font-size:13px;font-weight:500;color:var(--text-2);cursor:pointer;transition:background .15s,color .15s,border-color .15s}
+.seg button:hover{color:var(--text);border-color:var(--accent)}
+.seg button[aria-pressed="true"]{background:var(--accent-dark);border-color:var(--accent-dark);color:var(--on-accent)}
+.cur-acts{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.cur-acts .sp{flex:1}
+.btn.warn{color:var(--hard)}
+.result{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:var(--r-sm);background:var(--success-soft);color:var(--success);font-size:13px}
+.result.forgot{background:var(--error-soft);color:var(--hard)}
+.result.practice{background:var(--warning-soft);color:var(--med)}
+.compare{border:1px dashed var(--line);border-radius:var(--r-sm);padding:10px 14px;font-size:13px}
+.compare summary{cursor:pointer;color:var(--accent-dark);font-weight:500}
+.compare dl{margin:10px 0 0;display:grid;grid-template-columns:110px 1fr;gap:6px 12px}
+.compare dt{color:var(--text-2)}.compare dd{margin:0;white-space:pre-wrap}
+/* dialog */
+dialog.dlg{border:1px solid var(--line);border-radius:16px;padding:0;width:min(480px,calc(100vw - 32px));background:var(--surface);color:var(--text);box-shadow:0 20px 50px rgba(22,26,22,.18)}
+dialog.dlg::backdrop{background:rgba(22,26,22,.3)}
+.dlg form{padding:22px;display:flex;flex-direction:column;gap:14px}
+.dlg h2{font-size:18px}
+.dlg p{margin:-8px 0 0;font-size:13px;color:var(--text-2)}
+.dlg .fld .input,.dlg .fld .select{width:100%}
+.dlg .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.dlg .foot{display:flex;justify-content:flex-end;gap:8px;margin-top:4px}
+
 /* ---------- Toast ---------- */
 #toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(8px);background:var(--accent-dark);color:var(--on-accent);padding:10px 16px;border-radius:var(--r-sm);font-size:13px;opacity:0;pointer-events:none;transition:all .2s;z-index:60}
 #toast.on{opacity:1;transform:translateX(-50%)}
@@ -358,6 +509,30 @@ details.tbl th{font-weight:500;color:var(--text-2)}
   .lecs li{padding:6px 10px;gap:8px}
   .lecs label{gap:8px}
   .lecs .code{width:42px;font-size:11px}
+  .hero{padding:18px 14px 14px}
+  .hero h2{font-size:22px}
+  .rot .lg{display:none}.rot .sh{display:inline}
+  .stats > div{flex-basis:45%}
+  .stats > div:nth-child(3){border-left:0}
+  .stats > div:nth-child(n+3){border-top:1px solid var(--line)}
+  .hist{grid-template-columns:1fr 1fr}
+  .hist > div:nth-child(3){border-left:0}
+  .hist > div:nth-child(n+3){border-top:1px solid var(--line)}
+  .fgrid,.dlg .two{grid-template-columns:1fr}
+  .rate{grid-template-columns:1fr;gap:6px}
+  .cur-card{padding:16px 14px}
+  .sess-head h1{font-size:23px}
+  .clock{min-width:0;width:100%}
+  .blk-edit{grid-template-columns:1fr 1fr;}
+  .blk-edit > :first-child{grid-column:1/-1}
+  .catrow{padding-left:14px;padding-right:14px}
+  .tl-row{grid-template-columns:104px 1fr auto}
+}
+@media (max-width:900px){
+  .sess-grid{grid-template-columns:1fr}
+  .sess-grid .cur-card{order:-1}
+  .qlist{position:static;max-height:none}
+  .sess-pill .lbl{display:none}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -396,6 +571,7 @@ details.tbl th{font-weight:500;color:var(--text-2)}
         <input class="input" id="q" type="search" placeholder="Search problems" autocomplete="off">
         <kbd>/</kbd>
       </form>
+      <a class="sess-pill hidden" id="sessPill" href="#session"></a>
       <div class="dayinfo" id="dayinfo"></div>
       <button class="iconbtn" id="themeBtn" aria-label="Switch to dark theme"></button>
       <details class="profile" id="profile">
@@ -414,12 +590,37 @@ details.tbl th{font-weight:500;color:var(--text-2)}
     <main class="content" id="view" tabindex="-1"></main>
   </div>
 </div>
+<dialog class="dlg" id="logDlg" aria-labelledby="logTitle">
+  <form id="logForm" method="dialog">
+    <h2 id="logTitle">Log a solved problem</h2>
+    <p>From your new-problem block. It's ticked in the tracker and joins its revision topic.</p>
+    <div class="chips" role="group" aria-label="Where the problem comes from">
+      <button type="button" class="chip" data-logmode="tracker" aria-pressed="true">From my tracker</button>
+      <button type="button" class="chip" data-logmode="new" aria-pressed="false">New problem</button>
+    </div>
+    <label class="fld" data-for="tracker"><span>Problem</span><input class="input" id="logPick" list="logList" placeholder="Start typing an unsolved problem" autocomplete="off"><datalist id="logList"></datalist></label>
+    <div data-for="new" class="hidden" style="display:flex;flex-direction:column;gap:14px">
+      <label class="fld"><span>Name</span><input class="input" id="logName" placeholder="e.g. Koko Eating Bananas" autocomplete="off"></label>
+      <label class="fld"><span>LeetCode link <small>optional</small></span><input class="input" id="logUrl" type="url" placeholder="https://leetcode.com/problems/…"></label>
+      <div class="two">
+        <label class="fld"><span>Topic</span><select class="select" id="logTopic"></select></label>
+        <label class="fld"><span>Difficulty</span><select class="select" id="logDiff"><option>Easy</option><option selected>Medium</option><option>Hard</option></select></label>
+      </div>
+    </div>
+    <label class="fld"><span>Revision topic</span><select class="select" id="logCat"></select></label>
+    <label class="fld"><span>Approach in one line <small>optional, shown when you revise it</small></span><input class="input" id="logNote" autocomplete="off"></label>
+    <div class="err" id="logErr" role="alert" style="margin:0;min-height:0"></div>
+    <div class="foot"><button type="button" class="btn" id="logCancel">Cancel</button><button type="submit" class="btn primary" id="logSave">Save problem</button></div>
+  </form>
+</dialog>
 <div id="tip" role="tooltip"></div>
 <div id="toast" role="status" aria-live="polite"></div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="tasks.js"></script>
 <script src="problems.js"></script>
 <script src="lectures.js"></script>
+<script src="revision.js"></script>
 <script>
 /* ---------- Icons (outline, 24px grid) ---------- */
 const ICONS={
@@ -444,6 +645,8 @@ const ICONS={
   check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',
   play:'<circle cx="12" cy="12" r="8.5"/><path d="M10.2 8.8v6.4l5.2-3.2-5.2-3.2z"/>',
   flag:'<path d="M5.5 21V4.5M5.5 4.5h11l-2 4 2 4h-11"/>',
+  pause:'<circle cx="12" cy="12" r="8.5"/><path d="M10 9v6M14 9v6"/>',
+  plus:'<path d="M12 5v14M5 12h14"/>',
 };
 const ic=(n,cls="i")=>`<svg class="${cls}" viewBox="0 0 24 24" aria-hidden="true">${ICONS[n]}</svg>`;
 
@@ -483,9 +686,11 @@ applyTheme(store.get(localStorage,THEME)==="dark"?"dark":"light");
 $("themeBtn").onclick=()=>{const t=document.documentElement.dataset.theme==="dark"?"light":"dark";store.set(localStorage,THEME,t);applyTheme(t);};
 
 /* ---------- Data & state ---------- */
-const TASKS=window.TASKS, PROBLEMS=window.PROBLEMS;
+const TASKS=window.TASKS;
 const KEY="dsa-tracker-v1";
-const blank=()=>({done:{},conf:{},notes:{},at:{},pdone:{},pconf:{},pnotes:{},star:{},lec:{}});
+// rev: per-problem revision history, rcat: revision-topic overrides, rcfg: revision settings,
+// rlog: finished sessions, sess: the current session, custom: problems added after the docx import.
+const blank=()=>({done:{},conf:{},notes:{},at:{},pdone:{},pconf:{},pnotes:{},star:{},lec:{},rev:{},rcat:{},rcfg:{},rlog:[],sess:null,custom:[]});
 let state=blank();
 try{const s=JSON.parse(localStorage.getItem(KEY));if(s)state=Object.assign(blank(),s);}catch(e){}
 const save=()=>store.set(localStorage,KEY,JSON.stringify(state));
@@ -504,11 +709,18 @@ const WEEKNAME={"Week 1":"OS week","Week 2":"DBMS week","Week 3":"CN week"};
 const SUBJECTS=["DSA","OS","DBMS","CN","System Design","Mistake log","Catch-up","Core CS"];
 const october=TASKS.filter(t=>t.week!=="November");
 const november=TASKS.filter(t=>t.week==="November");
-const TOPICS=[...new Set(PROBLEMS.map(p=>p.topic))];
+// The 219 tracker problems plus any you log later (ids from 1001, stored in state.custom).
+let PROBLEMS=[],TOPICS=[];
+const probById=new Map();
+function loadProblems(){
+  PROBLEMS=[...window.PROBLEMS,...(state.custom||[]).map(c=>Object.assign({solved:false,star:false},c))];
+  TOPICS=[...new Set(PROBLEMS.map(p=>p.topic))];
+  probById.clear();PROBLEMS.forEach(p=>probById.set(p.id,p));
+}
+loadProblems();
 const DIFFS=["Easy","Medium","Hard"];
 const CONF_LABEL={Easy:"Confident",Shaky:"Shaky",Redo:"Redo"};
 const taskByPid=new Map(TASKS.filter(t=>t.pid).map(t=>[t.pid,t]));
-const probById=new Map(PROBLEMS.map(p=>[p.id,p]));
 
 const isDone=t=>!!state.done[t.id];
 function setTaskDone(t,v){if(v){state.done[t.id]=true;state.at[t.id]=TODAY;}else{delete state.done[t.id];delete state.at[t.id];}}
@@ -539,7 +751,7 @@ function lectureBlock(t){
     ${open?`<ul class="lecs">${L.map(lecItem).join("")}</ul>${opt.length?`<div class="lec-opt">Optional, only if you're ahead (${opt.length})</div><ul class="lecs">${opt.map(lecItem).join("")}</ul>`:""}
     <a class="link" href="${OS_PLAYLIST}" target="_blank" rel="noopener" style="margin-top:6px">Open the Gate Smashers OS playlist${ic("ext")}</a>`:""}`;
 }
-const ltc=p=>`https://leetcode.com/problemset/?search=${encodeURIComponent(p.name)}`;
+const ltc=p=>p.url||`https://leetcode.com/problemset/?search=${encodeURIComponent(p.name)}`;
 
 /* ---------- Shared pieces ---------- */
 function confBadge(c){return c?`<span class="badge conf-${c}">${CONF_LABEL[c]}</span>`:"";}
@@ -564,7 +776,7 @@ function taskRow(t,o={}){
       ${x&&x.hint?`<div class="hint">${esc(x.hint)}</div>`:""}
       ${lectureBlock(t)}
       ${note?`<div class="note">${esc(note)}</div>`:""}
-      <div class="edit">${editFields("task",t.id,c,note)}</div>
+      <div class="edit">${editFields("task",t.id,c,note)}${p?catSelect(p):""}</div>
     </div>
     <div class="tail">
       ${p?`<a class="iconbtn" href="${ltc(p)}" target="_blank" rel="noopener" aria-label="Open ${esc(p.name)} on LeetCode" data-tip="Open on LeetCode">${ic("ext")}</a>`:""}
@@ -587,6 +799,7 @@ const ROUTES=[
   {id:"revision",label:"Revision",icon:"revision"},
   {id:"topics",label:"Topics",icon:"topics"},
   {id:"analytics",label:"Analytics",icon:"analytics"},
+  {id:"session",label:"Revision session",icon:"revision",hidden:true},
 ];
 let route="dashboard";
 
@@ -612,7 +825,8 @@ function pageDashboard(){
   const dsaLeftPlan=october.filter(t=>t.subject==="DSA"&&!isDone(t)).length;
   const dn=studyDay(),wk=weekOf(TODAY);
   const sub=dn?`Day ${dn} of 21${wk?` · ${WEEKNAME[wk]}`:""}. Small steps, consistent progress.`:"Small steps, consistent progress.";
-  const actions=next?`<button class="btn primary" data-act="continue" data-id="${next.id}">${ic("arrow")}Continue studying</button>`:`<a class="btn primary" href="#problems">${ic("problems")}Practise a problem</a>`;
+  const actions=(next?`<button class="btn" data-act="continue" data-id="${next.id}">${ic("arrow")}Continue the plan</button>`:`<a class="btn" href="#problems">${ic("problems")}Practise a problem</a>`)
+    +`<button class="btn" data-act="log-open">${ic("plus")}Log solved problem</button>`;
 
   let todayCard;
   if(todays.length){
@@ -631,7 +845,7 @@ function pageDashboard(){
   const revq=PROBLEMS.filter(pRevise);
   const revTasks=october.filter(t=>!t.pid&&tRevise(t));
   const revItems=[...revq.map(p=>({name:p.name,c:pConf(p),diff:p.difficulty})),...revTasks.map(t=>({name:t.task,c:state.conf[t.id],diff:null}))];
-  const revCard=`<div class="card"><div class="card-h"><h2>Revision queue</h2><span class="right">${revItems.length?`<a class="link" href="#revision">View all${ic("arrow")}</a>`:""}</span></div>
+  const revCard=`<div class="card"><div class="card-h"><h2>Marked Shaky or Redo</h2><span class="right">${revItems.length?`<a class="link" href="#revision">View all${ic("arrow")}</a>`:""}</span></div>
     ${revItems.length?revItems.slice(0,5).map(x=>`<div class="mini"><span class="nm">${esc(x.name)}</span>${confBadge(x.c)}</div>`).join(""):`<div class="empty" style="border-top:1px solid var(--line)"><b>Nothing to revisit yet</b>Mark a problem Shaky or Redo with the pencil button and it lands here.</div>`}</div>`;
 
   const recent=PROBLEMS.map(p=>({p,on:pSolvedOn(p)})).filter(x=>x.on).sort((a,b)=>b.on.localeCompare(a.on)).slice(0,5);
@@ -639,12 +853,15 @@ function pageDashboard(){
     ${recent.length?recent.map(({p,on})=>`<div class="mini"><span class="nm">${esc(p.name)}</span><span class="badge ${p.difficulty}">${p.difficulty}</span><span class="when">${on===TODAY?"Today":fmt(on,{day:"numeric",month:"short"})}</span></div>`).join(""):`<div class="empty" style="border-top:1px solid var(--line)"><b>No problems ticked yet</b>Problems you tick from now on show up here with the date.</div>`}</div>`;
 
   return phead(`${greet}, Sahil`,sub,actions)+`<div class="grid">
+    <div class="span-8">${revHero()}</div>
+    <section class="card span-4"><div class="card-h"><h2>Today's blocks</h2><span class="right"><a class="link" href="#plan">Edit${ic("arrow")}</a></span></div><div class="card-b">${timeline()}</div></section>
     <div class="span-7"><section class="card" aria-labelledby="ptitle">${todayCard}</section>${lateCard}</div>
     <div class="span-5 stack">
       <section class="card"><div class="kpi"><div class="lbl">DSA problems solved</div><div class="big num">${solved} <small>of ${total} · ${pct(solved,total)}%</small></div><div class="bar lg"><i style="width:${pct(solved,total)}%"></i></div></div>
         <div class="kpi-split"><div><b class="num">${planDone}/${october.length}</b><span>October plan tasks done</span></div><div><b class="num">${dsaLeftPlan}</b><span>Problems left in the plan</span></div></div></section>
       <section class="card"><div class="card-h"><h2>Consistency</h2><span class="right">11–31 Oct</span></div><div class="card-b">${calendar()}</div></section>
     </div>
+    ${revPerformance()}
     <section class="card span-7"><div class="card-h"><h2>Topics</h2><span class="right"><a class="link" href="#topics">Details${ic("arrow")}</a></span></div><div class="card-b"><div class="topic-list">${topicRows}</div></div></section>
     <div class="span-5 stack">${revCard}${recentCard}</div>
   </div>`;
@@ -684,7 +901,7 @@ function problemRow(p){
       <button class="iconbtn" data-act="open" data-key="${key}" data-fk="ed-${key}" aria-expanded="${openRow===key}" aria-label="Confidence and note for ${esc(p.name)}" data-tip="Confidence and note">${ic("edit")}</button>
       <a class="iconbtn" href="${ltc(p)}" target="_blank" rel="noopener" aria-label="Open ${esc(p.name)} on LeetCode" data-tip="Open on LeetCode">${ic("ext")}</a>
     </td></tr>
-    ${openRow===key?`<tr class="editrow"><td colspan="7"><div class="edit">${editFields("p",p.id,c,note)}</div></td></tr>`:""}`;
+    ${openRow===key?`<tr class="editrow"><td colspan="7"><div class="edit">${editFields("p",p.id,c,note)}${catSelect(p)}</div></td></tr>`:""}`;
 }
 function problemsBody(){
   const L=filteredProblems(),solved=L.filter(pSolved).length;
@@ -694,7 +911,7 @@ function problemsBody(){
 }
 function pageProblems(){
   const sel=(id,opts,v,label)=>`<label class="sr" for="${id}">${label}</label><select class="select" id="${id}" data-pf="${id.slice(3)}">${opts.map(([val,l])=>`<option value="${esc(val)}" ${v===val?"selected":""}>${esc(l)}</option>`).join("")}</select>`;
-  return phead("Problems",`All ${PROBLEMS.length} problems from your LeetCode tracker. Tick one when it's solved.`)+`
+  return phead("Problems",`All ${PROBLEMS.length} problems from your LeetCode tracker. Tick one when it's solved.`,`<button class="btn" data-act="log-open">${ic("plus")}Log solved problem</button>`)+`
     <div class="toolbar">
       <div class="search">${ic("search")}<label class="sr" for="pf-q">Filter problems</label><input class="input" id="pf-q" type="search" placeholder="Search by name or topic" value="${esc(pf.q)}" autocomplete="off"></div>
       ${sel("pf-topic",[["","All topics"],...TOPICS.map(t=>[t,t])],pf.topic,"Topic")}
@@ -712,7 +929,7 @@ function pageProblems(){
 let planFilter="";
 function dayCard(date,list){
   const d=list.filter(isDone).length,today=date===TODAY;
-  return `<section class="card day ${today?"is-today":""}" ${today?'id="today-card"':""}><div class="card-h"><h2>${fmt(date,{weekday:"long",day:"numeric",month:"short"})}</h2>${today?'<span class="badge today">Today</span>':""}
+  return `<section class="card day ${today?"is-today":""}" ${today?'id="today-card"':""}><div class="card-h"><h2>${fmt(date,{weekday:"long",day:"numeric",month:"short"})}</h2>${today?'<span class="badge today">Today</span>':""}<span class="badge" data-tip="2–5 PM topic revision">${ic("revision","i")}${esc(SHORT[RV.topicFor(date,C())])}</span>
     <span class="right"><span class="num">${d}/${list.length}</span><div class="bar"><i style="width:${pct(d,list.length)}%"></i></div></span></div>
     <div class="rows">${list.map(t=>taskRow(t)).join("")}</div></section>`;
 }
@@ -728,7 +945,7 @@ function pagePlan(){
     h+="</div></div>";
   }
   const jump=PLAN_DAYS.includes(TODAY)?`<button class="btn" data-act="jump-today">${ic("plan")}Jump to today</button>`:"";
-  return phead("Study plan","11–31 October. One core subject a week, DSA every day, Saturdays for catching up.",jump)+chips+(h||`<div class="card empty"><b>No tasks for this subject</b></div>`);
+  return phead("Study plan","11–31 October. One core subject a week, DSA every day, Saturdays for catching up.",jump)+scheduleCard()+`<div class="section-title"><h2>October plan</h2><span>Core subjects, DSA and LLD by day</span></div>`+chips+(h||`<div class="card empty"><b>No tasks for this subject</b></div>`);
 }
 
 /* Revision */
@@ -739,7 +956,8 @@ function pageRevision(){
     :`<div class="empty" style="border-top:1px solid var(--line)"><b>Your queue is empty</b>Use the pencil button on any task or problem and pick Shaky or Redo. It will show up here for November.</div>`;
   const stars=PROBLEMS.filter(pStar),starOpen=stars.filter(p=>!pSolved(p));
   const opt=november.filter(t=>t.subject==="Optional DSA"),revPlan=november.filter(t=>t.subject==="Revision");
-  return phead("Revision","What to come back to in November: things you marked, your bookmarks, and the revision schedule.")+`
+  return phead("Revision","Daily topic revision with adaptive review dates, plus what you marked for November.")+revTopicSection()+`
+    <div class="section-title"><h2>Marked for November</h2><span>Things you marked Shaky or Redo, your bookmarks and the November schedule</span></div>
     <div class="grid">
       <section class="card span-12"><div class="card-h"><h2>Needs revision</h2><span class="right num">${marked.length}</span></div>${queue}</section>
       <section class="card span-6"><div class="card-h"><h2>November schedule</h2><span class="right num">${revPlan.filter(isDone).length}/${revPlan.length}</span></div><div class="rows">${revPlan.map(t=>taskRow(t)).join("")}</div></section>
@@ -823,16 +1041,368 @@ function pageAnalytics(){
       <section class="card span-6"><div class="card-h"><h2>By week</h2></div><div class="card-b">${weeks}</div>
         <div class="card-h" style="padding-top:4px"><h2>Problems by difficulty</h2></div><div class="card-b">${diffs}</div></section>
       <section class="card span-12"><div class="card-h"><h2>Activity</h2><span class="sub">Items ticked per day, by the date you ticked them</span></div><div class="card-b">${anyTicks?colChart(act,""):`<div class="empty"><b>No activity recorded yet</b>The site records the date of every tick from today onwards, so this fills in as you study.</div>`}</div></section>
+    </div>`+revAnalytics();
+}
+
+/* ---------- Topic revision (engine in revision.js) ---------- */
+const RV=window.REV;
+const C=()=>RV.cfg(state);
+const catName=k=>k?RV.CAT[k].name:"Not in the rotation";
+const SHORT={rec:"Recursion",bs:"Bin. search",tp:"Two ptrs",gr:"Graphs",dp:"DP"};
+const todayCat=()=>RV.topicFor(TODAY,C());
+const revBonus=p=>(pConf(p)==="Redo"?40:pConf(p)==="Shaky"?20:0)+(pStar(p)?10:0);
+const queueFor=(cat,date=TODAY)=>RV.buildQueue(PROBLEMS,state,date,cat,{solved:pSolved,bonus:revBonus});
+const activeSess=()=>{const s=state.sess;return s&&!s.finished&&s.date===TODAY?s:null;};
+const finishedToday=()=>{const s=state.sess;return s&&s.finished&&s.date===TODAY?s:null;};
+const overdueAll=()=>PROBLEMS.filter(p=>pSolved(p)&&RV.catOf(p,state)&&RV.status(p,state,TODAY).kind==="overdue");
+const hms=x=>{x=Math.max(0,Math.floor(x));return `${Math.floor(x/3600)}:${pad(Math.floor(x%3600/60))}:${pad(x%60)}`;};
+const mins=x=>x==null?"—":x<60?`${Math.round(x)} s`:`${Math.round(x/60)} min`;
+const hm=x=>{const m=Math.round(x/60);return m>=60?`${Math.floor(m/60)} h${m%60?` ${m%60} m`:""}`:`${m} min`;};
+const shortDate=d=>fmt(d,{day:"numeric",month:"short"});
+const HOW={solo:"On my own",hints:"With hints",solution:"Needed the solution"};
+const OUT={reviewed:"Reviewed",forgot:"Forgot",practice:"More practice"};
+const toMin=t=>{const [h,m]=String(t||"0:0").split(":").map(Number);return (h||0)*60+(m||0);};
+const t12=m=>{m=((m%1440)+1440)%1440;const h=Math.floor(m/60),mm=m%60;return `${h%12||12}${mm?":"+pad(mm):""} ${h>=12?"PM":"AM"}`;};
+function blocks(){return C().blocks.filter(b=>b.on!==false).map(b=>{const sm=toMin(b.s);let em=toMin(b.e);if(em<=sm)em+=1440;return Object.assign({},b,{sm,em});}).sort((a,b)=>a.sm-b.sm);}
+const revBlock=()=>blocks().find(b=>b.k==="rev");
+const revSlot=()=>{const b=revBlock();return b?`${t12(b.sm)}–${t12(b.em)}`:"";};
+
+function kindTag(p){
+  const r=state.rev[p.id],st=RV.status(p,state,TODAY);
+  if(r&&r.carry&&st.kind!=="later")return `<span class="kind overdue">Carried over</span>`;
+  if(st.kind==="overdue")return `<span class="kind overdue">Overdue ${st.over} d</span>`;
+  if(RV.mastered(r)&&st.kind!=="later")return `<span class="kind recall">Quick recall</span>`;
+  if(st.kind==="due")return `<span class="kind due">Due today</span>`;
+  if(st.kind==="new")return `<span class="kind">First revision</span>`;
+  return `<span class="kind">Due ${shortDate(r.due)}</span>`;
+}
+const outTag=o=>`<span class="kind ${o==="reviewed"?"done":o==="forgot"?"overdue":"due"}">${OUT[o]}</span>`;
+function rotStrip(){
+  const cat=todayCat(),idx=RV.CATS.findIndex(x=>x.k===cat),c=C();
+  const pills=RV.CATS.map(x=>{let i=0;while(i<5&&RV.topicFor(RV.addDays(TODAY,i),c)!==x.k)i++;const d=RV.addDays(TODAY,i);
+    return `<div class="p ${x.k===cat?"on":""}"><b><span class="lg">${x.name}</span><span class="sh">${SHORT[x.k]}</span></b><span>${i===0?"Today":i===1?"Tomorrow":fmt(d,{weekday:"short",day:"numeric"})}</span></div>`;}).join("");
+  return `<div class="rot" data-rot="${idx}"><span class="ind" style="transform:translateX(${idx*100}%)"></span>${pills}</div>`;
+}
+function topicCounts(cat){
+  const Q=queueFor(cat),k=Object.values(Q.kinds);
+  return {Q,pool:Q.pool.length,due:k.filter(x=>x==="due").length,over:k.filter(x=>x==="overdue").length,fresh:k.filter(x=>x==="new").length,
+    mastered:Q.pool.filter(id=>RV.mastered(state.rev[id])).length,next:Q.later.length?state.rev[Q.later[0]].due:null};
+}
+function revEmpty(cat,tc){
+  const c=RV.CAT[cat];
+  if(!tc.pool)return `<div class="empty" style="border-top:1px solid var(--line)"><b>No solved ${esc(c.name)} problems yet</b>Solve a few from ${esc(c.topics[0])}, or move solved problems into this topic.
+    <div style="display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap"><a class="btn sm" href="#problems?topic=${encodeURIComponent(c.topics[0])}">Open ${esc(c.topics[0])}</a><a class="btn sm" href="#revision" data-act="go-cats">Assign problems</a></div></div>`;
+  return `<div class="empty" style="border-top:1px solid var(--line)"><b>Nothing in ${esc(c.name)} is due today</b>${tc.next?`The next one comes due on ${fmt(tc.next)}.`:""}${overdueAll().length?` ${overdueAll().length} overdue from other topics are waiting in the overdue queue.`:""}
+    <div style="display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap"><button class="btn sm" data-act="rev-pull">Revise the soonest ones anyway</button>${overdueAll().length?`<a class="btn sm" href="#revision">Open overdue queue</a>`:""}</div></div>`;
+}
+function revHero(){
+  const cat=todayCat(),s=activeSess(),fin=finishedToday(),tc=topicCounts(cat),Q=tc.Q,od=overdueAll().length;
+  const ids=s?RV.remaining(s):Q.queue,doneN=s?Object.keys(s.done).length:fin?Object.keys(fin.done).length:0,plan=s?s.queue.length:fin?fin.queue.length:Q.queue.length;
+  let btn;
+  if(s)btn=`<button class="btn primary" data-act="rev-resume">${ic("play")}Resume revision</button>`;
+  else if(fin)btn=Q.queue.length?`<button class="btn" data-act="rev-start">${ic("arrow")}Start another round</button>`:`<span class="badge today">Done for today</span>`;
+  else btn=Q.queue.length?`<button class="btn primary" data-act="rev-start">${ic("arrow")}Start today's revision</button>`:"";
+  const lead=s?`Session running · <span class="num" data-clock="sess">${hms(RV.elapsed(s,Date.now()))}</span> of ${hm(C().sessionMin*60)}`
+    :fin?`Session finished · ${doneN} of ${plan} reviewed`
+    :Q.queue.length?`${Q.queue.length} question${Q.queue.length>1?"s":""} planned · about ${hm(Q.est)}${Q.overflow.length?` · ${Q.overflow.length} more wait for the next ${esc(RV.CAT[cat].name)} day`:""}`:"";
+  const prev=ids.slice(0,4).map(id=>{const p=probById.get(id);return p?`<div class="mini"><span class="nm">${esc(p.name)}</span>${kindTag(p)}<span class="badge ${p.difficulty}">${p.difficulty}</span></div>`:"";}).join("");
+  const empty=!s&&!fin&&!Q.queue.length;
+  return `<section class="card" aria-label="Today's revision"><div class="hero">
+    <div class="hero-top"><div class="t"><div class="eyebrow">Today's revision${revSlot()?` · ${revSlot()}`:""}</div><h2>${esc(RV.CAT[cat].name)}</h2><div class="lead">${lead}</div></div>${btn}</div>
+    ${rotStrip()}
+    <div class="stats"><div><b>${doneN}/${plan}</b><span>Revised today</span></div><div><b>${tc.due+tc.over+tc.fresh}</b><span>Up for revision</span></div><div class="${od?"warn":""}"><b>${od}</b><span>Overdue, all topics</span></div><div><b>${tc.pool}</b><span>Solved in topic</span></div></div>
+    ${plan?`<div class="bar lg"><i data-k="hero-prog" style="width:${pct(doneN,plan)}%"></i></div>`:""}
+  </div>
+  ${empty?revEmpty(cat,tc):prev?`<div class="qprev">${prev}</div>${ids.length>4?`<div class="mini muted" style="justify-content:center">+ ${ids.length-4} more in the queue</div>`:""}`:""}</section>`;
+}
+function blockSub(b){
+  if(b.k==="rev"){const s=activeSess()||finishedToday();return `${catName(todayCat())}${s?` · ${Object.keys(s.done).length}/${s.queue.length} revised`:""}`;}
+  if(b.k==="sd"){const L=october.filter(t=>t.date===TODAY&&t.subject==="System Design");return L.length?`${L.filter(isDone).length}/${L.length} LLD problems today`:"LLD problems and notes";}
+  if(b.k==="dsa"){const L=october.filter(t=>t.date===TODAY&&t.subject==="DSA");return L.length?`${L.filter(isDone).length}/${L.length} planned problems · log extras as you go`:"New problems from the tracker";}
+  if(b.k==="mtp")return "Flexible academic block";
+  return "";
+}
+function timeline(){
+  const B=blocks(),d=new Date(),nm=d.getHours()*60+d.getMinutes();
+  if(!B.length)return `<div class="empty"><b>No study blocks switched on</b><a class="link" href="#plan">Set them up in Study plan</a></div>`;
+  const lo=Math.min(480,...B.map(b=>b.sm)),hi=Math.max(1440,...B.map(b=>b.em)),span=hi-lo,nextB=B.find(b=>b.sm>nm);
+  return `<div class="tl-track" aria-hidden="true">${B.map(b=>`<i class="${b.k==="rev"?"rev":""}" style="left:${(b.sm-lo)/span*100}%;width:${(b.em-b.sm)/span*100}%"></i>`).join("")}${nm>=lo&&nm<=hi?`<span class="now" style="left:${(nm-lo)/span*100}%"></span>`:""}</div>
+    ${B.map(b=>{const st=nm>=b.sm&&nm<b.em?"now":nm>=b.em?"past":"";
+      const tag=st==="now"?`<span class="badge today">Now</span>`:b===nextB?`<span class="badge">Next</span>`:b.k==="dsa"?`<button class="link" data-act="log-open">Log</button>`:"";
+      return `<div class="tl-row ${st?"is-"+st:""}"><span class="tm">${t12(b.sm)}–${t12(b.em)}</span><span class="lb"><b><span class="sw ${b.k==="rev"?"rev":""}"></span>${esc(b.label)}</b><span>${esc(blockSub(b))}</span></span>${tag}</div>`;}).join("")}`;
+}
+function allAttempts(){
+  const L=[];for(const [id,r] of Object.entries(state.rev||{}))(r.hist||[]).forEach((h,i)=>L.push({id:+id,h,i}));
+  return L.sort((a,b)=>b.h.d.localeCompare(a.h.d)||b.i-a.i);
+}
+function trendBox(){
+  const t=RV.trends(state);
+  if(!t.pairs)return `<div class="trend"><span class="arrow">${ic("revision")}</span><span>Speed trend appears once you've revised the same problem twice with the timer running.</span></div>`;
+  const ch=t.change,cls=ch<=-.1?"up":ch>=.1?"down":"";
+  const txt=ch<=-.1?`<b>Getting faster.</b> Median ${mins(t.medFirst)} on the first revision, ${mins(t.medLast)} on the latest`:ch>=.1?`<b>Slower lately.</b> Median ${mins(t.medFirst)} first, ${mins(t.medLast)} latest. Worth a look at which topics`:`<b>Holding steady.</b> Median ${mins(t.medFirst)} first, ${mins(t.medLast)} latest`;
+  return `<div class="trend ${cls}"><span class="arrow">${ic(cls==="down"?"flag":"check")}</span><span>${txt} (${t.pairs} problem${t.pairs>1?"s":""}).</span></div>`;
+}
+function revPerformance(){
+  const A=allAttempts().slice(0,6);
+  const recent=`<section class="card span-7" style="align-self:start"><div class="card-h"><h2>Recent revision</h2><span class="right"><a class="link" href="#analytics">Trends${ic("arrow")}</a></span></div>
+    ${A.length?A.map(({id,h})=>{const p=probById.get(id);return p?`<div class="mini"><span class="nm">${esc(p.name)}</span>${outTag(h.out)}${h.conf?`<span class="when num">${h.conf}/5</span>`:""}<span class="when num">${h.mode==="recall"?"recall":mins(h.sec)}</span><span class="when">${h.d===TODAY?"Today":shortDate(h.d)}</span></div>`:"";}).join("")
+    :`<div class="empty" style="border-top:1px solid var(--line)"><b>No revisions logged yet</b>Your first session fills this in with times and confidence.</div>`}</section>`;
+  const days=[...Array(7)].map((_,i)=>RV.addDays(TODAY,i-6));
+  const perDay={};allAttempts().forEach(({h})=>perDay[h.d]=(perDay[h.d]||0)+1);
+  const fullDay=d=>(state.rlog||[]).some(l=>l.date===d&&l.reviewed&&!l.carried);
+  const active=days.filter(d=>perDay[d]).length;
+  const wk=`<div class="wk">${days.map(d=>`<div><i class="${fullDay(d)?"full":perDay[d]?"part":""} ${d===TODAY?"today":""}" data-tip="${fmt(d)}: ${perDay[d]||0} revised${fullDay(d)?", full queue":""}"></i>${fmt(d,{weekday:"narrow"})}</div>`).join("")}</div>`;
+  const cov=RV.CATS.map(c=>{const ids=queueFor(c.k).pool,d=ids.filter(id=>state.rev[id]&&(state.rev[id].hist||[]).length).length;return progressRow(c.name,d,ids.length,"");}).join("");
+  const rhythm=`<section class="card span-5"><div class="card-h"><h2>Revision rhythm</h2><span class="right num">${active} of 7 days</span></div><div class="card-b">${wk}
+    <div class="eyebrow" style="margin:16px 0 2px">Topic coverage · revised at least once</div><div class="cov">${cov}</div><div style="margin-top:12px">${trendBox()}</div></div></section>`;
+  return recent+rhythm;
+}
+
+/* Session workspace */
+function sessHead(s){
+  const now=Date.now(),el=RV.elapsed(s,now),cap=C().sessionMin*60;
+  return `<div class="sess-head"><div class="t"><div class="eyebrow">Revision session · ${fmt(s.date,{weekday:"long",day:"numeric",month:"long"})}</div><h1 tabindex="-1" id="ptitle">${esc(RV.CAT[s.cat].name)}</h1><p>${s.queue.length} question${s.queue.length===1?"":"s"} planned${revSlot()?` for ${revSlot()}`:""}. Progress saves as you go.</p></div>
+    <div class="clock ${el>cap?"over":""}" data-clockwrap><div class="big" data-clock="sess">${hms(el)}</div><div class="sub" data-clock="left">${clockLeft(s,el,cap)}</div><div class="bar lg"><i data-clock="bar" style="width:${Math.min(100,el/cap*100)}%"></i></div></div>
+    <div class="sess-actions">${s.run?`<button class="btn" data-act="s-toggle" data-fk="s-toggle">${ic("pause")}Pause</button>`:`<button class="btn primary" data-act="s-toggle" data-fk="s-toggle">${ic("play")}${el?"Resume":"Start"}</button>`}
+      <button class="btn" data-act="s-finish">${ic("check")}Finish session</button><button class="btn ghost" data-act="s-exit">Exit</button></div></div>`;
+}
+function clockLeft(s,el,cap){return (s.run?"":"Paused · ")+(el>cap?`${hm(el-cap)} over the ${hm(cap)} block`:`${hm(cap-el)} left of ${hm(cap)}`);}
+function qItem(s,id){
+  const p=probById.get(id);if(!p)return "";const o=s.done[id];
+  return `<button class="qitem ${o?"is-done":""}" data-act="s-pick" data-id="${id}" data-q="${id}" data-fk="q-${id}" aria-current="${s.cur===id}"><span class="nm">${esc(p.name)}</span>${o?outTag(o):`<span class="est">${Math.round(RV.estSec(p,state,C())/60)}m</span>`}<span class="badge ${p.difficulty}">${p.difficulty}</span></button>`;
+}
+function curCard(s){
+  const rem=RV.remaining(s),id=s.cur;
+  if(id==null||!probById.get(id)){
+    return `<section class="card cur-card"><div class="empty" style="padding:28px 8px"><b>${rem.length?"Pick a question from the queue":"Queue complete"}</b>${rem.length?"":"Everything planned is done. Finish the session to log it, or pull in the problems due soonest."}
+      <div style="display:flex;gap:8px;justify-content:center;margin-top:14px;flex-wrap:wrap">${rem.length?"":`<button class="btn primary" data-act="s-finish">${ic("check")}Finish session</button><button class="btn" data-act="s-more">Add problems due soonest</button>`}</div></div></section>`;
+  }
+  const p=probById.get(id),r=state.rev[id],st=RV.probStats(r),d=s.draft[id]||{},mast=RV.mastered(r),mode=d.mode||(mast?"recall":"full"),out=s.done[id];
+  const sk=s.skip.includes(id)&&!out,last=st.last,now=Date.now();
+  const hist=`<div class="hist">
+    <div><b>${last?(last.mode==="recall"?"Recall":mins(last.sec)):"—"}</b><span>${last?`Last time · ${shortDate(last.d)}`:"No revisions yet"}</span></div>
+    <div><b>${st.med!=null?mins(st.med):"—"}</b><span>Median over ${st.n} revision${st.n===1?"":"s"}</span></div>
+    <div><b>${st.solo!=null?pct(st.solo,1)+"%":"—"}</b><span>Solved on your own</span></div>
+    <div><b>${st.confFirst?`${st.confFirst} → ${st.confLast}`:pConf(p)?CONF_LABEL[pConf(p)]:"—"}</b><span>${st.confFirst?"Confidence, first → latest":"Confidence"}</span></div></div>`;
+  const past=r&&r.hist&&r.hist.length?`<details class="compare"><summary>Previous attempts (${r.hist.length})</summary><dl>${r.hist.slice(-6).reverse().map(h=>`<dt>${shortDate(h.d)}</dt><dd>${OUT[h.out]} · ${h.how?HOW[h.how].toLowerCase():"—"} · ${h.conf?`confidence ${h.conf}/5`:"no rating"} · ${h.mode==="recall"?"quick recall":mins(h.sec)}${h.ins?"":" · looked at notes"} · next in ${h.ivl} d</dd>`).join("")}</dl></details>`:"";
+  const ta=(f,label,val,hint,full)=>`<label class="fld ${full?"full":""}"><span>${label}${hint?` <small>${hint}</small>`:""}</span><textarea class="ta" data-act="s-text" data-f="${f}" data-id="${id}" data-fk="tx-${f}-${id}" rows="3">${esc(val||"")}</textarea></label>`;
+  const fields=mode==="recall"
+    ?`<div class="fgrid">${ta("ra","Approach","" + (d.ra||""),"from memory")}${ta("rl","Key logic",d.rl,"the one line that matters")}
+       <label class="fld full"><span>Complexity</span><input class="input" data-act="s-text" data-f="rc" data-id="${id}" data-fk="tx-rc-${id}" value="${esc(d.rc||"")}" placeholder="Time O(…), space O(…)"></label></div>
+       <details class="compare"><summary>Compare with my saved notes</summary><dl><dt>Approach</dt><dd>${esc(r&&r.approach||"—")}</dd><dt>Mistakes</dt><dd>${esc(r&&r.mistakes||"—")}</dd><dt>Notes</dt><dd>${esc(pNote(p)||"—")}</dd>${r&&r.recall?`<dt>Last recall</dt><dd>${esc([r.recall.a,r.recall.l,r.recall.c].filter(Boolean).join(" · ")||"—")}</dd>`:""}</dl></details>`
+    :`<div class="fgrid">${ta("approach","Previous approach",r&&r.approach,"",false)}${ta("mistakes","Mistakes to avoid",r&&r.mistakes,"",false)}${ta("note","Notes",pNote(p),"shared with the tracker",true)}</div>`;
+  const g=(d.conf&&d.how)?RV.grade(r,{out:"reviewed",how:d.how,conf:d.conf,sec:RV.attempt(s,id,now),ins:d.ins!==false},C(),p.difficulty):null;
+  const rate=out?`<div class="result ${out==="reviewed"?"":out}">${ic(out==="reviewed"?"check":"flag")}<span><b>${OUT[out]}.</b> Next review ${fmt(r.due)} (in ${r.ivl} day${r.ivl===1?"":"s"}).</span></div>
+      ${rem.length?`<div class="cur-acts"><button class="btn primary" data-act="s-pick" data-id="${rem[0]}">${ic("arrow")}Next question</button></div>`:`<div class="cur-acts"><button class="btn primary" data-act="s-finish">${ic("check")}Finish session</button></div>`}`
+    :`<div class="rate">
+      <span>Confidence</span><div class="seg" role="group" aria-label="Confidence from 1 to 5">${[1,2,3,4,5].map(n=>`<button data-act="s-conf" data-v="${n}" data-fk="cf-${n}" aria-pressed="${d.conf===n}">${n}</button>`).join("")}</div>
+      <span>How it went</span><div class="seg" role="group" aria-label="How you solved it">${Object.entries(HOW).map(([k,v])=>`<button data-act="s-how" data-v="${k}" data-fk="how-${k}" aria-pressed="${d.how===k}">${v}</button>`).join("")}</div>
+      <span></span><label class="tog"><input type="checkbox" data-act="s-ins" data-fk="ins" ${d.ins!==false?"checked":""}> I remembered the key insight without looking at notes</label>
+    </div>
+    ${g?`<div class="muted" style="font-size:13px;margin-top:-6px">Mark reviewed now and it comes back in <b style="color:var(--text)">${g.ivl} day${g.ivl===1?"":"s"}</b> (${shortDate(RV.addDays(TODAY,g.ivl))}).</div>`:""}
+    <div class="cur-acts"><button class="btn primary" data-act="s-mark" data-out="reviewed" data-fk="mk-rev">${ic("check")}Mark reviewed</button><button class="btn" data-act="s-mark" data-out="practice">Needs more practice</button><button class="btn warn" data-act="s-mark" data-out="forgot">Mark forgotten</button><span class="sp"></span>
+      ${sk?`<button class="btn ghost" data-act="s-unskip" data-id="${id}">Back to queue</button>`:`<button class="btn ghost" data-act="s-skip">Skip for now</button>`}</div>`;
+  return `<section class="card cur-card" data-cur="${id}">
+    <div class="cur-h"><div class="t"><h2>${esc(p.name)}</h2><div class="meta"><span class="badge ${p.difficulty}">${p.difficulty}</span><span>${esc(p.topic)}</span>${out?outTag(out):kindTag(p)}${pStar(p)?`<span class="flag" style="color:var(--warning)">${ic("star")}Bookmarked</span>`:""}</div></div>
+      <div class="att">${out&&last?`<div class="big">${last.mode==="recall"?"Recall":clock(last.sec)}</div><span>this attempt</span>`:`<div class="big" data-clock="att">${clock(RV.attempt(s,id,now))}</div><span>this attempt${s.run?"":" · paused"}</span>`}</div>
+      <a class="btn" href="${ltc(p)}" target="_blank" rel="noopener">${ic("ext")}LeetCode</a></div>
+    ${hist}
+    ${(mast||(r&&r.hist&&r.hist.length))&&!out?`<div class="seg" role="group" aria-label="Revision mode"><button data-act="s-mode" data-v="full" aria-pressed="${mode==="full"}">Full review</button><button data-act="s-mode" data-v="recall" aria-pressed="${mode==="recall"}">Quick recall</button>${mast?`<span class="muted" style="font-size:12px;align-self:center;margin-left:6px">Mastered: write the approach, logic and complexity from memory, then compare.</span>`:""}</div>`:""}
+    ${fields}
+    <div class="cur-acts" style="margin-top:-6px"><button class="btn sm" data-act="s-save">Save notes</button><label class="muted" style="font-size:12px;display:flex;align-items:center;gap:6px;margin-left:auto">Revision topic ${catSelect(p,"sm")}</label></div>
+    ${past}
+    ${rate}
+  </section>`;
+}
+function catSelect(p,size){
+  const cur=state.rcat[p.id]||"";
+  return `<select class="select ${size||""}" data-act="p-cat" data-id="${p.id}" data-fk="cat-${p.id}" aria-label="Revision topic for ${esc(p.name)}" style="${size?"height:30px;font-size:12px":""}">
+    <option value="" ${!cur?"selected":""}>Auto: ${esc(catName(RV.defaultCat(p.topic)))}</option>${RV.CATS.map(c=>`<option value="${c.k}" ${cur===c.k?"selected":""}>${c.name}</option>`).join("")}<option value="none" ${cur==="none"?"selected":""}>Not in the rotation</option></select>`;
+}
+function pageSession(){
+  const s=activeSess();
+  if(!s){
+    const fin=finishedToday(),log=fin&&(state.rlog||[]).filter(l=>l.date===TODAY).slice(-1)[0];
+    if(fin&&log){
+      const L=fin.queue.map(id=>{const p=probById.get(id),r=state.rev[id],o=fin.done[id];return p?`<div class="mini"><span class="nm">${esc(p.name)}</span>${o?outTag(o):`<span class="kind overdue">Carried over</span>`}<span class="when">${o&&r?`next ${shortDate(r.due)}`:""}</span></div>`:"";}).join("");
+      return phead("Session complete",`${esc(RV.CAT[fin.cat].name)} · ${hm(log.sec)} · ${log.reviewed} of ${log.planned} revised${log.carried?`, ${log.carried} carried to the next ${esc(RV.CAT[fin.cat].name)} day`:""}.`,`<a class="btn primary" href="#dashboard">${ic("dashboard")}Back to dashboard</a>`)
+        +`<div class="grid"><section class="card span-7"><div class="card-h"><h2>What happened</h2></div><div class="qprev">${L}</div></section><div class="span-5 stack">${revHero()}<section class="card"><div class="card-b" style="padding-top:18px">${trendBox()}</div></section></div></div>`;
+    }
+    return phead("Revision session","Nothing running right now.")+`<div class="grid"><div class="span-8">${revHero()}</div><section class="card span-4"><div class="card-h"><h2>Today</h2></div><div class="card-b">${timeline()}</div></section></div>`;
+  }
+  const rem=RV.remaining(s),done=s.queue.filter(id=>id in s.done),sk=s.skip.filter(id=>!(id in s.done));
+  const estLeft=rem.reduce((a,id)=>a+RV.estSec(probById.get(id)||{difficulty:"Medium"},state,C()),0);
+  const grp=(t,L)=>L.length?`<div class="qgroup"><span>${t}</span><span class="num">${L.length}</span></div>${L.map(id=>qItem(s,id)).join("")}`:"";
+  return sessHead(s)+`
+    <div class="stats" style="margin-bottom:16px;background:var(--surface)"><div><b>${done.length}</b><span>Completed</span></div><div><b>${rem.length}</b><span>Remaining · about ${hm(estLeft)}</span></div><div><b>${sk.length}</b><span>Skipped</span></div><div><b>${pct(done.length,s.queue.length)}%</b><span>Of today's queue</span></div></div>
+    <div class="bar lg" style="margin:-6px 0 18px"><i data-k="sess-prog" style="width:${pct(done.length,s.queue.length)}%"></i></div>
+    <div class="sess-grid">
+      <nav class="card qlist" aria-label="Session queue">${grp("Up next",rem)}${grp("Skipped",sk)}${grp("Completed",done)}${!s.queue.length?`<div class="empty">The queue is empty.</div>`:""}
+        <div style="padding:10px 16px 14px"><button class="link" data-act="s-more">Add problems due soonest${ic("arrow")}</button></div></nav>
+      ${curCard(s)}
     </div>`;
+}
+
+/* Revision page: rotation, per-topic state, overdue queue, corrections, settings */
+function revTopicSection(){
+  const cat=todayCat(),s=activeSess();
+  const cards=RV.CATS.map(c=>{const t=topicCounts(c.k);
+    return `<div class="card ccard ${c.k===cat?"is-today":""}"><div class="t1"><b>${c.name}</b>${c.k===cat?'<span class="badge today">Today</span>':""}</div>
+      <div class="bar"><i data-k="cov-${c.k}" style="width:${pct(t.pool-t.fresh,t.pool)}%"></i></div>
+      <div class="nums"><span><b>${t.pool}</b> solved</span><span><b>${t.due}</b> due</span><span class="${t.over?"od":""}"><b>${t.over}</b> overdue</span><span><b>${t.fresh}</b> not revised</span><span><b>${t.mastered}</b> mastered</span></div>
+      <div class="nx">${!t.pool?`No solved problems yet · <a class="link" href="#problems?topic=${encodeURIComponent(c.topics[0])}">open topic</a>`:t.next?`Next due ${shortDate(t.next)}`:"None scheduled ahead yet"}</div></div>`;}).join("");
+  const od=overdueAll().sort((a,b)=>state.rev[a.id].due.localeCompare(state.rev[b.id].due));
+  const odRows=od.map(p=>{const k=RV.catOf(p,state),inS=s&&s.queue.includes(p.id);
+    return `<div class="mini"><span class="nm">${esc(p.name)}</span><span class="when">${esc(catName(k))}</span>${kindTag(p)}${s?(inS?`<span class="when">In session</span>`:`<button class="btn sm" data-act="s-add" data-id="${p.id}">Add to session</button>`):""}</div>`;}).join("");
+  const solved=PROBLEMS.filter(pSolved);
+  const changed=solved.filter(p=>state.rcat[p.id]),outside=solved.filter(p=>!state.rcat[p.id]&&!RV.defaultCat(p.topic));
+  const catRow=p=>`<div class="catrow"><span class="nm">${esc(p.name)}</span><span class="muted" style="font-size:12px">${esc(p.topic)}</span>${catSelect(p)}</div>`;
+  const c=C(),num=(path,label,val,hint)=>`<label>${label}${hint?`<small>${hint}</small>`:""}<input class="input" type="number" min="1" data-act="cfg" data-path="${path}" value="${val}"></label>`;
+  return `<div class="section-title" style="margin-top:0"><h2>Topic rotation</h2><span>Five topics, one a day, ${revSlot()||"every day"}. Runs on its own, separate from the study plan.</span></div>
+    <section class="card" style="margin-bottom:16px"><div class="card-b" style="padding-top:18px;display:flex;flex-direction:column;gap:14px">${rotStrip()}
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:13px"><label for="rotSel" class="muted">Today's topic</label><select class="select" id="rotSel" data-act="rot-set" style="height:32px">${RV.CATS.map(x=>`<option value="${x.k}" ${x.k===cat?"selected":""}>${x.name}</option>`).join("")}</select><span class="muted">Changing it shifts the rest of the cycle. Each problem keeps its own review date.</span>
+      <span style="margin-left:auto">${s?`<button class="btn primary sm" data-act="rev-resume">${ic("play")}Resume session</button>`:`<button class="btn primary sm" data-act="rev-start">${ic("arrow")}Start today's revision</button>`}</span></div></div></section>
+    <div class="cgrid">${cards}</div>
+    <div class="grid" style="margin-top:16px">
+      <section class="card span-7"><div class="card-h"><h2>Overdue queue</h2><span class="sub">Past their review date, every topic</span><span class="right">${od.length?`<span class="badge late">${od.length}</span>`:""}</span></div>
+        ${od.length?`<div class="qprev">${odRows}</div><div class="mini muted" style="font-size:12px">Each one is put first when its topic comes round${s?", or add it to the running session":""}.</div>`:`<div class="empty" style="border-top:1px solid var(--line)"><b>Nothing overdue</b>Problems you skip or don't reach are carried here so none get lost.</div>`}</section>
+      <section class="card span-5"><details class="more" id="catsBox"><summary class="card-h"><h2>Revision topics for problems</h2><span class="right">${changed.length} changed ${ic("arrow","i chev")}</span></summary>
+        <div class="card-b" style="padding-bottom:6px"><p class="muted" style="margin:0;font-size:13px">Problems follow their tracker topic. Move one here when it belongs elsewhere; its tracker topic stays as it is.</p></div>
+        ${changed.length?`<div class="qgroup"><span>Changed by you</span><span>${changed.length}</span></div>${changed.map(catRow).join("")}`:""}
+        <div class="qgroup"><span>Solved, outside the five topics</span><span>${outside.length}</span></div>${outside.map(catRow).join("")}</details></section>
+      <section class="card span-12"><details class="more"><summary class="card-h"><h2>Review intervals</h2><span class="sub">How soon a problem comes back</span><span class="right">${ic("arrow","i chev")}</span></summary>
+        <div class="card-b"><div class="cfg">
+          ${num("iv.forgot","Forgot / needed solution",c.iv.forgot,"days")}${num("iv.hints","Significant hints",c.iv.hints,"days, also 'needs more practice'")}
+          ${num("iv.slow","On my own, slowly",c.iv.slow,"days")}${num("iv.confident","On my own, confident",c.iv.confident,"days")}
+          <label>Repeated confident solves<small>days, in order</small><input class="input" data-act="cfg" data-path="iv.ladder" value="${c.iv.ladder.join(", ")}"></label>
+          ${num("slowMin.Easy","Slow after (Easy)",c.slowMin.Easy,"minutes")}${num("slowMin.Medium","Slow after (Medium)",c.slowMin.Medium,"minutes")}${num("slowMin.Hard","Slow after (Hard)",c.slowMin.Hard,"minutes")}
+          ${num("sessionMin","Session length",c.sessionMin,"minutes")}
+        </div><p class="muted" style="font-size:12px;margin:14px 0 0">Confident means confidence 4–5, the key insight remembered, and within the slow limit. Forgetting resets the streak; each confident solve moves a problem up the ladder. <button class="link" data-act="cfg-reset">Reset to defaults</button></p></div></details></section>
+    </div>`;
+}
+function scheduleCard(){
+  const c=C();
+  const rows=c.blocks.map(b=>`<div class="blk-edit"><span><b style="font-weight:500">${esc(b.label)}</b>${b.flex?` <span class="muted">· flexible</span>`:""}</span>
+    <input class="input" type="time" data-act="blk" data-k="${b.k}" data-f="s" value="${b.s}" aria-label="${esc(b.label)} start">
+    <input class="input" type="time" data-act="blk" data-k="${b.k}" data-f="e" value="${b.e}" aria-label="${esc(b.label)} end">
+    <label class="tog"><input type="checkbox" data-act="blk" data-k="${b.k}" data-f="on" ${b.on!==false?"checked":""}> On</label></div>`).join("");
+  return `<div class="grid" style="margin-bottom:8px;align-items:start"><section class="card span-7"><div class="card-h"><h2>Every day</h2><span class="sub">Fixed blocks that sit alongside the plan below</span></div><div class="card-b">${timeline()}</div></section>
+    <section class="card span-5"><details class="more"><summary class="card-h"><h2>Edit blocks</h2><span class="right">${ic("arrow","i chev")}</span></summary><div class="card-b">${rows}
+      <p class="muted" style="font-size:12px;margin:10px 0 0">An end time earlier than the start runs past midnight, so 12:00 AM ends the new-problem block at midnight.</p></div></details></section></div>`;
+}
+function revAnalytics(){
+  const t=RV.trends(state),logs=state.rlog||[],revised=Object.values(state.rev||{}).filter(r=>(r.hist||[]).length).length;
+  const pc=x=>x==null?"—":pct(x,1)+"%";
+  const by=["1st revision","2nd revision","3rd and later"].map((l,i)=>{const b=t.by[i];return `<tr><td>${l}</td><td class="num">${b.n}</td><td class="num">${mins(b.med)}</td><td class="num">${pc(b.solo)}</td><td class="num">${pc(b.ins)}</td></tr>`;}).join("");
+  const cats=RV.CATS.map(c=>{const tc=topicCounts(c.k),ms=tc.Q.pool.flatMap(id=>((state.rev[id]||{}).hist||[]).filter(h=>h.sec>0&&h.mode!=="recall").map(h=>h.sec));
+    return `<tr><td>${c.name}</td><td class="num">${tc.pool}</td><td class="num">${tc.pool-tc.fresh}</td><td class="num">${tc.due+tc.over}</td><td class="num">${tc.mastered}</td><td class="num">${mins(RV.median(ms))}</td></tr>`;}).join("");
+  return `<div class="section-title"><h2>Revision</h2><span>From your 2–5 PM topic sessions</span></div>
+    <div class="tiles">
+      <div class="card tile"><div class="lbl">Sessions finished</div><div class="v num">${logs.length}</div></div>
+      <div class="card tile"><div class="lbl">Problems revised</div><div class="v num">${revised}</div></div>
+      <div class="card tile"><div class="lbl">Median time, first → latest</div><div class="v num">${t.pairs?`${mins(t.medFirst)} <small>→</small> ${mins(t.medLast)}`:"—"}</div></div>
+      <div class="card tile"><div class="lbl">On your own, 1st → 3rd+</div><div class="v num">${t.by[0].n?`${pc(t.by[0].solo)} <small>→</small> ${pc(t.by[2].solo)}`:"—"}</div></div>
+    </div>
+    <div class="grid"><section class="card span-6"><div class="card-h"><h2>By attempt</h2><span class="sub">Are repeat revisions faster and more independent?</span></div><div class="card-b"><details class="tbl" open><summary>Table</summary><table><thead><tr><th>Attempt</th><th>Count</th><th>Median time</th><th>On own</th><th>Insight recalled</th></tr></thead><tbody>${by}</tbody></table></details><div style="margin-top:14px">${trendBox()}</div></div></section>
+      <section class="card span-6"><div class="card-h"><h2>By topic</h2></div><div class="card-b"><details class="tbl" open><summary>Table</summary><table><thead><tr><th>Topic</th><th>Solved</th><th>Revised</th><th>Due</th><th>Mastered</th><th>Median</th></tr></thead><tbody>${cats}</tbody></table></details>
+        ${logs.length?`<details class="tbl"><summary>Session log (${logs.length})</summary><table><thead><tr><th>Day</th><th>Topic</th><th>Time</th><th>Revised</th><th>Carried</th></tr></thead><tbody>${logs.slice().reverse().map(l=>`<tr><td>${fmt(l.date)}</td><td>${esc(catName(l.cat))}</td><td>${hm(l.sec)}</td><td>${l.reviewed}/${l.planned}</td><td>${l.carried}</td></tr>`).join("")}</tbody></table></details>`:""}</div></section></div>`;
+}
+
+/* Session actions */
+function startSession(ids){
+  const now=Date.now(),cat=todayCat(),q=ids||queueFor(cat).queue;
+  state.sess=RV.newSession(TODAY,cat,q,now);state.sess.seen=now;save();
+  fx.sessIn=true;if(route==="session")render();else location.hash="#session";
+}
+function soonest(exclude=[]){
+  const cat=todayCat(),Q=queueFor(cat),c=C();let t=0;const out=[];
+  for(const id of Q.later.concat(Q.overflow)){if(exclude.includes(id))continue;const e=RV.estSec(probById.get(id),state,c);if(out.length&&t+e>c.sessionMin*60)break;out.push(id);t+=e;}
+  return out;
+}
+function draftOf(s,id){return s.draft[id]||(s.draft[id]={});}
+function markCurrent(out){
+  const s=activeSess();if(!s||s.cur==null)return;const id=s.cur,p=probById.get(id),d=draftOf(s,id),now=Date.now();
+  const mode=d.mode||(RV.mastered(state.rev[id])?"recall":"full");
+  let how=d.how,conf=d.conf;
+  if(out==="reviewed"&&(!conf||!how)){toast("Pick a confidence and how it went first.");const el=view.querySelector(".rate");if(el&&motionOK)gsap.fromTo(el,{x:-4},{x:0,duration:.4,ease:"elastic.out(1,0.3)"});return;}
+  if(out==="practice"){how=how||"hints";conf=conf||2;}
+  if(out==="forgot"){how="solution";conf=conf||1;}
+  RV.select(s,id,now);
+  const sec=RV.attempt(s,id,now);
+  const recall=mode==="recall"?{a:d.ra||"",l:d.rl||"",c:d.rc||""}:null;
+  const e=RV.applyReview(state,p,{out,how,conf,sec,ins:d.ins!==false,mode,recall},TODAY);
+  if(recall)state.rev[id].recall=recall;
+  s.done[id]=out;s.skip=s.skip.filter(x=>x!==id);
+  fx.flash=`[data-q="${id}"]`;fx.pop=`[data-cur] .result`;
+  save();render();
+  toast(`Next review of ${p.name}: ${shortDate(state.rev[id].due)}, in ${e.ivl} day${e.ivl===1?"":"s"}.`);
+}
+let saveT=null;const saveSoon=()=>{clearTimeout(saveT);saveT=setTimeout(save,400);};
+function setSessText(id,f,v){
+  const s=activeSess(),p=probById.get(id);if(!p)return;
+  if(f==="note"){setMeta(p,"note",v);return;}
+  if(["ra","rl","rc"].includes(f)){if(s)draftOf(s,id)[f]=v;return;}
+  const r=state.rev[id]||(state.rev[id]={hist:[],streak:0,lapses:0});if(v)r[f]=v;else delete r[f];
+}
+function setCfg(path,val){
+  const o=state.rcfg||(state.rcfg={}),[a,b]=path.split(".");
+  if(b)o[a]=Object.assign({},o[a],{[b]:val});else o[a]=val;
+}
+function setCat(p,v){const def=RV.defaultCat(p.topic)||"none";if(!v||v===def)delete state.rcat[p.id];else state.rcat[p.id]=v;}
+function leave(hash){
+  if(motionOK){gsap.to(view,{autoAlpha:0,y:8,duration:.18,ease:"power1.in",onComplete:()=>{location.hash=hash;}});}
+  else location.hash=hash;
+}
+
+/* Clock: updates only the timer text, never re-renders, so typing is never interrupted */
+function tick(){
+  const s=activeSess();
+  const pill=$("sessPill");
+  if(!s){if(!pill.classList.contains("hidden"))pill.classList.add("hidden");return;}
+  const now=Date.now(),el=RV.elapsed(s,now),cap=C().sessionMin*60;
+  pill.classList.toggle("hidden",route==="session");pill.classList.toggle("paused",!s.run);
+  pill.innerHTML=`<i></i><span class="lbl">${esc(SHORT[s.cat])} revision</span><span class="num">${hms(el)}</span>`;
+  pill.setAttribute("aria-label",`Revision session ${s.run?"running":"paused"}, ${hms(el)}. Open it.`);
+  document.querySelectorAll('[data-clock="sess"]').forEach(x=>x.textContent=hms(el));
+  document.querySelectorAll('[data-clock="left"]').forEach(x=>x.textContent=clockLeft(s,el,cap));
+  document.querySelectorAll('[data-clock="bar"]').forEach(x=>x.style.width=Math.min(100,el/cap*100)+"%");
+  document.querySelectorAll('[data-clockwrap]').forEach(x=>x.classList.toggle("over",el>cap));
+  if(s.cur!=null&&!(s.cur in s.done))document.querySelectorAll('[data-clock="att"]').forEach(x=>x.textContent=clock(RV.attempt(s,s.cur,now)));
+  if(s.run&&now-(s.seen||0)>30000){s.seen=now;save();}
+}
+// A session left running in a closed tab stops counting at the last time the page was open.
+function settleSession(){
+  const s=state.sess;if(!s||s.finished)return;const now=Date.now();
+  if(s.run&&s.seen&&now-s.seen>15*60e3)RV.pause(s,s.seen);
+  if(s.date<TODAY){const log=RV.finish(state,s,now);setTimeout(()=>toast(`Yesterday's ${catName(log.cat)} session was closed. ${log.carried} unfinished carried forward.`),600);}
+  save();
+}
+
+/* Log a solved problem (new-DSA block) */
+let logMode="tracker";
+function openLog(){
+  const f=$("logForm");f.reset();$("logErr").textContent="";
+  $("logList").innerHTML=PROBLEMS.filter(p=>!pSolved(p)).map(p=>`<option value="${esc(p.name)}">${esc(p.topic)} · ${p.difficulty}</option>`).join("");
+  $("logTopic").innerHTML=TOPICS.map(t=>`<option>${esc(t)}</option>`).join("")+`<option value="Other">Other</option>`;
+  $("logCat").innerHTML=`<option value="">Pick a revision topic</option>${RV.CATS.map(c=>`<option value="${c.k}">${c.name}</option>`).join("")}<option value="none">Not in the rotation</option>`;
+  setLogMode("tracker");$("logDlg").showModal();
+  if(motionOK)gsap.fromTo("#logDlg",{autoAlpha:0,y:10,scale:.98},{autoAlpha:1,y:0,scale:1,duration:.25,ease:"power2.out",clearProps:"opacity,visibility,transform"});
+  $("logPick").focus();
+}
+function setLogMode(m){logMode=m;document.querySelectorAll("[data-logmode]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.logmode===m));
+  document.querySelectorAll("#logForm [data-for]").forEach(x=>x.classList.toggle("hidden",x.dataset.for!==m));}
+function guessCat(){
+  const topic=logMode==="tracker"?(PROBLEMS.find(p=>p.name===$("logPick").value)||{}).topic:$("logTopic").value;
+  const k=topic&&RV.defaultCat(topic);if(k)$("logCat").value=k;
 }
 
 /* ---------- Render & routing ---------- */
 function renderChrome(){
-  $("nav").innerHTML=ROUTES.map(r=>{
+  $("nav").innerHTML=ROUTES.filter(r=>!r.hidden).map(r=>{
     let cnt="";
     if(r.id==="dashboard"){const L=october.filter(t=>t.date===TODAY);if(L.length)cnt=`${L.filter(isDone).length}/${L.length}`;}
-    if(r.id==="revision"){const n=PROBLEMS.filter(pRevise).length+october.filter(t=>!t.pid&&tRevise(t)).length;if(n)cnt=n;}
-    return `<a href="#${r.id}" ${route===r.id?'aria-current="page"':""}>${ic(r.icon)}${r.label}${cnt!==""?`<span class="cnt">${cnt}</span>`:""}</a>`;}).join("");
+    if(r.id==="revision"){const n=overdueAll().length;if(n)cnt=n;}
+    return `<a href="#${r.id}" ${route===r.id||(r.id==="revision"&&route==="session")?'aria-current="page"':""} ${r.id==="revision"&&cnt!==""?`data-tip="${cnt} overdue for revision"`:""}>${ic(r.icon)}${r.label}${cnt!==""?`<span class="cnt">${cnt}</span>`:""}</a>`;}).join("");
   const s=PROBLEMS.filter(pSolved).length;
   $("sideFoot").innerHTML=`<div style="display:flex;justify-content:space-between"><span>DSA progress</span><span class="num">${pct(s,PROBLEMS.length)}%</span></div><div class="bar"><i style="width:${pct(s,PROBLEMS.length)}%"></i></div><span class="num">${s} of ${PROBLEMS.length} solved</span>`;
   const dn=studyDay(),wk=weekOf(TODAY);
@@ -841,11 +1411,48 @@ function renderChrome(){
 function render(){
   const fk=document.activeElement&&document.activeElement.dataset&&document.activeElement.dataset.fk;
   renderChrome();
-  const v=$("view");
-  const page={dashboard:pageDashboard,problems:pageProblems,plan:pagePlan,revision:pageRevision,topics:pageTopics,analytics:pageAnalytics}[route];
+  const v=$("view"),prev=motionBefore();
+  $("app").classList.toggle("focus",route==="session"&&!!activeSess());
+  const page={dashboard:pageDashboard,problems:pageProblems,plan:pagePlan,revision:pageRevision,topics:pageTopics,analytics:pageAnalytics,session:pageSession}[route];
   v.innerHTML=page();
   if(route==="problems")problemsBody();
   if(fk){const el=v.querySelector(`[data-fk="${fk}"]`);if(el)el.focus({preventScroll:true});}
+  motionAfter(prev);
+  tick();
+}
+
+/* ---------- Motion (GSAP) ----------
+   Pages are re-rendered as HTML strings, so every tween lives in one gsap.context scoped to the view
+   and is reverted before the next render. Reduced-motion users get no tweens at all. */
+let motionOK=false,viewCtx=null,lastRot=null;
+const fx={enter:true,sessIn:false,cur:false,flash:null,pop:null};
+if(window.gsap){gsap.matchMedia().add("(prefers-reduced-motion: no-preference)",()=>{motionOK=true;return()=>{motionOK=false;};});}
+function motionBefore(){
+  const w={};$("view").querySelectorAll("[data-k]").forEach(el=>w[el.dataset.k]=el.style.width);
+  const r=$("view").querySelector("[data-rot]");if(r)lastRot=+r.dataset.rot;
+  if(viewCtx){viewCtx.revert();viewCtx=null;}
+  if(window.gsap)gsap.set($("view"),{clearProps:"opacity,visibility,transform"});
+  return w;
+}
+function motionAfter(prev){
+  const f=Object.assign({},fx);fx.enter=fx.sessIn=fx.cur=false;fx.flash=fx.pop=null;
+  if(!motionOK)return;
+  const v=$("view");
+  viewCtx=gsap.context(()=>{
+    if(f.sessIn){
+      gsap.from(v,{autoAlpha:0,y:14,scale:.99,duration:.38,ease:"power3.out",clearProps:"opacity,visibility,transform"});
+      gsap.from(v.querySelectorAll(".qitem"),{autoAlpha:0,x:-8,duration:.3,stagger:.025,delay:.1,ease:"power2.out",clearProps:"opacity,visibility,transform"});
+    }else if(f.enter){
+      const items=[...v.querySelectorAll(":scope > .phead, :scope > .grid > *, :scope > .tiles > *, :scope > .cgrid > *, :scope > .tgrid > *, :scope > .card, :scope > .section-title, :scope > .week, :scope > .sess-head, :scope > .stats, :scope > .sess-grid > *")].slice(0,16);
+      gsap.from(items,{autoAlpha:0,y:10,duration:.4,ease:"power2.out",stagger:.04,clearProps:"opacity,visibility,transform"});
+    }
+    v.querySelectorAll("[data-k]").forEach(el=>{const o=prev[el.dataset.k];if(o!=null&&o!==el.style.width)gsap.fromTo(el,{width:o},{width:el.style.width,duration:.55,ease:"power2.out"});});
+    const rot=v.querySelector("[data-rot]");
+    if(rot&&lastRot!=null&&lastRot!==+rot.dataset.rot){const ind=rot.querySelector(".ind");gsap.fromTo(ind,{xPercent:lastRot*100,x:0},{xPercent:+rot.dataset.rot*100,duration:.45,ease:"power3.inOut"})}
+    if(f.flash){const el=v.querySelector(f.flash);if(el){const c=getComputedStyle(document.documentElement).getPropertyValue("--success-soft").trim();gsap.fromTo(el,{backgroundColor:c},{backgroundColor:"rgba(0,0,0,0)",duration:1,ease:"power1.out",clearProps:"backgroundColor"});}}
+    if(f.pop){const el=v.querySelector(f.pop);if(el)gsap.from(el,{scale:.96,autoAlpha:0,duration:.35,ease:"back.out(2)",clearProps:"opacity,visibility,transform"});}
+    if(f.cur){const el=v.querySelector("[data-cur]");if(el)gsap.from(el,{autoAlpha:0,x:10,duration:.22,ease:"power2.out",clearProps:"opacity,visibility,transform"});}
+  },v);
 }
 function readHash(){
   const [r,qs]=location.hash.slice(1).split("?");
@@ -853,7 +1460,7 @@ function readHash(){
   if(route==="plan"&&qs!==undefined){const f=new URLSearchParams(qs).get("f");if(f!==null)planFilter=f;}
   if(route==="problems"&&qs!==undefined){const u=new URLSearchParams(qs);Object.assign(pf,{q:u.get("q")||"",topic:u.get("topic")||"",diff:u.get("diff")||"",status:u.get("status")||""});}
 }
-window.addEventListener("hashchange",()=>{readHash();openRow=null;closeNav();if(signedIn()){render();window.scrollTo(0,0);const h=$("ptitle");if(h)h.focus({preventScroll:true});}});
+window.addEventListener("hashchange",()=>{readHash();openRow=null;closeNav();fx.enter=true;if(signedIn()){render();window.scrollTo(0,0);const h=$("ptitle");if(h)h.focus({preventScroll:true});}});
 
 /* ---------- Events ---------- */
 const view=$("view");
@@ -865,9 +1472,20 @@ view.addEventListener("change",e=>{
   else if(a==="lec"){if(el.checked)state.lec[el.dataset.code]=TODAY;else delete state.lec[el.dataset.code];changed();}
   else if(a==="task-conf"||a==="task-note"){const k=a==="task-conf"?"conf":"notes";if(el.value.trim())state[k][id]=el.value.trim();else delete state[k][id];changed();}
   else if(a==="p-conf"||a==="p-note"){setMeta(probById.get(id),a==="p-conf"?"conf":"note",el.value.trim());changed();}
+  else if(a==="p-cat"){setCat(probById.get(id),el.value);fx.flash=`[data-fk="${el.dataset.fk}"]`;changed();toast(`${probById.get(id).name} → ${catName(RV.catOf(probById.get(id),state))}.`);}
+  else if(a==="s-text"){setSessText(id,el.dataset.f,el.value.trim());save();}
+  else if(a==="s-ins"){const s=activeSess();if(s&&s.cur!=null){draftOf(s,s.cur).ins=el.checked;changed();}}
+  else if(a==="rot-set"){Object.assign(state.rcfg,RV.anchorFor(TODAY,el.value));const s=activeSess();changed();toast(`Today is ${catName(el.value)}.${s&&s.cat!==el.value?" The running session keeps its topic.":""}`);}
+  else if(a==="cfg"){const path=el.dataset.path;let v;
+    if(path==="iv.ladder"){v=el.value.split(/[^0-9]+/).map(Number).filter(n=>n>0);if(!v.length)return;}
+    else{v=Math.round(+el.value);if(!(v>0))return;}
+    setCfg(path,v);changed();toast("Saved. New intervals apply from the next review.");}
+  else if(a==="blk"){const c=C();state.rcfg.blocks=c.blocks.map(b=>({k:b.k,s:b.s,e:b.e,on:b.on!==false}));const b=state.rcfg.blocks.find(x=>x.k===el.dataset.k);
+    if(el.dataset.f==="on")b.on=el.checked;else if(el.value)b[el.dataset.f]=el.value;changed();}
   else if(el.dataset.pf){pf[el.dataset.pf]=el.value;problemsBody();}
 });
-view.addEventListener("input",e=>{if(e.target.id==="pf-q"){pf.q=e.target.value;problemsBody();}});
+view.addEventListener("input",e=>{if(e.target.id==="pf-q"){pf.q=e.target.value;problemsBody();}
+  else if(e.target.dataset.act==="s-text"){setSessText(+e.target.dataset.id,e.target.dataset.f,e.target.value);saveSoon();}});
 view.addEventListener("click",e=>{
   const b=e.target.closest("[data-act]");if(!b)return;const a=b.dataset.act;
   if(a==="lec-open"){const k=b.dataset.key;openLec.has(k)?openLec.delete(k):openLec.add(k);render();}
@@ -877,8 +1495,31 @@ view.addEventListener("click",e=>{
   else if(a==="clear-pf"){Object.assign(pf,{q:"",topic:"",diff:"",status:""});$("q").value="";render();}
   else if(a==="plan-f"){planFilter=b.dataset.v;render();}
   else if(a==="jump-today"){const c=$("today-card");if(c){c.scrollIntoView({behavior:"smooth",block:"start"});const cb=c.querySelector("input");if(cb)cb.focus({preventScroll:true});}}
+  else if(a==="rev-start"){startSession();}
+  else if(a==="rev-resume"){fx.sessIn=true;location.hash="#session";}
+  else if(a==="rev-pull"){const ids=soonest();if(ids.length)startSession(ids);}
+  else if(a==="go-cats"){setTimeout(()=>{const d=$("catsBox");if(d){d.open=true;d.scrollIntoView({behavior:"smooth",block:"start"});}},60);}
+  else if(a==="log-open"){openLog();}
+  else if(a==="cfg-reset"){const r=state.rcfg;state.rcfg={};["anchor","anchorCat","blocks"].forEach(k=>{if(r[k]!=null)state.rcfg[k]=r[k];});changed();toast("Intervals back to the defaults.");}
+  else if(a.startsWith("s-")&&a!=="s-text"&&a!=="s-ins"){sessAction(a,b);}
   else if(a==="continue"){const cb=view.querySelector(`[data-fk="cb-t${b.dataset.id}"]`);if(cb){cb.closest(".row").scrollIntoView({behavior:"smooth",block:"center"});cb.focus({preventScroll:true});}}
 });
+function sessAction(a,b){
+  const s=activeSess();if(!s)return;const now=Date.now();
+  if(a==="s-toggle"){s.run?RV.pause(s,now):RV.resume(s,now);s.seen=now;changed();}
+  else if(a==="s-pick"){const id=+b.dataset.id;if(id!==s.cur){RV.select(s,id,now);fx.cur=true;}changed();const h=view.querySelector("[data-cur]");if(h&&innerWidth<=900)h.scrollIntoView({behavior:"smooth",block:"start"});}
+  else if(a==="s-conf"||a==="s-how"||a==="s-mode"){const d=draftOf(s,s.cur);d[a.slice(2)]=a==="s-conf"?+b.dataset.v:b.dataset.v;changed();}
+  else if(a==="s-mark"){markCurrent(b.dataset.out);}
+  else if(a==="s-skip"){const id=s.cur;if(!s.skip.includes(id))s.skip.push(id);const nx=RV.remaining(s)[0]??null;RV.select(s,nx,now);fx.cur=true;fx.flash=`[data-q="${id}"]`;changed();toast("Skipped for now. It stays in the session.");}
+  else if(a==="s-unskip"){const id=+b.dataset.id;s.skip=s.skip.filter(x=>x!==id);RV.select(s,id,now);changed();}
+  else if(a==="s-add"){const id=+b.dataset.id;if(!s.queue.includes(id))s.queue.push(id);if(s.cur==null)RV.select(s,id,now);fx.flash=`[data-q="${id}"]`;changed();toast("Added to the running session.");}
+  else if(a==="s-more"){const ids=soonest(s.queue);if(!ids.length){toast("Nothing else in this topic to add.");return;}s.queue.push(...ids);if(s.cur==null||s.cur in s.done)RV.select(s,ids[0],now);fx.cur=true;changed();toast(`Added ${ids.length} problem${ids.length>1?"s":""} due soonest.`);}
+  else if(a==="s-save"){const p=probById.get(s.cur);view.querySelectorAll('[data-act="s-text"]').forEach(x=>setSessText(+x.dataset.id,x.dataset.f,x.value.trim()));save();toast(`Notes saved${p?` for ${p.name}`:""}.`);if(motionOK)gsap.fromTo(b,{scale:.94},{scale:1,duration:.3,ease:"back.out(3)"});}
+  else if(a==="s-finish"){const left=RV.remaining(s).length;
+    if(left&&!confirm(`${left} question${left>1?"s are":" is"} left. ${left>1?"They":"It"} will be carried forward and come first next ${catName(s.cat)} day. Finish now?`))return;
+    RV.finish(state,s,now);fx.enter=true;save();render();window.scrollTo(0,0);toast("Session saved.");}
+  else if(a==="s-exit"){s.seen=now;save();leave("#dashboard");}
+}
 // enter in a note field saves it
 view.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.matches('input[data-act$="note"]'))e.target.blur();});
 
@@ -919,18 +1560,44 @@ $("exportBtn").onclick=()=>{
   a.download=`prep-progress-${TODAY}.json`;a.click();$("profile").open=false;toast("Progress exported.");};
 $("importFile").onchange=async e=>{
   const f=e.target.files[0];if(!f)return;
-  try{const s=JSON.parse(await f.text());if(!s.done)throw 0;state=Object.assign(blank(),s);save();render();toast("Progress imported.");}
+  try{const s=JSON.parse(await f.text());if(!s.done)throw 0;state=Object.assign(blank(),s);loadProblems();settleSession();save();render();toast("Progress imported.");}
   catch(err){alert("That file doesn't look like a tracker export.");}
   e.target.value="";$("profile").open=false;};
-$("resetBtn").onclick=()=>{if(confirm("Clear all ticks, confidence, notes and bookmarks on this device?")){state=blank();save();render();toast("Progress cleared on this device.");}$("profile").open=false;};
+$("resetBtn").onclick=()=>{if(confirm("Clear all ticks, confidence, notes, bookmarks and revision history on this device?")){state=blank();loadProblems();save();render();toast("Progress cleared on this device.");}$("profile").open=false;};
 
 /* static icons */
 $("markLogin").innerHTML=$("markSide").innerHTML=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS.check}</svg>`;
 $("menuBtn").innerHTML=ic("menu");
 $("qIcon").outerHTML=ic("search");
 
+/* log-a-problem dialog */
+document.querySelectorAll("[data-logmode]").forEach(b=>b.onclick=()=>{setLogMode(b.dataset.logmode);guessCat();});
+$("logPick").addEventListener("change",guessCat);$("logTopic").addEventListener("change",guessCat);
+$("logCancel").onclick=()=>$("logDlg").close();
+$("logForm").addEventListener("submit",e=>{
+  e.preventDefault();const err=$("logErr");err.textContent="";
+  let p;
+  if(logMode==="tracker"){p=PROBLEMS.find(x=>x.name.toLowerCase()===$("logPick").value.trim().toLowerCase());if(!p){err.textContent="Pick a problem from the list, or switch to New problem.";return;}}
+  else{
+    const name=$("logName").value.trim(),url=$("logUrl").value.trim();
+    if(!name){err.textContent="Give the problem a name.";return;}
+    if(PROBLEMS.some(x=>x.name.toLowerCase()===name.toLowerCase())){err.textContent="That one is already in your tracker. Pick it under From my tracker.";return;}
+    if(url&&!/^https:\/\//.test(url)){err.textContent="The link should start with https://";return;}
+    const id=Math.max(1000,...(state.custom||[]).map(c=>c.id))+1;
+    state.custom=state.custom||[];state.custom.push({id,name,topic:$("logTopic").value,difficulty:$("logDiff").value,url:url||undefined,added:TODAY});
+    loadProblems();p=probById.get(id);
+  }
+  const cat=$("logCat").value;if(!cat){err.textContent="Choose its revision topic.";return;}
+  if(!pSolved(p))setSolved(p,true);
+  setCat(p,cat);
+  const note=$("logNote").value.trim();if(note){const r=state.rev[p.id]||(state.rev[p.id]={hist:[],streak:0,lapses:0});r.approach=note;}
+  save();$("logDlg").close();render();toast(`${p.name} logged under ${catName(RV.catOf(p,state))}.`);
+});
+
 readHash();
+settleSession();
 show();
+setInterval(()=>{if(signedIn())tick();},1000);
 </script>
 </body>
 </html>
