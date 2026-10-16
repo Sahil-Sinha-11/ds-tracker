@@ -1,43 +1,44 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Prep Desk</title>
 <meta name="description" content="October 2026 placement prep: DSA, OS, DBMS, CN and System Design.">
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#060912">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%235B8DEF'/><stop offset='1' stop-color='%237C6CF5'/></linearGradient></defs><rect width='32' height='32' rx='8' fill='url(%23g)'/><path d='M9.5 16.5l4.5 4.5 8.5-9' stroke='%23FFFFFF' stroke-width='2.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+<meta name="theme-color" content="#F7F5EE">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%235E8E6C'/><stop offset='1' stop-color='%234A7C9C'/></linearGradient></defs><rect width='32' height='32' rx='8' fill='url(%23g)'/><path d='M9.5 16.5l4.5 4.5 8.5-9' stroke='%23FFFFFF' stroke-width='2.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://images.unsplash.com">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* ---------- Design tokens: Midnight Study Club ----------
-   Dark ("midnight") is the default; the light theme is a cool dawn palette. */
+/* ---------- Design tokens: Morning Bloom ----------
+   Light is the default: warm ivory paper, forest-green ink, sage and powder blue for actions,
+   peach and lavender only as accents. Dark is a soft evening variant for late sessions. */
 :root{
-  --bg:#F3F5FB; --surface:#FFFFFF; --surface-2:#EBEFF8;
-  --accent:#5B7FE6; --accent-dark:#2E45A8; --on-accent:#FFFFFF;
-  --text:#121A2F; --text-2:#5F6984; --line:#DDE2EF;
-  --success:#1F9D72; --warning:#C27A1E; --error:#D24A60;
-  --success-soft:#E2F4EC; --warning-soft:#FBF0DF; --error-soft:#FBE6EA;
-  --easy:#1A8A63; --easy-bg:#E2F4EC; --med:#A3651A; --med-bg:#FBF0DF; --hard:#C23D55; --hard-bg:#FBE6EA;
+  --bg:#F7F5EE; --surface:#FCFBF7; --surface-2:#F0EFE5;
+  --accent:#6E9A78; --accent-dark:#3C6A52; --on-accent:#FFFFFF;
+  --text:#2C4436; --text-2:#5C6B61; --line:#E2E1D5;
+  --success:#2F7A55; --warning:#9C661F; --error:#B0434F;
+  --success-soft:#E1EEDD; --warning-soft:#F8E9D8; --error-soft:#F7E1E1;
+  --easy:#2E7553; --easy-bg:#E1EEDD; --med:#94601C; --med-bg:#F8E9D8; --hard:#A93E4B; --hard-bg:#F7E1E1;
   /* sequential steps for charts (0 → full) */
-  --s0:#EBEFF8; --s1:#C9D5F6; --s2:#93AAF0; --s3:#5B7FE6;
-  --hover:#F2F5FC; --focus:0 0 0 3px rgba(91,127,230,.35);
-  --shadow:0 1px 2px rgba(18,26,47,.05);
-  --r:14px; --r-sm:9px;
+  --s0:#ECEDE2; --s1:#CFE0C9; --s2:#97BC90; --s3:#4F8263;
+  --hover:#F3F2EA; --focus:0 0 0 3px rgba(76,128,150,.38);
+  --shadow:0 1px 2px rgba(48,72,60,.05),0 8px 24px -18px rgba(48,72,60,.22);
+  --r:16px; --r-sm:10px;
   --font:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
 }
 :root[data-theme="dark"]{
-  --bg:#060912; --surface:#0C1222; --surface-2:#141C33;
-  --accent:#5B8DEF; --accent-dark:#9DB8FF; --on-accent:#0A1024;
-  --text:#E8EDF8; --text-2:#8E9AB6; --line:rgba(150,170,230,.13);
-  --success:#43CC98; --warning:#F2B35B; --error:#F2788A;
-  --success-soft:rgba(67,204,152,.12); --warning-soft:rgba(242,179,91,.12); --error-soft:rgba(242,120,138,.12);
-  --easy:#62D6A8; --easy-bg:rgba(67,204,152,.12); --med:#F4BE6E; --med-bg:rgba(242,179,91,.12); --hard:#F7909F; --hard-bg:rgba(242,120,138,.13);
-  --s0:#121A30; --s1:#1F3266; --s2:#3756AE; --s3:#7397FF;
-  --hover:rgba(130,160,255,.05); --focus:0 0 0 3px rgba(115,151,255,.45);
+  --bg:#141A17; --surface:#1B231F; --surface-2:#232D28;
+  --accent:#8DB89A; --accent-dark:#A9D0B3; --on-accent:#15201A;
+  --text:#E9EEE7; --text-2:#A3B0A7; --line:rgba(200,225,205,.12);
+  --success:#7FCB9E; --warning:#E8B36F; --error:#EE8F97;
+  --success-soft:rgba(127,203,158,.13); --warning-soft:rgba(232,179,111,.13); --error-soft:rgba(238,143,151,.13);
+  --easy:#8ED3A9; --easy-bg:rgba(127,203,158,.13); --med:#EDBE7F; --med-bg:rgba(232,179,111,.13); --hard:#F2A0A7; --hard-bg:rgba(238,143,151,.14);
+  --s0:#222C27; --s1:#2F4A3A; --s2:#4F7A5E; --s3:#8DC49D;
+  --hover:rgba(190,225,200,.05); --focus:0 0 0 3px rgba(141,184,216,.5);
   --shadow:none;
 }
 *{box-sizing:border-box}
@@ -538,7 +539,7 @@ dialog.dlg::backdrop{background:rgba(22,26,22,.3)}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
-<link rel="stylesheet" href="midnight.css">
+<link rel="stylesheet" href="bloom.css">
 </head>
 <body>
 
@@ -547,7 +548,7 @@ dialog.dlg::backdrop{background:rgba(22,26,22,.3)}
   <div id="loginScene" aria-hidden="true"></div>
   <form class="login-card" id="loginForm" autocomplete="on">
     <div class="brand"><span class="mark" id="markLogin"></span>Prep Desk</div>
-    <h1>Welcome back to the <em>Midnight Study Club</em></h1>
+    <h1>Good to see you. <em>Let's bloom.</em></h1>
     <p>Sign in to open your study desk.</p>
     <label class="field"><span>ID</span><input class="input" id="uid" name="username" autocomplete="username" required></label>
     <label class="field"><span>Password</span><input class="input" id="pwd" name="password" type="password" autocomplete="current-password" required></label>
@@ -561,7 +562,7 @@ dialog.dlg::backdrop{background:rgba(22,26,22,.3)}
 <!-- App -->
 <div id="app" class="shell hidden">
   <aside class="side" id="side" aria-label="Main navigation">
-    <div class="brand"><span class="mark" id="markSide"></span><div>Prep Desk<small>Midnight Study Club</small></div></div>
+    <div class="brand"><span class="mark" id="markSide"></span><div>Prep Desk<small>Morning Bloom</small></div></div>
     <nav class="nav" id="nav"></nav>
     <div class="side-foot" id="sideFoot"></div>
   </aside>
@@ -622,8 +623,8 @@ dialog.dlg::backdrop{background:rgba(22,26,22,.3)}
 </dialog>
 <div class="fscene" id="fscene" aria-hidden="true"></div>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-  <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8FB0FF"/><stop offset="1" stop-color="#A58BFF"/></linearGradient>
-  <linearGradient id="fxGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9DB8FF"/><stop offset=".6" stop-color="#A58BFF"/><stop offset="1" stop-color="#FFC27A"/></linearGradient>
+  <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6E9A78"/><stop offset="1" stop-color="#5F93BA"/></linearGradient>
+  <linearGradient id="fxGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7FAA86"/><stop offset=".65" stop-color="#6C9DC2"/><stop offset="1" stop-color="#A897D6"/></linearGradient>
 </defs></svg>
 <div id="tip" role="tooltip"></div>
 <div id="toast" role="status" aria-live="polite"></div>
@@ -692,7 +693,7 @@ function signedIn(){return [localStorage,sessionStorage].some(s=>store.get(s,SES
 function show(){const ok=signedIn();$("login").classList.toggle("hidden",ok);$("app").classList.toggle("hidden",!ok);if(ok)render();else{loginScene();$("uid").focus();}}
 function loginScene(){
   const el=$("loginScene");if(!window.SCENE||el.dataset.built)return;el.dataset.built=1;const F=SCENE.F;
-  el.innerHTML=SCENE.photo("skyline",{eager:true})+`<div class="figs">${F.field({x:"50%",y:"50%",size:760,tone:"indigo"})}${F.orbit({x:"50%",y:"50%",size:620,dur:40,rx:76,ry:-6})}${F.torus({x:"82%",y:"24%",size:220,dur:44})}${F.sphere({x:"16%",y:"72%",size:110,float:13})}${F.cube({x:"20%",y:"22%",size:54,dur:28})}${F.sphere({x:"86%",y:"76%",size:36,tone:"amber",float:9})}</div>`;
+  el.innerHTML=SCENE.photo("mist",{eager:true})+`<div class="figs">${F.field({x:"50%",y:"50%",size:760})}${F.orbit({x:"50%",y:"50%",size:620,dur:44,rx:76,ry:-6})}${F.torus({x:"82%",y:"24%",size:220,dur:50})}${F.sphere({x:"16%",y:"72%",size:110,float:15})}${F.cube({x:"20%",y:"22%",size:54,dur:32})}${F.sphere({x:"86%",y:"76%",size:40,tone:"amber",float:11})}</div>`;
   SCENE.mount(el);
 }
 $("loginForm").addEventListener("submit",async e=>{
@@ -705,15 +706,16 @@ $("loginForm").addEventListener("submit",async e=>{
 });
 $("signout").onclick=()=>{store.del(SESSION);$("profile").open=false;show();};
 
-/* ---------- Theme (light by default) ---------- */
-const THEME="prep-theme";
+/* ---------- Theme (Morning Bloom light by default) ---------- */
+// A new key: the Midnight theme defaulted to dark, Morning Bloom starts light for everyone.
+const THEME="prep-theme-bloom";
 function applyTheme(t){
   document.documentElement.dataset.theme=t;
-  document.querySelector('meta[name="theme-color"]').content=t==="dark"?"#060912":"#F3F5FB";
+  document.querySelector('meta[name="theme-color"]').content=t==="dark"?"#141A17":"#F7F5EE";
   $("themeBtn").innerHTML=ic(t==="dark"?"sun":"moon");
   $("themeBtn").setAttribute("aria-label",t==="dark"?"Switch to light theme":"Switch to dark theme");
 }
-applyTheme(store.get(localStorage,THEME)==="light"?"light":"dark");
+applyTheme(store.get(localStorage,THEME)==="dark"?"dark":"light");
 $("themeBtn").onclick=()=>{const t=document.documentElement.dataset.theme==="dark"?"light":"dark";store.set(localStorage,THEME,t);applyTheme(t);};
 
 /* ---------- Data & state ---------- */
@@ -863,9 +865,11 @@ function heroHome(o){
     fs.completed?`<b>${fs.completed} focus session${fs.completed>1?"s":""}</b> today, ${hm(fs.focusSec)} of deep work.`:`No focus sessions yet today. Start one and the clock keeps itself.`,
     `<b>${o.solved} of ${o.total}</b> problems solved. ${o.total-o.solved} to go before November.`,
   ];
-  const revBtn=sA?`<button class="btn glass xl" data-act="rev-resume">${ic("revision")}Resume revision</button>`
-    :(!fin&&tc.Q.queue.length)?`<button class="btn glass xl" data-act="rev-start">${ic("revision")}Start today's revision</button>`
-    :`<a class="btn glass xl" href="#revision">${ic("revision")}Open revision</a>`;
+  // Revision leads while there is revision to do today; otherwise a focus session is the main action.
+  const catN=esc(RV.CAT[cat].name),revOpen=sA||(!fin&&tc.Q.queue.length);
+  const revBtn=(cls)=>sA?`<button class="btn ${cls} xl" data-act="rev-resume">${ic("revision")}Resume revision</button>`
+    :(!fin&&tc.Q.queue.length)?`<button class="btn ${cls} xl" data-act="rev-start">${ic("revision")}Start revision<span class="hx-tag">${catN}</span></button>`
+    :`<a class="btn ${cls} xl" href="#revision">${ic("revision")}Open revision</a>`;
   const blk=b=>`${t12(b.sm)}–${t12(b.em)}`;
   const nowCell=cur?`<div class="tx"><div class="k">Now</div><div class="v">${esc(cur.label)}</div><div class="s">${blk(cur)}${nxt?` · then ${esc(nxt.label)} at ${t12(nxt.sm)}`:""}</div></div>`
     :nxt?`<div class="tx"><div class="k">Next block</div><div class="v">${esc(nxt.label)}</div><div class="s">${blk(nxt)}</div></div>`
@@ -874,9 +878,10 @@ function heroHome(o){
   return `<section class="hx" aria-labelledby="ptitle">
     <div class="hx-copy">
       <div class="hx-eyebrow"><span class="pulse"></span><span>${esc(o.greet)}, Sahil</span><span class="sep"></span><span>${esc(o.sub.replace(/\. Small steps.*$/,"").replace(/Small steps.*$/,"")||fmt(TODAY,{weekday:"long",day:"numeric",month:"long"}))}</span></div>
-      <h1 class="hx-title" id="ptitle" tabindex="-1"><span class="ln"><span class="w">Enter</span> <span class="w">your</span></span><span class="ln"><em class="w">focus state.</em></span></h1>
+      <h1 class="hx-title" id="ptitle" tabindex="-1"><span class="ln"><span class="w">Let's</span> <span class="w">grow</span></span><span class="ln"><em class="w">a little today.</em></span></h1>
       <p class="hx-sub"><span class="sr">${lines.map(x=>x.replace(/<[^>]+>/g,"")).join(" ")}</span><span class="hx-rot" aria-hidden="true" data-lines="${esc(JSON.stringify(lines))}">${lines[0]}</span></p>
-      <div class="hx-cta"><button class="btn primary xl" data-act="focus-open">${ic(live?"timer":"play2")}${live?"Back to focus":"Start focus session"}</button>${revBtn}</div>
+      <div class="hx-cta">${revOpen&&!live?revBtn("primary")+`<button class="btn soft xl" data-act="focus-open">${ic("play2")}Start focus session</button>`
+        :`<button class="btn primary xl" data-act="focus-open">${ic(live?"timer":"play2")}${live?"Back to focus":"Start focus session"}</button>${revBtn("soft")}`}</div>
       <div class="hx-links">${o.next?`<button class="link" data-act="continue" data-id="${o.next.id}">Continue the plan${ic("arrow")}</button>`:`<a class="link" href="#problems">Practise a problem${ic("arrow")}</a>`}<button class="link" data-act="log-open">Log solved problem${ic("plus")}</button></div>
     </div>
     <div class="hx-strip">
@@ -1584,6 +1589,7 @@ function pomoNewDay(){const p=pm(),last=p.log[p.log.length-1];if(p.cur.status===
 function focusPanel(){
   const p=pm(),c=pcfg(),t=curTask();
   if(fxPanel==="settings"){
+    const vid=SCENE.ytId(c.video);
     const n=(k,label,max)=>`<label class="fld"><span>${label}</span><input class="input" type="number" min="1" max="${max}" data-act="pomo-cfg" data-k="${k}" value="${c[k]}"></label>`;
     const perm=window.Notification?Notification.permission:"unsupported";
     return `<aside class="fx-panel" aria-label="Timer settings"><div class="ph"><h2>Timer settings</h2><button class="fx-ic" data-act="pomo-close" aria-label="Close settings">${ic("close")}</button></div>
@@ -1593,8 +1599,9 @@ function focusPanel(){
       <label class="tog"><input type="checkbox" data-act="pomo-flag" data-k="sound" ${c.sound?"checked":""}> Play a soft chime when a timer ends</label>
       <label class="tog"><input type="checkbox" data-act="pomo-flag" data-k="ambient" ${c.ambient!==false?"checked":""}> Ambient effects (fog, rain, particles, motion)</label>
       ${perm==="unsupported"?"":perm==="granted"?`<p class="hint" style="margin:0">Desktop alerts are on for this browser.</p>`:perm==="denied"?`<p class="hint" style="margin:0">Desktop alerts are blocked in this browser's site settings.</p>`:`<button class="btn" data-act="pomo-alerts">${ic("bell")}Turn on desktop alerts</button>`}
-      <div class="fld"><span>Focus scene</span><div class="fx-scenes">${SCENE.SCENE_ORDER.map(k=>`<button data-act="pomo-scene" data-f="scene" data-v="${k}" aria-pressed="${c.scene===k}">${SCENE.PHOTOS[k].name}</button>`).join("")}</div></div>
-      <div class="fld"><span>Break scene</span><div class="fx-scenes">${SCENE.SCENE_ORDER.map(k=>`<button data-act="pomo-scene" data-f="breakScene" data-v="${k}" aria-pressed="${c.breakScene===k}">${SCENE.PHOTOS[k].name}</button>`).join("")}</div></div>
+      ${videoFields()}
+      <div class="fld"><span>Focus scene${vid?" <small>used when no video is set</small>":""}</span><div class="fx-scenes">${SCENE.SCENE_ORDER.map(k=>`<button data-act="pomo-scene" data-f="scene" data-v="${k}" aria-pressed="${!vid&&SCENE.resolve(c.scene)===k}">${SCENE.PHOTOS[k].name}</button>`).join("")}</div></div>
+      <div class="fld"><span>Break scene</span><div class="fx-scenes">${SCENE.SCENE_ORDER.map(k=>`<button data-act="pomo-scene" data-f="breakScene" data-v="${k}" aria-pressed="${!vid&&SCENE.resolve(c.breakScene)===k}">${SCENE.PHOTOS[k].name}</button>`).join("")}</div></div>
       ${pomoHistory()}</aside>`;
   }
   if(fxPanel==="task"){
@@ -1622,6 +1629,16 @@ function lenEditor(){
     <div class="fx-presets"><span class="lbl">Presets</span>${LEN_PRESETS.map(([f,s,l])=>`<button data-act="pomo-preset" data-v="${f},${s},${l}" data-fk="pr-${f}" aria-pressed="${k.focus===f&&k.short===s&&k.long===l}">${f} / ${s} / ${l}</button>`).join("")}</div>
   </div>`;
 }
+// Background video and veil: any YouTube link, a few suggestions, sound, and how much cream sits over it.
+function videoFields(){
+  const c=pcfg(),vid=SCENE.ytId(c.video);
+  return `<div class="fld"><span>Background video <small>a YouTube link, muted unless you turn sound on</small></span>
+      <div class="vid"><input class="input" type="url" inputmode="url" data-act="pomo-video" value="${vid?esc(c.video):""}" placeholder="Paste a YouTube link" aria-label="YouTube link for the background" autocomplete="off">${vid?`<button class="btn" data-act="pomo-vclear">Use photos</button>`:""}</div>
+      <div class="fx-scenes">${SCENE.VIDEOS.map(v=>`<button data-act="pomo-vpick" data-v="${v.id}" aria-pressed="${vid===v.id}" data-tip="${esc(v.by)} on YouTube">${esc(v.name)}</button>`).join("")}</div>
+      ${vid?`<label class="tog"><input type="checkbox" data-act="pomo-flag" data-k="videoSound" ${c.videoSound?"checked":""}> Play the video's sound</label>`:""}</div>
+    <div class="fld"><span>Background veil <small>more veil keeps the timer easy to read over busy scenes</small></span>
+      <div class="range"><input type="range" min="0" max="85" step="5" data-act="pomo-veil" data-fk="veil-p" value="${+c.veil||0}" aria-label="Background veil"><output>${+c.veil||0}%</output></div></div>`;
+}
 function pomoHistory(){
   const L=pm().log.filter(e=>e.d===TODAY).slice().reverse();
   if(!L.length)return `<div class="fld"><span>Today</span><p class="hint" style="margin:0">Finished sessions show up here.</p></div>`;
@@ -1636,13 +1653,13 @@ function pageFocus(){
   const dots=[...Array(k.every)].map((_,i)=>`<i class="${i<c.cycle?"on":""} ${c.mode==="focus"&&i===c.cycle?"cur":""}"></i>`).join("");
   const n=p.note;
   const note=n?`<div class="fx-note" role="status"><span class="ic">${ic(n.kind==="focus"?"check":"coffee")}</span><div class="tx"><b>${esc(n.title)}</b><span>${n.body}</span></div><div class="acts">
-      ${n.kind==="focus"&&c.mode!=="focus"?(run?`<button class="btn sm glass" data-act="pomo-skip">Skip break</button>`:`<button class="btn sm primary" data-act="pomo-toggle">Start break</button>`):""}
+      ${n.kind==="focus"&&c.mode!=="focus"?(run?`<button class="btn sm soft" data-act="pomo-skip">Skip break</button>`:`<button class="btn sm primary" data-act="pomo-toggle">Start break</button>`):""}
       ${n.kind==="break"&&c.mode==="focus"&&idle?`<button class="btn sm primary" data-act="pomo-toggle">Start focus</button>`:""}
-      <button class="btn sm glass" data-act="pomo-note-x" aria-label="Dismiss">${ic("close")}</button></div></div>`:"";
+      <button class="btn sm soft" data-act="pomo-note-x" aria-label="Dismiss">${ic("close")}</button></div></div>`:"";
   const mainLbl=run?"Pause":idle?(c.mode==="focus"?"Start focus":"Start break"):"Resume";
   return `<div class="fx" data-mode="${c.mode}">
     <div class="fx-top">
-      <a class="fx-brand" href="#dashboard"><span class="mark">${ic("check")}</span><span>Focus Mode<small>Midnight Study Club</small></span></a>
+      <a class="fx-brand" href="#dashboard"><span class="mark">${ic("check")}</span><span>Focus Mode<small>Morning Bloom</small></span></a>
       <div class="fx-seg" role="group" aria-label="Timer mode">${Object.entries(PM.MODES).map(([m,l])=>`<button data-act="pomo-mode" data-v="${m}" aria-pressed="${c.mode===m}" ${run&&c.mode!==m?"disabled":""}>${l}</button>`).join("")}</div>
       <div class="fx-tools">
         <button class="fx-ic" data-act="pomo-ambient" aria-pressed="${k.ambient!==false}" aria-label="Ambient effects ${k.ambient!==false?"on":"off"}" data-tip="Ambient effects">${ic("sparkle")}<span>Ambience</span></button>
@@ -1672,7 +1689,12 @@ function pageFocus(){
         <div>${fs.completed} session${fs.completed===1?"":"s"} · ${hm(fs.focusSec)} focused today</div>
         <div>Next: ${PM.MODES[nextM]} · ${Math.round(PM.durOf(nextM,k)/60)} min${nextM==="focus"?" (starts when you say so)":""}</div></div>
     </div>
-    <div class="fx-foot"><div class="fx-scenes"><span class="lbl">${c.mode==="focus"?"Focus scene":"Break scene"}</span>${SCENE.SCENE_ORDER.map(s=>`<button data-act="pomo-scene" data-f="${c.mode==="focus"?"scene":"breakScene"}" data-v="${s}" aria-pressed="${(c.mode==="focus"?k.scene:k.breakScene)===s}">${SCENE.PHOTOS[s].name}</button>`).join("")}</div></div>
+    <div class="fx-foot">
+      <label class="fx-veil">Veil <input type="range" min="0" max="85" step="5" data-act="pomo-veil" data-fk="veil-f" value="${+k.veil||0}" aria-label="Background veil"></label>
+      ${SCENE.ytId(k.video)?`<div class="fx-scenes"><span class="lbl">Video background</span><button data-act="pomo-panel" data-v="settings">Change</button><button data-act="pomo-vclear">Use photos</button></div>`
+      :`<div class="fx-scenes"><span class="lbl">${c.mode==="focus"?"Focus scene":"Break scene"}</span>${SCENE.SCENE_ORDER.map(s=>`<button data-act="pomo-scene" data-f="${c.mode==="focus"?"scene":"breakScene"}" data-v="${s}" aria-pressed="${SCENE.resolve(c.mode==="focus"?k.scene:k.breakScene)===s}">${SCENE.PHOTOS[s].name}</button>`).join("")}</div>`}
+      ${SCENE.ytId(k.video)?"":`<div class="fx-credit">${SCENE.credit(c.mode==="focus"?k.scene:k.breakScene)}</div>`}
+    </div>
     ${focusPanel()}
   </div>`;
 }
@@ -1689,7 +1711,9 @@ function pomoAction(a,b){
   else if(a==="pomo-close"){fxPanel=null;render();const t=document.querySelector(".fx-task");if(t)t.focus();}
   else if(a==="pomo-kind"){PM.setTask(p,taskFor(b.dataset.k));changed();const el=document.querySelector(`[data-act="pomo-kind"][data-k="${b.dataset.k}"]`);if(el)el.focus();}
   else if(a==="pomo-ambient"){setAmbient(pcfg().ambient===false);}
-  else if(a==="pomo-scene"){PM.setCfg(p,{[b.dataset.f]:b.dataset.v},now);changed();}
+  else if(a==="pomo-scene"){PM.setCfg(p,{[b.dataset.f]:b.dataset.v,video:""},now);changed();}
+  else if(a==="pomo-vpick"){PM.setCfg(p,{video:b.dataset.v},now);changed();toast("Video background on. Your timer keeps running as it was.");}
+  else if(a==="pomo-vclear"){PM.setCfg(p,{video:""},now);changed();}
   else if(a==="pomo-note-x"){delete p.note;changed();}
   else if(a==="pomo-step"){const key=b.dataset.k,m=LEN_KEYS.find(x=>x[0]===key),v=Math.min(m[2],Math.max(1,pcfg()[key]+(+b.dataset.d)));
     PM.setCfg(p,{[key]:v},now);pomoTick();changed();}
@@ -1706,28 +1730,32 @@ function syncFocusScene(){
   const el=$("fscene"),on=route==="focus"&&signedIn();
   el.classList.toggle("on",on);
   if(!on){if(fsFx){fsFx();fsFx=null;}if(fsKey){el.innerHTML="";fsKey=null;}return;}
-  const c=pcfg(),brk=pm().cur.mode!=="focus",key=brk?c.breakScene:c.scene,P=SCENE.PHOTOS[key]||SCENE.PHOTOS.window;
+  const c=pcfg(),brk=pm().cur.mode!=="focus",vid=SCENE.ytId(c.video);
+  const photoKey=SCENE.resolve(brk?c.breakScene:c.scene),key=vid?"yt:"+vid:photoKey;
   el.classList.toggle("is-break",brk);el.classList.toggle("calm-fx",c.ambient===false);
+  el.style.setProperty("--veil",(Math.min(85,Math.max(0,+c.veil||0))/100).toFixed(2));
+  // A new video or photo only swaps the backdrop layer: the timer and the page above it are untouched.
   if(fsKey===key)return;
   if(fsFx){fsFx();fsFx=null;}
+  const layer=vid?SCENE.ytEmbed(vid):SCENE.photo(photoKey,{eager:true});
   if(!fsKey){
-    el.innerHTML=`<div class="fs-photo">${SCENE.photo(key,{eager:true})}</div><div class="fs-dim"></div><div class="fs-tint"></div><div class="fs-fog"></div><div class="fs-fog f2"></div><div class="fs-bokeh">${bokeh()}</div><div class="fs-sweep"></div>
-      <canvas class="particles" data-max="36" data-alpha=".8"></canvas><span class="rain-slot"></span>${SCENE.focusFigures()}<div class="credit"></div>`;
+    el.innerHTML=`<div class="fs-photo">${layer}</div><div class="fs-dim"></div><div class="fs-tint"></div><div class="fs-fog"></div><div class="fs-fog f2"></div><div class="fs-bokeh">${bokeh()}</div><div class="fs-sweep"></div>
+      <canvas class="particles" data-max="30" data-alpha=".6"></canvas>${SCENE.focusFigures()}<div class="credit"></div>`;
   }else{
-    const box=el.querySelector(".fs-photo"),old=box.querySelector(".scn");box.insertAdjacentHTML("beforeend",SCENE.photo(key,{eager:true}));
-    if(old){old.classList.add("leaving");setTimeout(()=>old.remove(),1700);}
+    const box=el.querySelector(".fs-photo"),old=[...box.children];box.insertAdjacentHTML("beforeend",layer);
+    old.forEach(o=>{o.classList.add("leaving");setTimeout(()=>o.remove(),1700);});
   }
-  el.querySelector(".rain-slot").innerHTML=P.rain?`<canvas class="rain"></canvas>`:"";
-  el.querySelector(".credit").innerHTML=SCENE.credit(key);
+  el.querySelector(".credit").innerHTML=vid?"":SCENE.credit(photoKey);
   fsKey=key;fsFx=SCENE.mount(el);
+  if(vid&&c.videoSound)setTimeout(()=>SCENE.ytCommand(el.querySelector(`.fs-video[data-yt="${vid}"]`),"unMute"),1500);
 }
-// Home backdrop: built once, then kept. Hidden (and therefore still) on every other page.
+// Home backdrop: a soft daylight wash and the figures. Built once, then kept; hidden (and therefore still) on every other page.
 let atmoFx=null;
 function syncAtmo(){
   const el=$("atmo");
   if(route!=="dashboard"||el.dataset.built)return;
   el.dataset.built=1;
-  el.innerHTML=`<div class="atmo-photo">${SCENE.photo("tokyo",{eager:true})}</div><canvas class="particles" data-max="60"></canvas>${SCENE.heroFigures()}<div class="credit">${SCENE.credit("tokyo")}</div>`;
+  el.innerHTML=`<div class="atmo-photo"><div class="scn bloom-sky"></div></div><canvas class="particles" data-max="40" data-alpha=".7"></canvas>${SCENE.heroFigures()}`;
   atmoFx=SCENE.mount(el);
   if(!window.gsap)return;
   const figs=[...el.querySelectorAll(".fig")];
@@ -1891,10 +1919,16 @@ view.addEventListener("change",e=>{
   else if(a==="pomo-item"){const v=el.value,t=curTask();PM.setTask(pm(),taskFor(t.k,v?{type:v[0],id:+v.slice(1)}:null,t.custom));changed();}
   else if(a==="pomo-custom"){const t=curTask();PM.setTask(pm(),taskFor(t.k,t.item,el.value.trim()));changed();}
   else if(a==="pomo-cfg"){const v=Math.round(+el.value);if(!(v>0))return;PM.setCfg(pm(),{[el.dataset.k]:Math.min(+el.max||999,v)},Date.now());pomoTick();changed();toast("Saved. A running timer keeps the time already spent.");}
-  else if(a==="pomo-flag"){PM.setCfg(pm(),{[el.dataset.k]:el.checked},Date.now());save();if(el.dataset.k==="ambient")applyAmbient();changed();}
+  else if(a==="pomo-flag"){PM.setCfg(pm(),{[el.dataset.k]:el.checked},Date.now());save();if(el.dataset.k==="ambient")applyAmbient();
+    if(el.dataset.k==="videoSound")SCENE.ytCommand(document.querySelector("#fscene .fs-video:not(.leaving)"),el.checked?"unMute":"mute");changed();}
+  else if(a==="pomo-video"){const v=el.value.trim(),id=SCENE.ytId(v);
+    if(v&&!id){toast("That doesn't look like a YouTube link.");return;}
+    PM.setCfg(pm(),{video:id?v:""},Date.now());changed();if(id)toast("Video background on. Your timer keeps running as it was.");}
+  else if(a==="pomo-veil"){PM.setCfg(pm(),{veil:+el.value},Date.now());changed();}
   else if(el.dataset.pf){pf[el.dataset.pf]=el.value;problemsBody();}
 });
 view.addEventListener("input",e=>{if(e.target.id==="pf-q"){pf.q=e.target.value;problemsBody();}
+  else if(e.target.dataset.act==="pomo-veil"){const v=+e.target.value;$("fscene").style.setProperty("--veil",(v/100).toFixed(2));const o=e.target.parentNode.querySelector("output");if(o)o.textContent=v+"%";}
   else if(e.target.dataset.act==="s-text"){setSessText(+e.target.dataset.id,e.target.dataset.f,e.target.value);saveSoon();}});
 view.addEventListener("click",e=>{
   const b=e.target.closest("[data-act]");if(!b)return;const a=b.dataset.act;

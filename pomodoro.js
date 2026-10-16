@@ -8,7 +8,8 @@
     focus:25,short:5,long:15,every:4,   // minutes; a long break after every 4 completed focus sessions
     autoBreak:true,                    // breaks may start by themselves; focus sessions never do
     sound:true,ambient:true,
-    scene:"window",breakScene:"rain",
+    scene:"mist",breakScene:"pastel",  // daylight photo scenes (see scene.js)
+    video:"",veil:30,                  // optional YouTube background and how much cream veil sits over the backdrop (%)
   };
   const MODES={focus:"Focus",short:"Short break",long:"Long break"};
   const MIN_LOG=60;                    // partial sessions shorter than this are not logged
