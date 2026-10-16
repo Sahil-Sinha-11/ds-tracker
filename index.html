@@ -1,41 +1,43 @@
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Prep Desk</title>
 <meta name="description" content="October 2026 placement prep: DSA, OS, DBMS, CN and System Design.">
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#F7F8F4">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23344B3A'/><path d='M9.5 16.5l4.5 4.5 8.5-9' stroke='%23F7F8F4' stroke-width='2.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+<meta name="theme-color" content="#060912">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%235B8DEF'/><stop offset='1' stop-color='%237C6CF5'/></linearGradient></defs><rect width='32' height='32' rx='8' fill='url(%23g)'/><path d='M9.5 16.5l4.5 4.5 8.5-9' stroke='%23FFFFFF' stroke-width='2.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* ---------- Design tokens: Sage & Paper ---------- */
+/* ---------- Design tokens: Midnight Study Club ----------
+   Dark ("midnight") is the default; the light theme is a cool dawn palette. */
 :root{
-  --bg:#F7F8F4; --surface:#FFFFFF; --surface-2:#EFF2EA;
-  --accent:#789675; --accent-dark:#344B3A; --on-accent:#FFFFFF;
-  --text:#263229; --text-2:#7C857C; --line:#E4E8DF;
-  --success:#47845C; --warning:#C18B45; --error:#C65D5D;
-  --success-soft:#E8F0EA; --warning-soft:#F6EEE2; --error-soft:#F8E9E9;
-  --easy:#3F7A53; --easy-bg:#E8F0EA; --med:#94652C; --med-bg:#F6EEE2; --hard:#A84B4B; --hard-bg:#F8E9E9;
-  /* sequential sage steps for charts (0 → full) */
-  --s0:#EFF2EA; --s1:#D3DFD0; --s2:#A9C0A6; --s3:#789675;
-  --hover:#F2F4EE; --focus:0 0 0 3px rgba(120,150,117,.35);
-  --shadow:0 1px 2px rgba(38,50,41,.04);
-  --r:12px; --r-sm:8px;
+  --bg:#F3F5FB; --surface:#FFFFFF; --surface-2:#EBEFF8;
+  --accent:#5B7FE6; --accent-dark:#2E45A8; --on-accent:#FFFFFF;
+  --text:#121A2F; --text-2:#5F6984; --line:#DDE2EF;
+  --success:#1F9D72; --warning:#C27A1E; --error:#D24A60;
+  --success-soft:#E2F4EC; --warning-soft:#FBF0DF; --error-soft:#FBE6EA;
+  --easy:#1A8A63; --easy-bg:#E2F4EC; --med:#A3651A; --med-bg:#FBF0DF; --hard:#C23D55; --hard-bg:#FBE6EA;
+  /* sequential steps for charts (0 → full) */
+  --s0:#EBEFF8; --s1:#C9D5F6; --s2:#93AAF0; --s3:#5B7FE6;
+  --hover:#F2F5FC; --focus:0 0 0 3px rgba(91,127,230,.35);
+  --shadow:0 1px 2px rgba(18,26,47,.05);
+  --r:14px; --r-sm:9px;
   --font:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
 }
 :root[data-theme="dark"]{
-  --bg:#161A16; --surface:#1D221D; --surface-2:#252B25;
-  --accent:#8BA888; --accent-dark:#C9D9C5; --on-accent:#18201A;
-  --text:#E3E8E0; --text-2:#98A196; --line:#2E352E;
-  --success:#74AD86; --warning:#D3A05F; --error:#D88080;
-  --success-soft:#223026; --warning-soft:#332B20; --error-soft:#352323;
-  --easy:#8CC09C; --easy-bg:#223026; --med:#D9AE74; --med-bg:#332B20; --hard:#E09494; --hard-bg:#352323;
-  --s0:#252B25; --s1:#344234; --s2:#4F6A4E; --s3:#8BA888;
-  --hover:#232923; --focus:0 0 0 3px rgba(139,168,136,.4);
+  --bg:#060912; --surface:#0C1222; --surface-2:#141C33;
+  --accent:#5B8DEF; --accent-dark:#9DB8FF; --on-accent:#0A1024;
+  --text:#E8EDF8; --text-2:#8E9AB6; --line:rgba(150,170,230,.13);
+  --success:#43CC98; --warning:#F2B35B; --error:#F2788A;
+  --success-soft:rgba(67,204,152,.12); --warning-soft:rgba(242,179,91,.12); --error-soft:rgba(242,120,138,.12);
+  --easy:#62D6A8; --easy-bg:rgba(67,204,152,.12); --med:#F4BE6E; --med-bg:rgba(242,179,91,.12); --hard:#F7909F; --hard-bg:rgba(242,120,138,.13);
+  --s0:#121A30; --s1:#1F3266; --s2:#3756AE; --s3:#7397FF;
+  --hover:rgba(130,160,255,.05); --focus:0 0 0 3px rgba(115,151,255,.45);
   --shadow:none;
 }
 *{box-sizing:border-box}
@@ -90,8 +92,8 @@ svg.i{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-widt
 /* ---------- Checkbox ---------- */
 .check{position:relative;flex:none;width:20px;height:20px;margin-top:1px}
 .check input{position:absolute;inset:-6px;width:32px;height:32px;opacity:0;margin:0;cursor:pointer;z-index:1}
-.check span{display:block;width:20px;height:20px;border-radius:6px;border:1.5px solid #C5CCC2;background:var(--surface);transition:background .15s,border-color .15s}
-:root[data-theme="dark"] .check span{border-color:#4A544A}
+.check span{display:block;width:20px;height:20px;border-radius:6px;border:1.5px solid #B9C2D8;background:var(--surface);transition:background .15s,border-color .15s}
+:root[data-theme="dark"] .check span{border-color:#3A4566}
 .check input:hover+span{border-color:var(--accent)}
 .check input:checked+span{background:var(--success);border-color:var(--success)}
 .check input:checked+span::after{content:"";position:absolute;left:7px;top:3px;width:5px;height:10px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
@@ -144,7 +146,7 @@ svg.i{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-widt
 .profile{position:relative}
 .profile summary{list-style:none;cursor:pointer;width:34px;height:34px;border-radius:50%;background:var(--surface-2);display:grid;place-items:center;font-weight:600;font-size:13px;color:var(--accent-dark);border:1px solid var(--line)}
 .profile summary::-webkit-details-marker{display:none}
-.menu-pop{position:absolute;right:0;top:42px;width:230px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:6px;box-shadow:0 8px 24px rgba(38,50,41,.08);z-index:30}
+.menu-pop{position:absolute;right:0;top:42px;width:230px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:6px;box-shadow:0 18px 40px -12px rgba(0,0,0,.5);z-index:30}
 .menu-pop .who{padding:8px 10px 10px;border-bottom:1px solid var(--line);margin-bottom:6px;font-size:13px}
 .menu-pop button,.menu-pop label{display:flex;align-items:center;gap:10px;width:100%;height:34px;padding:0 10px;border:0;background:none;border-radius:6px;cursor:pointer;font-size:13px;text-align:left}
 .menu-pop button:hover,.menu-pop label:hover{background:var(--surface-2)}
@@ -214,7 +216,7 @@ svg.i{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-widt
 .cal .dow{font-size:11px;color:var(--text-2);text-align:center}
 .cal .c{aspect-ratio:1;border-radius:6px;display:grid;place-items:center;font-size:12px;color:var(--text);background:var(--s0);border:1px solid transparent;cursor:default}
 .cal .c.l1{background:var(--s1)}.cal .c.l2{background:var(--s2)}.cal .c.l3{background:var(--s3);color:#fff}
-:root[data-theme="dark"] .cal .c.l3{color:#132015}
+:root[data-theme="dark"] .cal .c.l3{color:#fff}
 .cal .c.future{background:none;border:1px dashed var(--line);color:var(--text-2)}
 .cal .c.is-today{box-shadow:0 0 0 2px var(--surface),0 0 0 4px var(--accent-dark)}
 .legend{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2);margin-top:12px;flex-wrap:wrap}
@@ -536,14 +538,16 @@ dialog.dlg::backdrop{background:rgba(22,26,22,.3)}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
+<link rel="stylesheet" href="midnight.css">
 </head>
 <body>
 
 <!-- Sign in -->
 <section id="login" class="hidden" aria-label="Sign in">
+  <div id="loginScene" aria-hidden="true"></div>
   <form class="login-card" id="loginForm" autocomplete="on">
     <div class="brand"><span class="mark" id="markLogin"></span>Prep Desk</div>
-    <h1>Welcome back</h1>
+    <h1>Welcome back to the <em>Midnight Study Club</em></h1>
     <p>Sign in to open your study desk.</p>
     <label class="field"><span>ID</span><input class="input" id="uid" name="username" autocomplete="username" required></label>
     <label class="field"><span>Password</span><input class="input" id="pwd" name="password" type="password" autocomplete="current-password" required></label>
@@ -557,13 +561,14 @@ dialog.dlg::backdrop{background:rgba(22,26,22,.3)}
 <!-- App -->
 <div id="app" class="shell hidden">
   <aside class="side" id="side" aria-label="Main navigation">
-    <div class="brand"><span class="mark" id="markSide"></span><div>Prep Desk<small>October 2026</small></div></div>
+    <div class="brand"><span class="mark" id="markSide"></span><div>Prep Desk<small>Midnight Study Club</small></div></div>
     <nav class="nav" id="nav"></nav>
     <div class="side-foot" id="sideFoot"></div>
   </aside>
   <div class="scrim" id="scrim"></div>
   <div class="main">
-    <header class="top">
+    <div class="atmo" id="atmo" aria-hidden="true"></div>
+    <header class="top" id="top">
       <button class="iconbtn menu" id="menuBtn" aria-label="Open menu" aria-controls="side" aria-expanded="false"></button>
       <form class="search" id="topSearch" role="search">
         <label class="sr" for="q">Search problems</label>
@@ -571,6 +576,7 @@ dialog.dlg::backdrop{background:rgba(22,26,22,.3)}
         <input class="input" id="q" type="search" placeholder="Search problems" autocomplete="off">
         <kbd>/</kbd>
       </form>
+      <a class="sess-pill pomo-pill hidden" id="pomoPill" href="#focus"></a>
       <a class="sess-pill hidden" id="sessPill" href="#session"></a>
       <div class="dayinfo" id="dayinfo"></div>
       <button class="iconbtn" id="themeBtn" aria-label="Switch to dark theme"></button>
@@ -580,6 +586,7 @@ dialog.dlg::backdrop{background:rgba(22,26,22,.3)}
           <div class="who">Signed in as <b>sahil</b></div>
           <button id="exportBtn" type="button"></button>
           <label id="importLbl"><input type="file" id="importFile" accept="application/json" hidden></label>
+          <button id="ambientBtn" type="button" aria-pressed="true"></button>
           <button id="resetBtn" type="button"></button>
           <div class="note">Progress is saved in this browser. Export it to move it between your phone and laptop.</div>
           <hr>
@@ -613,14 +620,22 @@ dialog.dlg::backdrop{background:rgba(22,26,22,.3)}
     <div class="foot"><button type="button" class="btn" id="logCancel">Cancel</button><button type="submit" class="btn primary" id="logSave">Save problem</button></div>
   </form>
 </dialog>
+<div class="fscene" id="fscene" aria-hidden="true"></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8FB0FF"/><stop offset="1" stop-color="#A58BFF"/></linearGradient>
+  <linearGradient id="fxGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9DB8FF"/><stop offset=".6" stop-color="#A58BFF"/><stop offset="1" stop-color="#FFC27A"/></linearGradient>
+</defs></svg>
 <div id="tip" role="tooltip"></div>
 <div id="toast" role="status" aria-live="polite"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="tasks.js"></script>
 <script src="problems.js"></script>
 <script src="lectures.js"></script>
 <script src="revision.js"></script>
+<script src="pomodoro.js"></script>
+<script src="scene.js"></script>
 <script>
 /* ---------- Icons (outline, 24px grid) ---------- */
 const ICONS={
@@ -647,6 +662,17 @@ const ICONS={
   flag:'<path d="M5.5 21V4.5M5.5 4.5h11l-2 4 2 4h-11"/>',
   pause:'<circle cx="12" cy="12" r="8.5"/><path d="M10 9v6M14 9v6"/>',
   plus:'<path d="M12 5v14M5 12h14"/>',
+  timer:'<circle cx="12" cy="13.5" r="7.5"/><path d="M12 10v3.5l2.5 1.5M9.5 2.5h5M12 2.5V6"/>',
+  play2:'<path d="M8 5.5v13l10.5-6.5L8 5.5z"/>',
+  pause2:'<path d="M9 6v12M15 6v12"/>',
+  skip:'<path d="M6 6.5v11l8-5.5-8-5.5zM17.5 6v12"/>',
+  undo:'<path d="M4.5 9.5h10a5 5 0 0 1 0 10h-4"/><path d="M8.5 5.5l-4 4 4 4"/>',
+  close:'<path d="M6 6l12 12M18 6L6 18"/>',
+  sparkle:'<path d="M12 3.5l1.8 5.2 5.2 1.8-5.2 1.8L12 17.5l-1.8-5.2L5 10.5l5.2-1.8L12 3.5z"/><path d="M18.5 16v4M16.5 18h4"/>',
+  sliders:'<path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/>',
+  bell:'<path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 2h-15l1.5-2zM10 20.5a2 2 0 0 0 4 0"/>',
+  image:'<rect x="3.5" y="5" width="17" height="14" rx="2"/><path d="M3.5 16l5-5 4 4 2.5-2.5 5.5 5.5"/><circle cx="15.5" cy="9.5" r="1.5"/>',
+  coffee:'<path d="M4.5 9.5h12v4.5a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5V9.5zM16.5 11h1.5a2.5 2.5 0 0 1 0 5h-1.6M8 3.5c-.6 1 .6 1.8 0 3M12 3.5c-.6 1 .6 1.8 0 3"/>',
 };
 const ic=(n,cls="i")=>`<svg class="${cls}" viewBox="0 0 24 24" aria-hidden="true">${ICONS[n]}</svg>`;
 
@@ -663,7 +689,12 @@ async function derive(id,pw){
 const store={get:(s,k)=>{try{return s.getItem(k)}catch(e){return null}},set:(s,k,v)=>{try{s.setItem(k,v)}catch(e){}},del:k=>{try{localStorage.removeItem(k);sessionStorage.removeItem(k)}catch(e){}}};
 const $=id=>document.getElementById(id);
 function signedIn(){return [localStorage,sessionStorage].some(s=>store.get(s,SESSION)===AUTH.hash)}
-function show(){const ok=signedIn();$("login").classList.toggle("hidden",ok);$("app").classList.toggle("hidden",!ok);if(ok)render();else $("uid").focus();}
+function show(){const ok=signedIn();$("login").classList.toggle("hidden",ok);$("app").classList.toggle("hidden",!ok);if(ok)render();else{loginScene();$("uid").focus();}}
+function loginScene(){
+  const el=$("loginScene");if(!window.SCENE||el.dataset.built)return;el.dataset.built=1;const F=SCENE.F;
+  el.innerHTML=SCENE.photo("skyline",{eager:true})+`<div class="figs">${F.field({x:"50%",y:"50%",size:760,tone:"indigo"})}${F.orbit({x:"50%",y:"50%",size:620,dur:40,rx:76,ry:-6})}${F.torus({x:"82%",y:"24%",size:220,dur:44})}${F.sphere({x:"16%",y:"72%",size:110,float:13})}${F.cube({x:"20%",y:"22%",size:54,dur:28})}${F.sphere({x:"86%",y:"76%",size:36,tone:"amber",float:9})}</div>`;
+  SCENE.mount(el);
+}
 $("loginForm").addEventListener("submit",async e=>{
   e.preventDefault();const err=$("err"),b=$("signinBtn");err.textContent="";b.disabled=true;b.textContent="Checking…";
   try{
@@ -678,19 +709,20 @@ $("signout").onclick=()=>{store.del(SESSION);$("profile").open=false;show();};
 const THEME="prep-theme";
 function applyTheme(t){
   document.documentElement.dataset.theme=t;
-  document.querySelector('meta[name="theme-color"]').content=t==="dark"?"#161A16":"#F7F8F4";
+  document.querySelector('meta[name="theme-color"]').content=t==="dark"?"#060912":"#F3F5FB";
   $("themeBtn").innerHTML=ic(t==="dark"?"sun":"moon");
   $("themeBtn").setAttribute("aria-label",t==="dark"?"Switch to light theme":"Switch to dark theme");
 }
-applyTheme(store.get(localStorage,THEME)==="dark"?"dark":"light");
+applyTheme(store.get(localStorage,THEME)==="light"?"light":"dark");
 $("themeBtn").onclick=()=>{const t=document.documentElement.dataset.theme==="dark"?"light":"dark";store.set(localStorage,THEME,t);applyTheme(t);};
 
 /* ---------- Data & state ---------- */
 const TASKS=window.TASKS;
 const KEY="dsa-tracker-v1";
 // rev: per-problem revision history, rcat: revision-topic overrides, rcfg: revision settings,
-// rlog: finished sessions, sess: the current session, custom: problems added after the docx import.
-const blank=()=>({done:{},conf:{},notes:{},at:{},pdone:{},pconf:{},pnotes:{},star:{},lec:{},rev:{},rcat:{},rcfg:{},rlog:[],sess:null,custom:[]});
+// rlog: finished sessions, sess: the current session, custom: problems added after the docx import,
+// pomo: the Focus Mode timer, its settings and the log of focus and break sessions (see pomodoro.js).
+const blank=()=>({done:{},conf:{},notes:{},at:{},pdone:{},pconf:{},pnotes:{},star:{},lec:{},rev:{},rcat:{},rcfg:{},rlog:[],sess:null,custom:[],pomo:null});
 let state=blank();
 try{const s=JSON.parse(localStorage.getItem(KEY));if(s)state=Object.assign(blank(),s);}catch(e){}
 const save=()=>store.set(localStorage,KEY,JSON.stringify(state));
@@ -787,13 +819,14 @@ function taskRow(t,o={}){
 function progressRow(label,d,n,href){
   return `<div class="prow"><span>${href?`<a class="link" href="${href}">${esc(label)}</a>`:esc(label)}</span><div class="bar"><i style="width:${pct(d,n)}%"></i></div><span class="n">${d} / ${n}</span></div>`;
 }
-const phead=(title,sub,actions="")=>`<div class="phead"><div><h1 tabindex="-1" id="ptitle">${title}</h1>${sub?`<p>${sub}</p>`:""}</div>${actions?`<div class="actions">${actions}</div>`:""}</div>`;
+const phead=(title,sub,actions="")=>`<div class="phead"><div><h1 tabindex="-1" id="ptitle">${title}</h1>${sub?`<p>${sub}</p>`:""}</div>${actions?`<div class="actions">${actions}</div>`:""}${window.SCENE?SCENE.mini(Math.max(0,ROUTES.findIndex(r=>r.id===route))):""}</div>`;
 const studyDay=()=>{if(TODAY<START)return null;if(TODAY>END)return null;return Math.floor((new Date(TODAY+"T00:00")-new Date(START+"T00:00"))/864e5)+1;};
 const weekOf=d=>{const t=october.find(x=>x.date===d);return t?t.week:null;};
 
 /* ---------- Pages ---------- */
 const ROUTES=[
   {id:"dashboard",label:"Dashboard",icon:"dashboard"},
+  {id:"focus",label:"Focus mode",icon:"timer"},
   {id:"problems",label:"Problems",icon:"problems"},
   {id:"plan",label:"Study plan",icon:"plan"},
   {id:"revision",label:"Revision",icon:"revision"},
@@ -815,6 +848,45 @@ function calendar(){
   <div class="legend"><span>Planned tasks done:</span><i style="background:var(--s0)"></i>none <i style="background:var(--s1)"></i>some <i style="background:var(--s2)"></i>half+ <i style="background:var(--s3)"></i>all</div>`;
 }
 
+/* Home hero: the copy and controls. The photo and figures behind it live in #atmo, which is built once
+   and never re-rendered, so its slow motion carries on while the page below updates. */
+const RING_C=2*Math.PI*20;
+const ringSvg=(f,label)=>`<svg class="ring" viewBox="0 0 48 48" aria-hidden="true"><circle class="trk" cx="24" cy="24" r="20"/><circle class="val" cx="24" cy="24" r="20" stroke-dasharray="${RING_C.toFixed(2)}" stroke-dashoffset="${(RING_C*(1-Math.min(1,Math.max(0,f)))).toFixed(2)}"/>${label!=null?`<text x="24" y="24" text-anchor="middle" dominant-baseline="central" transform="rotate(90 24 24)">${label}</text>`:""}</svg>`;
+function heroHome(o){
+  const cat=todayCat(),tc=topicCounts(cat),sA=activeSess(),fin=finishedToday(),fs=PM.dayStats(pm(),TODAY);
+  const rDone=sA?Object.keys(sA.done).length:fin?Object.keys(fin.done).length:0,rPlan=sA?sA.queue.length:fin?fin.queue.length:tc.Q.queue.length;
+  const B=blocks(),d=new Date(),nm=d.getHours()*60+d.getMinutes(),cur=B.find(b=>nm>=b.sm&&nm<b.em),nxt=B.find(b=>b.sm>nm);
+  const shortT=t=>esc(t.task.split(/[:(]/)[0].trim());
+  const lines=[
+    `Today's goal: <b>revise ${esc(RV.CAT[cat].name)}</b>${revSlot()?` from ${revSlot()}`:""}${rPlan?`, ${rPlan} question${rPlan>1?"s":""} lined up`:""}.`,
+    o.todays.length?`<b>${o.tdone} of ${o.todays.length}</b> planned tasks done today${o.next?`. Next up: ${shortT(o.next)}`:""}.`:`Nothing else is scheduled today. Pick a problem and keep the streak.`,
+    fs.completed?`<b>${fs.completed} focus session${fs.completed>1?"s":""}</b> today, ${hm(fs.focusSec)} of deep work.`:`No focus sessions yet today. Start one and the clock keeps itself.`,
+    `<b>${o.solved} of ${o.total}</b> problems solved. ${o.total-o.solved} to go before November.`,
+  ];
+  const revBtn=sA?`<button class="btn glass xl" data-act="rev-resume">${ic("revision")}Resume revision</button>`
+    :(!fin&&tc.Q.queue.length)?`<button class="btn glass xl" data-act="rev-start">${ic("revision")}Start today's revision</button>`
+    :`<a class="btn glass xl" href="#revision">${ic("revision")}Open revision</a>`;
+  const blk=b=>`${t12(b.sm)}–${t12(b.em)}`;
+  const nowCell=cur?`<div class="tx"><div class="k">Now</div><div class="v">${esc(cur.label)}</div><div class="s">${blk(cur)}${nxt?` · then ${esc(nxt.label)} at ${t12(nxt.sm)}`:""}</div></div>`
+    :nxt?`<div class="tx"><div class="k">Next block</div><div class="v">${esc(nxt.label)}</div><div class="s">${blk(nxt)}</div></div>`
+    :`<div class="tx"><div class="k">Schedule</div><div class="v">Day's blocks are done</div><div class="s">Rest well. Tomorrow is ${esc(RV.CAT[RV.topicFor(RV.addDays(TODAY,1),C())].name)}.</div></div>`;
+  const pc=pm().cur,live=pc.status!=="idle";
+  return `<section class="hx" aria-labelledby="ptitle">
+    <div class="hx-copy">
+      <div class="hx-eyebrow"><span class="pulse"></span><span>${esc(o.greet)}, Sahil</span><span class="sep"></span><span>${esc(o.sub.replace(/\. Small steps.*$/,"").replace(/Small steps.*$/,"")||fmt(TODAY,{weekday:"long",day:"numeric",month:"long"}))}</span></div>
+      <h1 class="hx-title" id="ptitle" tabindex="-1"><span class="ln"><span class="w">Enter</span> <span class="w">your</span></span><span class="ln"><em class="w">focus state.</em></span></h1>
+      <p class="hx-sub"><span class="sr">${lines.map(x=>x.replace(/<[^>]+>/g,"")).join(" ")}</span><span class="hx-rot" aria-hidden="true" data-lines="${esc(JSON.stringify(lines))}">${lines[0]}</span></p>
+      <div class="hx-cta"><button class="btn primary xl" data-act="focus-open">${ic(live?"timer":"play2")}${live?"Back to focus":"Start focus session"}</button>${revBtn}</div>
+      <div class="hx-links">${o.next?`<button class="link" data-act="continue" data-id="${o.next.id}">Continue the plan${ic("arrow")}</button>`:`<a class="link" href="#problems">Practise a problem${ic("arrow")}</a>`}<button class="link" data-act="log-open">Log solved problem${ic("plus")}</button></div>
+    </div>
+    <div class="hx-strip">
+      <${sA||(!fin&&tc.Q.queue.length)?`button data-act="${sA?"rev-resume":"rev-start"}"`:`a href="#revision"`} class="hx-cell">${ringSvg(rPlan?rDone/rPlan:fin?1:0,rPlan?`${rDone}/${rPlan}`:"–")}<div class="tx"><div class="k">Today's revision</div><div class="v">${esc(RV.CAT[cat].name)}</div><div class="s">${sA?"Session running":fin?"Done for today":rPlan?`${rPlan} to revise · about ${hm(tc.Q.est)}`:"Nothing due today"}</div></div></${sA||(!fin&&tc.Q.queue.length)?"button":"a"}>
+      <a class="hx-cell" href="#plan"><span class="ic">${ic("plan")}</span>${nowCell}</a>
+      <button class="hx-cell" data-act="focus-open"><span class="ic">${ic("timer")}</span><div class="tx"><div class="k">Focus today</div><div class="v">${live?`<span class="live" data-pomo="hero">${pomoClockText()}</span>`:hm(fs.focusSec)}</div><div class="s">${live?`${PM.MODES[pc.mode]}${pc.status==="paused"?" · paused":""} · ${esc(pc.task?pc.task.label:"")}`:`${fs.completed} session${fs.completed===1?"":"s"} completed`}</div></div></button>
+      <button class="hx-cell" data-act="jump-plan"><span class="ic">${ic("check")}</span><div class="tx"><div class="k">Today's plan</div><div class="v">${o.todays.length?`${o.tdone} of ${o.todays.length} done`:"No tasks today"}</div><div class="bar"><i style="width:${pct(o.tdone,o.todays.length)}%"></i></div></div></button>
+    </div>
+  </section>`;
+}
 function pageDashboard(){
   const h=new Date().getHours(),greet=h<12?"Good morning":h<17?"Good afternoon":"Good evening";
   const todays=october.filter(t=>t.date===TODAY),tdone=todays.filter(isDone).length;
@@ -852,10 +924,10 @@ function pageDashboard(){
   const recentCard=`<div class="card"><div class="card-h"><h2>Recently solved</h2></div>
     ${recent.length?recent.map(({p,on})=>`<div class="mini"><span class="nm">${esc(p.name)}</span><span class="badge ${p.difficulty}">${p.difficulty}</span><span class="when">${on===TODAY?"Today":fmt(on,{day:"numeric",month:"short"})}</span></div>`).join(""):`<div class="empty" style="border-top:1px solid var(--line)"><b>No problems ticked yet</b>Problems you tick from now on show up here with the date.</div>`}</div>`;
 
-  return phead(`${greet}, Sahil`,sub,actions)+`<div class="grid">
+  return heroHome({greet,sub,todays,tdone,next,solved,total})+`<div class="grid" id="homeGrid">
     <div class="span-8">${revHero()}</div>
     <section class="card span-4"><div class="card-h"><h2>Today's blocks</h2><span class="right"><a class="link" href="#plan">Edit${ic("arrow")}</a></span></div><div class="card-b">${timeline()}</div></section>
-    <div class="span-7"><section class="card" aria-labelledby="ptitle">${todayCard}</section>${lateCard}</div>
+    <div class="span-7"><section class="card" id="todayCard" aria-label="Today's plan">${todayCard}</section>${lateCard}</div>
     <div class="span-5 stack">
       <section class="card"><div class="kpi"><div class="lbl">DSA problems solved</div><div class="big num">${solved} <small>of ${total} · ${pct(solved,total)}%</small></div><div class="bar lg"><i style="width:${pct(solved,total)}%"></i></div></div>
         <div class="kpi-split"><div><b class="num">${planDone}/${october.length}</b><span>October plan tasks done</span></div><div><b class="num">${dsaLeftPlan}</b><span>Problems left in the plan</span></div></div></section>
@@ -900,6 +972,7 @@ function problemRow(p){
       <button class="iconbtn ${st?"on":""}" data-act="p-star" data-id="${p.id}" data-fk="st-${key}" aria-pressed="${st}" aria-label="Bookmark ${esc(p.name)}" data-tip="${st?"Remove bookmark":"Bookmark"}">${ic("star")}</button>
       <button class="iconbtn" data-act="open" data-key="${key}" data-fk="ed-${key}" aria-expanded="${openRow===key}" aria-label="Confidence and note for ${esc(p.name)}" data-tip="Confidence and note">${ic("edit")}</button>
       <a class="iconbtn" href="${ltc(p)}" target="_blank" rel="noopener" aria-label="Open ${esc(p.name)} on LeetCode" data-tip="Open on LeetCode">${ic("ext")}</a>
+      <button class="iconbtn c-focus" data-act="focus-open" data-k="${s&&RV.catOf(p,state)?"rev":"dsa"}" data-pid="${p.id}" aria-label="Start a focus session on ${esc(p.name)}" data-tip="Focus session on this problem">${ic("timer")}</button>
     </td></tr>
     ${openRow===key?`<tr class="editrow"><td colspan="7"><div class="edit">${editFields("p",p.id,c,note)}${catSelect(p)}</div></td></tr>`:""}`;
 }
@@ -911,7 +984,7 @@ function problemsBody(){
 }
 function pageProblems(){
   const sel=(id,opts,v,label)=>`<label class="sr" for="${id}">${label}</label><select class="select" id="${id}" data-pf="${id.slice(3)}">${opts.map(([val,l])=>`<option value="${esc(val)}" ${v===val?"selected":""}>${esc(l)}</option>`).join("")}</select>`;
-  return phead("Problems",`All ${PROBLEMS.length} problems from your LeetCode tracker. Tick one when it's solved.`,`<button class="btn" data-act="log-open">${ic("plus")}Log solved problem</button>`)+`
+  return phead("Problem <em>bank</em>",`All ${PROBLEMS.length} problems from your LeetCode tracker. Tick one when it's solved.`,`<button class="btn" data-act="log-open">${ic("plus")}Log solved problem</button>`)+`
     <div class="toolbar">
       <div class="search">${ic("search")}<label class="sr" for="pf-q">Filter problems</label><input class="input" id="pf-q" type="search" placeholder="Search by name or topic" value="${esc(pf.q)}" autocomplete="off"></div>
       ${sel("pf-topic",[["","All topics"],...TOPICS.map(t=>[t,t])],pf.topic,"Topic")}
@@ -945,7 +1018,7 @@ function pagePlan(){
     h+="</div></div>";
   }
   const jump=PLAN_DAYS.includes(TODAY)?`<button class="btn" data-act="jump-today">${ic("plan")}Jump to today</button>`:"";
-  return phead("Study plan","11–31 October. One core subject a week, DSA every day, Saturdays for catching up.",jump)+scheduleCard()+`<div class="section-title"><h2>October plan</h2><span>Core subjects, DSA and LLD by day</span></div>`+chips+(h||`<div class="card empty"><b>No tasks for this subject</b></div>`);
+  return phead("Study <em>plan</em>","11–31 October. One core subject a week, DSA every day, Saturdays for catching up.",jump)+scheduleCard()+`<div class="section-title"><h2>October plan</h2><span>Core subjects, DSA and LLD by day</span></div>`+chips+(h||`<div class="card empty"><b>No tasks for this subject</b></div>`);
 }
 
 /* Revision */
@@ -956,7 +1029,7 @@ function pageRevision(){
     :`<div class="empty" style="border-top:1px solid var(--line)"><b>Your queue is empty</b>Use the pencil button on any task or problem and pick Shaky or Redo. It will show up here for November.</div>`;
   const stars=PROBLEMS.filter(pStar),starOpen=stars.filter(p=>!pSolved(p));
   const opt=november.filter(t=>t.subject==="Optional DSA"),revPlan=november.filter(t=>t.subject==="Revision");
-  return phead("Revision","Daily topic revision with adaptive review dates, plus what you marked for November.")+revTopicSection()+`
+  return phead("Revision <em>desk</em>","Daily topic revision with adaptive review dates, plus what you marked for November.")+revTopicSection()+`
     <div class="section-title"><h2>Marked for November</h2><span>Things you marked Shaky or Redo, your bookmarks and the November schedule</span></div>
     <div class="grid">
       <section class="card span-12"><div class="card-h"><h2>Needs revision</h2><span class="right num">${marked.length}</span></div>${queue}</section>
@@ -997,7 +1070,7 @@ function pageTopics(){
     const L=LLD.filter(t=>t.lld.section===sec),d=L.filter(isDone).length,nx=L.find(t=>!isDone(t)),opt=L.filter(t=>t.lld.opt).length;
     return `<a class="card tcard" href="#plan?f=System%20Design"><div class="t1"><b>${esc(sec)}</b><span class="num">${d}/${L.length}</span></div><div class="bar"><i style="width:${pct(d,L.length)}%"></i></div><div class="diffs"><span>${fmt(L[0].date,{day:"numeric",month:"short"})}${L[L.length-1].date!==L[0].date?` – ${fmt(L[L.length-1].date,{day:"numeric",month:"short"})}`:""}</span>${opt?`<span>${opt===L.length?"All optional":opt+" optional"}</span>`:""}</div><div class="next">${nx?`Next: <b>${esc(nx.task)}</b> · ${esc(nx.lld.concept)}`:"All done"}</div></a>`;
   }).join("");
-  return phead("Topics","DSA by topic from your tracker, and the core subjects in the October plan.")+
+  return phead("Topic <em>map</em>","DSA by topic from your tracker, and the core subjects in the October plan.")+
     `<div class="section-title" style="margin-top:0"><h2>DSA topics</h2><span>${TOPICS.length} topics · tap one to see its problems</span></div><div class="tgrid">${cards}</div>
      <div class="section-title"><h2>Core subjects</h2><span>Counted in plan sessions</span></div><div class="tgrid">${subj}</div>
      <div class="section-title"><h2>LLD problems</h2><span>${LLD.filter(isDone).length}/${LLD.length} done · L3 Elevator and L4 BookMyShow are in November</span></div><div class="tgrid">${lld}</div>`;
@@ -1027,7 +1100,7 @@ function pageAnalytics(){
   const subj=SUBJECTS.map(s=>{const L=october.filter(t=>t.subject===s);return L.length?progressRow(s,L.filter(isDone).length,L.length):"";}).join("");
   const weeks=["Week 1","Week 2","Week 3"].map(w=>{const L=october.filter(t=>t.week===w);return progressRow(`${w} · ${WEEKNAME[w].replace(" week","")}`,L.filter(isDone).length,L.length);}).join("");
   const diffs=DIFFS.map(df=>{const L=PROBLEMS.filter(p=>p.difficulty===df);return progressRow(df,L.filter(pSolved).length,L.length);}).join("");
-  return phead("Analytics","Your real progress, from the plan and your LeetCode tracker.")+`
+  return phead("Your <em>progress</em>","Your real progress, from the plan and your LeetCode tracker.")+`
     <div class="tiles">
       <div class="card tile"><div class="lbl">Problems solved</div><div class="v num">${solved} <small>/ ${PROBLEMS.length}</small></div></div>
       <div class="card tile"><div class="lbl">Solved since 11 Oct</div><div class="v num">${octSolved}</div></div>
@@ -1041,7 +1114,29 @@ function pageAnalytics(){
       <section class="card span-6"><div class="card-h"><h2>By week</h2></div><div class="card-b">${weeks}</div>
         <div class="card-h" style="padding-top:4px"><h2>Problems by difficulty</h2></div><div class="card-b">${diffs}</div></section>
       <section class="card span-12"><div class="card-h"><h2>Activity</h2><span class="sub">Items ticked per day, by the date you ticked them</span></div><div class="card-b">${anyTicks?colChart(act,""):`<div class="empty"><b>No activity recorded yet</b>The site records the date of every tick from today onwards, so this fills in as you study.</div>`}</div></section>
-    </div>`+revAnalytics();
+    </div>`+focusAnalytics()+revAnalytics();
+}
+function focusAnalytics(){
+  const p=pm(),days=[...Array(14)].map((_,i)=>RV.addDays(TODAY,i-13)),all=PM.dayStats(p),today=PM.dayStats(p,TODAY);
+  const per=days.map(d=>{const st=PM.dayStats(p,d);return {label:+d.slice(8),v:Math.round(st.focusSec/60),tip:`${fmt(d)}: ${hm(st.focusSec)} focused, ${st.completed} session${st.completed===1?"":"s"} completed`};});
+  const wk=days.slice(-7).reduce((a,d)=>a+PM.dayStats(p,d).focusSec,0);
+  const done=all.entries.filter(e=>e.mode==="focus"&&e.done),avg=done.length?done.reduce((a,e)=>a+e.sec,0)/done.length:0;
+  const kinds=PM.byKind(p,days.slice(-7)),max=Math.max(1,...Object.values(kinds));
+  const rows=KINDS.filter(x=>kinds[x.k]).map(x=>`<div class="prow"><span>${x.k==="core"?"Core subjects":x.label}</span><div class="bar"><i style="width:${pct(kinds[x.k],max)}%"></i></div><span class="n">${hm(kinds[x.k])}</span></div>`).join("");
+  const recent=all.entries.filter(e=>e.mode==="focus").slice(-8).reverse();
+  const tm=ms=>new Date(ms).toLocaleTimeString("en-GB",{hour:"numeric",minute:"2-digit"});
+  return `<div class="section-title"><h2>Focus</h2><span>From Focus Mode. Only running time counts; pauses and breaks don't.</span></div>
+    <div class="tiles">
+      <div class="card tile"><div class="lbl">Focused today</div><div class="v num">${hm(today.focusSec)} <small>· ${today.completed} session${today.completed===1?"":"s"}</small></div></div>
+      <div class="card tile"><div class="lbl">Last 7 days</div><div class="v num">${hm(wk)}</div></div>
+      <div class="card tile"><div class="lbl">Sessions completed</div><div class="v num">${all.completed}${all.partial?` <small>+ ${all.partial} partial</small>`:""}</div></div>
+      <div class="card tile"><div class="lbl">Breaks taken</div><div class="v num">${hm(all.breakSec)}${done.length?` <small>· avg session ${hm(avg)}</small>`:""}</div></div>
+    </div>
+    <div class="grid" style="margin-bottom:8px">
+      <section class="card span-7"><div class="card-h"><h2>Focus minutes per day</h2><span class="sub">Last 14 days</span></div><div class="card-b">${all.focusSec?colChart(per,""):`<div class="empty"><b>No focus sessions yet</b>Start one from the dashboard or Focus mode and it shows up here.</div>`}</div></section>
+      <section class="card span-5"><div class="card-h"><h2>By block</h2><span class="sub">Last 7 days</span></div><div class="card-b">${rows||`<p class="muted" style="margin:0;font-size:13px">Pick a block in Focus Mode and its time is counted here.</p>`}</div>
+        ${recent.length?`<div class="card-h" style="padding-top:4px"><h2>Recent sessions</h2></div>${recent.map(e=>`<div class="mini"><span class="nm">${esc(e.task?e.task.label:"Focus")}</span><span class="when">${e.d===TODAY?"Today":shortDate(e.d)} ${tm(e.s)}</span><span class="when num">${hm(e.sec)}</span>${e.done?`<span class="kind done">Done</span>`:`<span class="kind">Partial</span>`}</div>`).join("")}`:""}</section>
+    </div>`;
 }
 
 /* ---------- Topic revision (engine in revision.js) ---------- */
@@ -1129,7 +1224,8 @@ function timeline(){
   return `<div class="tl-track" aria-hidden="true">${B.map(b=>`<i class="${b.k==="rev"?"rev":""}" style="left:${(b.sm-lo)/span*100}%;width:${(b.em-b.sm)/span*100}%"></i>`).join("")}${nm>=lo&&nm<=hi?`<span class="now" style="left:${(nm-lo)/span*100}%"></span>`:""}</div>
     ${B.map(b=>{const st=nm>=b.sm&&nm<b.em?"now":nm>=b.em?"past":"";
       const tag=st==="now"?`<span class="badge today">Now</span>`:b===nextB?`<span class="badge">Next</span>`:b.k==="dsa"?`<button class="link" data-act="log-open">Log</button>`:"";
-      return `<div class="tl-row ${st?"is-"+st:""}"><span class="tm">${t12(b.sm)}–${t12(b.em)}</span><span class="lb"><b><span class="sw ${b.k==="rev"?"rev":""}"></span>${esc(b.label)}</b><span>${esc(blockSub(b))}</span></span>${tag}</div>`;}).join("")}`;
+      const go=st==="past"?"":`<button class="go" data-act="focus-open" data-k="${b.k}" aria-label="Start a focus session for ${esc(b.label)}" data-tip="Focus session for this block">${ic("play2")}</button>`;
+      return `<div class="tl-row ${st?"is-"+st:""}"><span class="tm">${t12(b.sm)}–${t12(b.em)}</span><span class="lb"><b><span class="sw ${b.k==="rev"?"rev":""}"></span>${esc(b.label)}</b><span>${esc(blockSub(b))}</span></span><span class="tg">${tag}${go}</span></div>`;}).join("")}`;
 }
 function allAttempts(){
   const L=[];for(const [id,r] of Object.entries(state.rev||{}))(r.hist||[]).forEach((h,i)=>L.push({id:+id,h,i}));
@@ -1164,7 +1260,7 @@ function sessHead(s){
   return `<div class="sess-head"><div class="t"><div class="eyebrow">Revision session · ${fmt(s.date,{weekday:"long",day:"numeric",month:"long"})}</div><h1 tabindex="-1" id="ptitle">${esc(RV.CAT[s.cat].name)}</h1><p>${s.queue.length} question${s.queue.length===1?"":"s"} planned${revSlot()?` for ${revSlot()}`:""}. Progress saves as you go.</p></div>
     <div class="clock ${el>cap?"over":""}" data-clockwrap><div class="big" data-clock="sess">${hms(el)}</div><div class="sub" data-clock="left">${clockLeft(s,el,cap)}</div><div class="bar lg"><i data-clock="bar" style="width:${Math.min(100,el/cap*100)}%"></i></div></div>
     <div class="sess-actions">${s.run?`<button class="btn" data-act="s-toggle" data-fk="s-toggle">${ic("pause")}Pause</button>`:`<button class="btn primary" data-act="s-toggle" data-fk="s-toggle">${ic("play")}${el?"Resume":"Start"}</button>`}
-      <button class="btn" data-act="s-finish">${ic("check")}Finish session</button><button class="btn ghost" data-act="s-exit">Exit</button></div></div>`;
+      <button class="btn" data-act="focus-open" data-k="rev" data-pid="${s.cur!=null&&!(s.cur in s.done)?s.cur:""}" data-tip="Pomodoro timer on this question">${ic("timer")}Pomodoro</button><button class="btn" data-act="s-finish">${ic("check")}Finish session</button><button class="btn ghost" data-act="s-exit">Exit</button></div></div>`;
 }
 function clockLeft(s,el,cap){return (s.run?"":"Paused · ")+(el>cap?`${hm(el-cap)} over the ${hm(cap)} block`:`${hm(cap-el)} left of ${hm(cap)}`);}
 function qItem(s,id){
@@ -1396,13 +1492,257 @@ function guessCat(){
   const k=topic&&RV.defaultCat(topic);if(k)$("logCat").value=k;
 }
 
+/* ---------- Focus Mode (timer engine in pomodoro.js, scenery in scene.js) ----------
+   The timer is driven by timestamps only. pomoTick() reads the clock, settles finished timers and paints
+   the digits; it never depends on animation frames, so slow or disabled visuals can't change the timing. */
+const PM=window.POMO;
+const pm=()=>PM.ensure(state);
+const pcfg=()=>PM.cfg(pm());
+let fxPanel=null,lastRoute="dashboard";
+const KINDS=[{k:"rev",label:"DSA revision"},{k:"sd",label:"System design"},{k:"dsa",label:"New DSA problems"},{k:"mtp",label:"MTP"},{k:"core",label:"Core subject"},{k:"other",label:"Other"}];
+const KIND=Object.fromEntries(KINDS.map(x=>[x.k,x]));
+const CORE=["OS","DBMS","CN","Core CS"];
+function coreName(){const t=october.find(t=>t.date===TODAY&&CORE.includes(t.subject));const wk=weekOf(TODAY);return t?t.subject:wk?WEEKNAME[wk].replace(" week",""):"Core CS";}
+function blockNow(){const d=new Date(),nm=d.getHours()*60+d.getMinutes();return blocks().find(b=>nm>=b.sm&&nm<b.em)||null;}
+function kindTime(k){const b=blocks().find(x=>x.k===k);return b?`${t12(b.sm)}–${t12(b.em)}`:k==="mtp"?"Flexible":"";}
+function taskFor(k,item,custom){
+  let base=k==="core"?coreName():KIND[k].label,sub="";
+  if(k==="rev")sub=RV.CAT[todayCat()].name;
+  if(k==="mtp")sub="Flexible academic work";
+  if(item){if(item.type==="p"){const p=probById.get(item.id);if(p)sub=p.name;}else{const t=TASKS.find(x=>x.id===item.id);if(t)sub=t.task.split(/[:(]/)[0].trim();}}
+  if(custom)sub=custom;
+  return {k,label:sub?`${base} · ${sub}`:base,item:item||null,custom:custom||""};
+}
+// What the clock suggests: the running revision question, else the block you're in, else revision.
+function defaultTask(){
+  const s=activeSess();
+  if(s&&s.cur!=null&&probById.get(s.cur)&&!(s.cur in s.done))return taskFor("rev",{type:"p",id:s.cur});
+  const b=blockNow();return taskFor(b&&KIND[b.k]?b.k:"rev");
+}
+function itemOptions(k){
+  const P=p=>({v:"p"+p.id,l:`${p.name} · ${p.difficulty}`}),T=t=>({v:"t"+t.id,l:t.task+(t.date===TODAY?" · today":"")});
+  if(k==="rev"){const s=activeSess();return [{g:`${RV.CAT[todayCat()].name} queue`,L:(s?RV.remaining(s):queueFor(todayCat()).queue).map(id=>probById.get(id)).filter(Boolean).map(P)}];}
+  if(k==="dsa"){const T0=october.filter(t=>t.subject==="DSA"&&t.pid&&(t.date===TODAY||(t.date<TODAY&&!isDone(t)))),ids=new Set(T0.map(t=>t.pid));
+    return [{g:"Planned",L:T0.map(t=>probById.get(t.pid)).filter(Boolean).map(P)},{g:"Unsolved in the tracker",L:PROBLEMS.filter(p=>!pSolved(p)&&!ids.has(p.id)).map(P)}];}
+  if(k==="sd")return [{g:"System design tasks",L:october.filter(t=>t.subject==="System Design"&&!isDone(t)).slice(0,16).map(T)}];
+  if(k==="core")return [{g:"Core subject tasks",L:october.filter(t=>CORE.includes(t.subject)&&(t.date===TODAY||(t.date<TODAY&&!isDone(t)))).map(T)}];
+  return [];
+}
+const curTask=()=>pm().cur.task||defaultTask();
+function pomoClockText(now=Date.now()){const r=Math.ceil(PM.remaining(pm(),now)-1e-6);const h=Math.floor(r/3600),m=Math.floor(r%3600/60),x=r%60;return h?`${h}:${pad(m)}:${pad(x)}`:`${m}:${pad(x)}`;}
+function openFocus(k,item){
+  const p=pm();
+  if(k)PM.setTask(p,taskFor(k,item));
+  else if(!p.cur.task)PM.setTask(p,defaultTask());
+  save();fx.pomoIn=true;
+  if(route==="focus")render();else location.hash="#focus";
+}
+function setAmbient(on){
+  PM.setCfg(pm(),{ambient:on},Date.now());save();applyAmbient();
+  toast(on?"Ambient effects on.":"Ambient effects off. Everything still works, just stiller.");
+  if(route==="focus")render();
+}
+function applyAmbient(){
+  const on=pcfg().ambient!==false;document.documentElement.classList.toggle("calm",!on);
+  const b=$("ambientBtn");if(b){b.setAttribute("aria-pressed",on);b.innerHTML=`${ic("sparkle")}Ambient effects: ${on?"on":"off"}`;}
+  if(atmoFx&&atmoFx.sync)atmoFx.sync();if(fsFx&&fsFx.sync)fsFx.sync();
+}
+// Completion: the note in Focus Mode, a toast elsewhere, a chime, and a system notification if allowed.
+function onPomoEvents(evs,quiet){
+  const p=pm(),last=evs[evs.length-1],now=Date.now(),away=now-last.at>90e3;
+  const f=evs.filter(e=>e.from==="focus"&&e.completed).pop();
+  let title,body;
+  if(last.from==="focus"){const e=last.entry;title="Focus session complete";
+    body=`${e?hm(e.sec):""} on ${esc(e&&e.task?e.task.label:"your task")}. ${PM.MODES[last.to]} ${last.autoStarted?"has started":"is ready when you are"}.`;}
+  else{title=`${PM.MODES[last.from]} is over`;body=f?`You finished a focus session and its break. Start the next one when you're ready.`:"Start the next focus session when you're ready.";}
+  if(away)title=`While you were away: ${title.toLowerCase()}`;
+  p.note={kind:last.from==="focus"?"focus":"break",title,body,at:now};
+  if(quiet)return;
+  if(pcfg().sound&&!away)SCENE.chime(last.from==="focus"?"focus":"break");
+  if(route!=="focus")toast(title+". "+body.replace(/<[^>]+>/g,""));
+  try{if(window.Notification&&Notification.permission==="granted"&&(document.hidden||route!=="focus"))new Notification(title,{body:body.replace(/<[^>]+>/g,""),tag:"prep-pomo"});}catch(e){}
+}
+const RING_F=2*Math.PI*104;
+function pomoTick(){
+  if(!signedIn())return;
+  const p=pm(),now=Date.now(),ev=PM.settle(p,now);
+  if(ev.length){onPomoEvents(ev);save();if(["focus","dashboard","analytics"].includes(route))render();if(route==="focus")fx.pomo=true;}
+  const c=p.cur,txt=pomoClockText(now),live=c.status!=="idle";
+  document.querySelectorAll('[data-pomo="digits"],[data-pomo="hero"]').forEach(x=>{if(x.textContent!==txt)x.textContent=txt;});
+  const ring=document.querySelector('[data-pomo="ring"]');if(ring)ring.style.strokeDashoffset=(RING_F*(1-PM.progress(p,now))).toFixed(1);
+  const pill=$("pomoPill");
+  if(live&&route!=="focus"){pill.classList.remove("hidden");pill.classList.toggle("brk",c.mode!=="focus");pill.classList.toggle("paused",c.status==="paused");
+    const t=`<i></i><span class="lbl">${c.status==="paused"?"Paused":c.mode==="focus"?"Focus":"Break"}</span><span class="num">${txt}</span>`;if(pill.innerHTML!==t)pill.innerHTML=t;
+    pill.setAttribute("aria-label",`${PM.MODES[c.mode]} ${c.status==="paused"?"paused":"running"}, ${txt} left. Open Focus Mode.`);}
+  else if(!pill.classList.contains("hidden"))pill.classList.add("hidden");
+  const title=c.status==="running"?`${txt} · ${c.mode==="focus"?"Focus":"Break"} · Prep Desk`:"Prep Desk";
+  if(document.title!==title)document.title=title;
+}
+// A new day starts a fresh set of four.
+function pomoNewDay(){const p=pm(),last=p.log[p.log.length-1];if(p.cur.status==="idle"&&p.cur.cycle&&last&&last.d<TODAY){p.cur.cycle=0;if(p.cur.mode==="long")PM.setMode(p,"focus",Date.now());}}
+
+function focusPanel(){
+  const p=pm(),c=pcfg(),t=curTask();
+  if(fxPanel==="settings"){
+    const n=(k,label,max)=>`<label class="fld"><span>${label}</span><input class="input" type="number" min="1" max="${max}" data-act="pomo-cfg" data-k="${k}" value="${c[k]}"></label>`;
+    const perm=window.Notification?Notification.permission:"unsupported";
+    return `<aside class="fx-panel" aria-label="Timer settings"><div class="ph"><h2>Timer settings</h2><button class="fx-ic" data-act="pomo-close" aria-label="Close settings">${ic("close")}</button></div>
+      <div class="two">${n("focus","Focus (min)",180)}${n("short","Short break (min)",60)}${n("long","Long break (min)",90)}${n("every","Long break after",12)}</div>
+      <p class="hint">Changing the length of a running timer keeps the time already spent.</p>
+      <label class="tog"><input type="checkbox" data-act="pomo-flag" data-k="autoBreak" ${c.autoBreak?"checked":""}> Start breaks automatically when a focus session ends</label>
+      <label class="tog"><input type="checkbox" data-act="pomo-flag" data-k="sound" ${c.sound?"checked":""}> Play a soft chime when a timer ends</label>
+      <label class="tog"><input type="checkbox" data-act="pomo-flag" data-k="ambient" ${c.ambient!==false?"checked":""}> Ambient effects (fog, rain, particles, motion)</label>
+      ${perm==="unsupported"?"":perm==="granted"?`<p class="hint" style="margin:0">Desktop alerts are on for this browser.</p>`:perm==="denied"?`<p class="hint" style="margin:0">Desktop alerts are blocked in this browser's site settings.</p>`:`<button class="btn" data-act="pomo-alerts">${ic("bell")}Turn on desktop alerts</button>`}
+      <div class="fld"><span>Focus scene</span><div class="fx-scenes">${SCENE.SCENE_ORDER.map(k=>`<button data-act="pomo-scene" data-f="scene" data-v="${k}" aria-pressed="${c.scene===k}">${SCENE.PHOTOS[k].name}</button>`).join("")}</div></div>
+      <div class="fld"><span>Break scene</span><div class="fx-scenes">${SCENE.SCENE_ORDER.map(k=>`<button data-act="pomo-scene" data-f="breakScene" data-v="${k}" aria-pressed="${c.breakScene===k}">${SCENE.PHOTOS[k].name}</button>`).join("")}</div></div>
+      ${pomoHistory()}</aside>`;
+  }
+  if(fxPanel==="task"){
+    const opts=itemOptions(t.k),sel=t.item?(t.item.type+t.item.id):"",free=["mtp","other"].includes(t.k);
+    return `<aside class="fx-panel" aria-label="Choose what to work on"><div class="ph"><h2>What are you working on?</h2><button class="fx-ic" data-act="pomo-close" aria-label="Close">${ic("close")}</button></div>
+      <p class="hint">Focus time is logged against this. Nothing gets marked solved by the timer.</p>
+      <div class="chips" role="group" aria-label="Study block">${KINDS.map(x=>`<button class="chip" data-act="pomo-kind" data-k="${x.k}" aria-pressed="${t.k===x.k}">${x.k==="core"?esc(coreName()):x.label}${kindTime(x.k)?` <span class="t">${kindTime(x.k)}</span>`:""}</button>`).join("")}</div>
+      ${opts.some(g=>g.L.length)?`<label class="fld"><span>${t.k==="rev"||t.k==="dsa"?"Problem":"Task"} <small>optional</small></span><select class="select" data-act="pomo-item"><option value="">${t.k==="rev"?`The whole ${esc(RV.CAT[todayCat()].name)} topic`:"Nothing specific"}</option>${opts.filter(g=>g.L.length).map(g=>`<optgroup label="${esc(g.g)}">${g.L.map(o=>`<option value="${o.v}" ${o.v===sel?"selected":""}>${esc(o.l)}</option>`).join("")}</optgroup>`).join("")}</select></label>`:""}
+      <label class="fld"><span>${free?"What exactly":"Or describe it"} <small>optional</small></span><input class="input" data-act="pomo-custom" value="${esc(t.custom||"")}" placeholder="${t.k==="mtp"?"e.g. Literature review, chapter 2":"e.g. Re-derive the recurrence"}" autocomplete="off"></label>
+      <button class="btn primary" data-act="pomo-close">${ic("check")}Done</button>
+      ${pomoHistory()}</aside>`;
+  }
+  return "";
+}
+function pomoHistory(){
+  const L=pm().log.filter(e=>e.d===TODAY).slice().reverse();
+  if(!L.length)return `<div class="fld"><span>Today</span><p class="hint" style="margin:0">Finished sessions show up here.</p></div>`;
+  const tm=ms=>new Date(ms).toLocaleTimeString("en-GB",{hour:"numeric",minute:"2-digit"});
+  return `<div class="fld"><span>Today</span><div class="hist">${L.slice(0,12).map(e=>`<div><span>${e.mode==="focus"?esc(e.task?e.task.label:"Focus"):PM.MODES[e.mode]}</span><span class="m">${tm(e.s)}</span><span class="m">${hm(e.sec)}${e.mode==="focus"&&!e.done?" · partial":""}</span></div>`).join("")}</div></div>`;
+}
+function pageFocus(){
+  const p=pm(),c=p.cur,k=pcfg(),now=Date.now(),t=curTask(),fs=PM.dayStats(p,TODAY);
+  const run=c.status==="running",idle=c.status==="idle";
+  const nextM=c.mode==="focus"?PM.nextMode("focus",c.cycle+1,k):"focus";
+  const sessN=c.mode==="focus"?`Session ${Math.min(c.cycle+1,k.every)} of ${k.every}`:c.mode==="long"?"Set complete":"Breathe";
+  const dots=[...Array(k.every)].map((_,i)=>`<i class="${i<c.cycle?"on":""} ${c.mode==="focus"&&i===c.cycle?"cur":""}"></i>`).join("");
+  const n=p.note;
+  const note=n?`<div class="fx-note" role="status"><span class="ic">${ic(n.kind==="focus"?"check":"coffee")}</span><div class="tx"><b>${esc(n.title)}</b><span>${n.body}</span></div><div class="acts">
+      ${n.kind==="focus"&&c.mode!=="focus"?(run?`<button class="btn sm glass" data-act="pomo-skip">Skip break</button>`:`<button class="btn sm primary" data-act="pomo-toggle">Start break</button>`):""}
+      ${n.kind==="break"&&c.mode==="focus"&&idle?`<button class="btn sm primary" data-act="pomo-toggle">Start focus</button>`:""}
+      <button class="btn sm glass" data-act="pomo-note-x" aria-label="Dismiss">${ic("close")}</button></div></div>`:"";
+  const mainLbl=run?"Pause":idle?(c.mode==="focus"?"Start focus":"Start break"):"Resume";
+  return `<div class="fx" data-mode="${c.mode}">
+    <div class="fx-top">
+      <a class="fx-brand" href="#dashboard"><span class="mark">${ic("check")}</span><span>Focus Mode<small>Midnight Study Club</small></span></a>
+      <div class="fx-seg" role="group" aria-label="Timer mode">${Object.entries(PM.MODES).map(([m,l])=>`<button data-act="pomo-mode" data-v="${m}" aria-pressed="${c.mode===m}" ${run&&c.mode!==m?"disabled":""}>${l}</button>`).join("")}</div>
+      <div class="fx-tools">
+        <button class="fx-ic" data-act="pomo-ambient" aria-pressed="${k.ambient!==false}" aria-label="Ambient effects ${k.ambient!==false?"on":"off"}" data-tip="Ambient effects">${ic("sparkle")}<span>Ambience</span></button>
+        <button class="fx-ic" data-act="pomo-panel" data-v="settings" aria-expanded="${fxPanel==="settings"}" aria-label="Timer settings" data-tip="Durations, sound and scenes">${ic("sliders")}<span>Settings</span></button>
+        <button class="fx-ic" data-act="focus-exit" aria-label="Exit Focus Mode">${ic("close")}<span>Exit</span></button>
+      </div>
+    </div>
+    ${note}
+    <div class="fx-main">
+      <h1 class="sr" id="ptitle" tabindex="-1">Focus Mode</h1>
+      <div class="fx-dial">
+        <svg class="fx-ring" viewBox="0 0 220 220" aria-hidden="true"><circle class="trk" cx="110" cy="110" r="104"/><circle class="ticks" cx="110" cy="110" r="96"/>
+          <circle class="prg" data-pomo="ring" cx="110" cy="110" r="104" stroke-dasharray="${RING_F.toFixed(1)}" stroke-dashoffset="${(RING_F*(1-PM.progress(p,now))).toFixed(1)}"/></svg>
+        <div class="fx-face">
+          <div class="fx-label">${PM.MODES[c.mode]} · ${sessN}${c.status==="paused"?" · paused":""}</div>
+          <div class="fx-digits num" data-pomo="digits" role="timer" aria-label="Time left">${pomoClockText(now)}</div>
+          <button class="fx-task" data-act="pomo-panel" data-v="task" aria-label="Change task: ${esc(t.label)}"><span>${esc(t.label)}</span>${ic("edit")}</button>
+        </div>
+      </div>
+      <div class="fx-ctrl">
+        <button class="fx-btn" data-act="pomo-reset" data-fk="pomo-reset" aria-label="Reset this timer">${ic("undo")}<span>Reset</span></button>
+        <button class="fx-btn main ${run?"is-run":""}" data-act="pomo-toggle" data-fk="pomo-toggle">${ic(run?"pause2":"play2")}${mainLbl}</button>
+        <button class="fx-btn" data-act="pomo-skip" data-fk="pomo-skip" aria-label="Skip to ${PM.MODES[nextM].toLowerCase()}">${ic("skip")}<span>Skip</span></button>
+      </div>
+      <div class="fx-meta"><div class="fx-dots" aria-label="${c.cycle} of ${k.every} focus sessions done in this set">${dots}</div>
+        <div>${fs.completed} session${fs.completed===1?"":"s"} · ${hm(fs.focusSec)} focused today</div>
+        <div>Next: ${PM.MODES[nextM]} · ${Math.round(PM.durOf(nextM,k)/60)} min${nextM==="focus"?" (starts when you say so)":""}</div></div>
+    </div>
+    <div class="fx-foot"><div class="fx-scenes"><span class="lbl">${c.mode==="focus"?"Focus scene":"Break scene"}</span>${SCENE.SCENE_ORDER.map(s=>`<button data-act="pomo-scene" data-f="${c.mode==="focus"?"scene":"breakScene"}" data-v="${s}" aria-pressed="${(c.mode==="focus"?k.scene:k.breakScene)===s}">${SCENE.PHOTOS[s].name}</button>`).join("")}</div></div>
+    ${focusPanel()}
+  </div>`;
+}
+function pomoAction(a,b){
+  const p=pm(),now=Date.now();
+  if(a==="pomo-toggle"){SCENE.unlockAudio();
+    if(p.cur.status==="running"){PM.pause(p,now);toast("Paused. Paused time doesn't count as focus.");}
+    else{if(!p.cur.task)PM.setTask(p,defaultTask());PM.start(p,now);delete p.note;}
+    fx.pomo=true;changed();}
+  else if(a==="pomo-reset"){const e=PM.reset(p,now);changed();toast(e?`Reset. The ${hm(e.sec)} you put in is kept in today's history.`:"Timer reset.");}
+  else if(a==="pomo-skip"){const ev=PM.skip(p,now);delete p.note;fx.pomo=true;changed();toast(`Skipped to ${PM.MODES[ev.to].toLowerCase()}.${ev.entry&&ev.from==="focus"?` ${hm(ev.entry.sec)} of focus logged as partial.`:""}`);}
+  else if(a==="pomo-mode"){if(p.cur.status==="running")return;PM.setMode(p,b.dataset.v,now);fx.pomo=true;changed();}
+  else if(a==="pomo-panel"){fxPanel=fxPanel===b.dataset.v?null:b.dataset.v;fx.panelIn=!!fxPanel;render();const f=document.querySelector(".fx-panel button,.fx-panel input");if(f)f.focus();}
+  else if(a==="pomo-close"){fxPanel=null;render();const t=document.querySelector(".fx-task");if(t)t.focus();}
+  else if(a==="pomo-kind"){PM.setTask(p,taskFor(b.dataset.k));changed();const el=document.querySelector(`[data-act="pomo-kind"][data-k="${b.dataset.k}"]`);if(el)el.focus();}
+  else if(a==="pomo-ambient"){setAmbient(pcfg().ambient===false);}
+  else if(a==="pomo-scene"){PM.setCfg(p,{[b.dataset.f]:b.dataset.v},now);changed();}
+  else if(a==="pomo-note-x"){delete p.note;changed();}
+  else if(a==="pomo-alerts"){if(window.Notification)Notification.requestPermission().then(()=>render());}
+}
+
+// Focus Mode backdrop: built when you enter, torn down when you leave so nothing runs in the background.
+let fsFx=null,fsKey=null;
+function bokeh(){let a=7,h="";const r=()=>(a=(a*16807)%2147483647)/2147483647;
+  for(let i=0;i<14;i++){const sz=18+r()*70|0;h+=`<span class="${r()<.3?"c":""}" style="left:${(r()*100).toFixed(1)}%;top:${(28+r()*62).toFixed(1)}%;width:${sz}px;height:${sz}px;animation-delay:${(-r()*12).toFixed(1)}s;animation-duration:${(9+r()*10).toFixed(1)}s"></span>`;}return h;}
+function syncFocusScene(){
+  const el=$("fscene"),on=route==="focus"&&signedIn();
+  el.classList.toggle("on",on);
+  if(!on){if(fsFx){fsFx();fsFx=null;}if(fsKey){el.innerHTML="";fsKey=null;}return;}
+  const c=pcfg(),brk=pm().cur.mode!=="focus",key=brk?c.breakScene:c.scene,P=SCENE.PHOTOS[key]||SCENE.PHOTOS.window;
+  el.classList.toggle("is-break",brk);el.classList.toggle("calm-fx",c.ambient===false);
+  if(fsKey===key)return;
+  if(fsFx){fsFx();fsFx=null;}
+  if(!fsKey){
+    el.innerHTML=`<div class="fs-photo">${SCENE.photo(key,{eager:true})}</div><div class="fs-dim"></div><div class="fs-tint"></div><div class="fs-fog"></div><div class="fs-fog f2"></div><div class="fs-bokeh">${bokeh()}</div><div class="fs-sweep"></div>
+      <canvas class="particles" data-max="36" data-alpha=".8"></canvas><span class="rain-slot"></span>${SCENE.focusFigures()}<div class="credit"></div>`;
+  }else{
+    const box=el.querySelector(".fs-photo"),old=box.querySelector(".scn");box.insertAdjacentHTML("beforeend",SCENE.photo(key,{eager:true}));
+    if(old){old.classList.add("leaving");setTimeout(()=>old.remove(),1700);}
+  }
+  el.querySelector(".rain-slot").innerHTML=P.rain?`<canvas class="rain"></canvas>`:"";
+  el.querySelector(".credit").innerHTML=SCENE.credit(key);
+  fsKey=key;fsFx=SCENE.mount(el);
+}
+// Home backdrop: built once, then kept. Hidden (and therefore still) on every other page.
+let atmoFx=null;
+function syncAtmo(){
+  const el=$("atmo");
+  if(route!=="dashboard"||el.dataset.built)return;
+  el.dataset.built=1;
+  el.innerHTML=`<div class="atmo-photo">${SCENE.photo("tokyo",{eager:true})}</div><canvas class="particles" data-max="60"></canvas>${SCENE.heroFigures()}<div class="credit">${SCENE.credit("tokyo")}</div>`;
+  atmoFx=SCENE.mount(el);
+  if(!window.gsap)return;
+  const figs=[...el.querySelectorAll(".fig")];
+  if(motionOK){
+    gsap.from(el.querySelector(".atmo-photo"),{scale:1.08,autoAlpha:0,duration:1.6,ease:"power2.out",clearProps:"opacity,visibility"});
+    gsap.from(figs,{autoAlpha:0,scale:.82,duration:1.4,ease:"power3.out",stagger:{each:.08,from:"end"},delay:.15,clearProps:"opacity,visibility,scale"});
+    // Scroll: the photo drifts slower than the page and each figure by its depth. Never pins or hijacks.
+    if(window.ScrollTrigger){
+      const st={trigger:el,start:"top top",end:"bottom top",scrub:.6};
+      gsap.to(el.querySelector(".atmo-photo"),{yPercent:12,ease:"none",scrollTrigger:st});
+      figs.forEach(f=>gsap.to(f,{y:-(+f.dataset.depth||.5)*180,ease:"none",scrollTrigger:Object.assign({},st)}));
+    }
+  }
+  // Cursor: nearer figures move more. Desktop pointers only.
+  if(matchMedia("(pointer:fine)").matches){
+    const M=figs.map(f=>{const m=f.querySelector(".fig-m"),d=+f.dataset.depth||.5;return {d,x:gsap.quickTo(m,"x",{duration:1.4,ease:"power3.out"}),y:gsap.quickTo(m,"y",{duration:1.4,ease:"power3.out"})};});
+    const ph=el.querySelector(".scn"),px=gsap.quickTo(ph,"x",{duration:2,ease:"power3.out"}),py=gsap.quickTo(ph,"y",{duration:2,ease:"power3.out"});
+    window.addEventListener("pointermove",e=>{
+      if(route!=="dashboard"||!motionOK||document.documentElement.classList.contains("calm"))return;
+      const nx=e.clientX/innerWidth-.5,ny=e.clientY/innerHeight-.5;
+      M.forEach(o=>{o.x(nx*o.d*46);o.y(ny*o.d*30);});px(nx*-14);py(ny*-10);
+    },{passive:true});
+  }
+}
+
 /* ---------- Render & routing ---------- */
 function renderChrome(){
   $("nav").innerHTML=ROUTES.filter(r=>!r.hidden).map(r=>{
     let cnt="";
     if(r.id==="dashboard"){const L=october.filter(t=>t.date===TODAY);if(L.length)cnt=`${L.filter(isDone).length}/${L.length}`;}
     if(r.id==="revision"){const n=overdueAll().length;if(n)cnt=n;}
-    return `<a href="#${r.id}" ${route===r.id||(r.id==="revision"&&route==="session")?'aria-current="page"':""} ${r.id==="revision"&&cnt!==""?`data-tip="${cnt} overdue for revision"`:""}>${ic(r.icon)}${r.label}${cnt!==""?`<span class="cnt">${cnt}</span>`:""}</a>`;}).join("");
+    const live=r.id==="focus"&&pm().cur.status==="running";
+    return `<a href="#${r.id}" ${route===r.id||(r.id==="revision"&&route==="session")?'aria-current="page"':""} ${r.id==="revision"&&cnt!==""?`data-tip="${cnt} overdue for revision"`:live?'data-tip="Timer running"':""}>${ic(r.icon)}${r.label}${cnt!==""?`<span class="cnt">${cnt}</span>`:""}${live?'<span class="live" aria-label="running"></span>':""}</a>`;}).join("");
   const s=PROBLEMS.filter(pSolved).length;
   $("sideFoot").innerHTML=`<div style="display:flex;justify-content:space-between"><span>DSA progress</span><span class="num">${pct(s,PROBLEMS.length)}%</span></div><div class="bar"><i style="width:${pct(s,PROBLEMS.length)}%"></i></div><span class="num">${s} of ${PROBLEMS.length} solved</span>`;
   const dn=studyDay(),wk=weekOf(TODAY);
@@ -1413,19 +1753,22 @@ function render(){
   renderChrome();
   const v=$("view"),prev=motionBefore();
   $("app").classList.toggle("focus",route==="session"&&!!activeSess());
-  const page={dashboard:pageDashboard,problems:pageProblems,plan:pagePlan,revision:pageRevision,topics:pageTopics,analytics:pageAnalytics,session:pageSession}[route];
+  $("app").classList.toggle("immersive",route==="focus");
+  $("app").dataset.route=route;
+  const page={dashboard:pageDashboard,focus:pageFocus,problems:pageProblems,plan:pagePlan,revision:pageRevision,topics:pageTopics,analytics:pageAnalytics,session:pageSession}[route];
   v.innerHTML=page();
   if(route==="problems")problemsBody();
   if(fk){const el=v.querySelector(`[data-fk="${fk}"]`);if(el)el.focus({preventScroll:true});}
+  syncAtmo();syncFocusScene();
   motionAfter(prev);
-  tick();
+  tick();pomoTick();
 }
 
 /* ---------- Motion (GSAP) ----------
    Pages are re-rendered as HTML strings, so every tween lives in one gsap.context scoped to the view
    and is reverted before the next render. Reduced-motion users get no tweens at all. */
 let motionOK=false,viewCtx=null,lastRot=null;
-const fx={enter:true,sessIn:false,cur:false,flash:null,pop:null};
+const fx={enter:true,sessIn:false,cur:false,flash:null,pop:null,pomoIn:false,pomo:false,panelIn:false};
 if(window.gsap){gsap.matchMedia().add("(prefers-reduced-motion: no-preference)",()=>{motionOK=true;return()=>{motionOK=false;};});}
 function motionBefore(){
   const w={};$("view").querySelectorAll("[data-k]").forEach(el=>w[el.dataset.k]=el.style.width);
@@ -1435,17 +1778,36 @@ function motionBefore(){
   return w;
 }
 function motionAfter(prev){
-  const f=Object.assign({},fx);fx.enter=fx.sessIn=fx.cur=false;fx.flash=fx.pop=null;
+  const f=Object.assign({},fx);fx.enter=fx.sessIn=fx.cur=fx.pomoIn=fx.pomo=fx.panelIn=false;fx.flash=fx.pop=null;
   if(!motionOK)return;
   const v=$("view");
   viewCtx=gsap.context(()=>{
     if(f.sessIn){
       gsap.from(v,{autoAlpha:0,y:14,scale:.99,duration:.38,ease:"power3.out",clearProps:"opacity,visibility,transform"});
       gsap.from(v.querySelectorAll(".qitem"),{autoAlpha:0,x:-8,duration:.3,stagger:.025,delay:.1,ease:"power2.out",clearProps:"opacity,visibility,transform"});
+    }else if(route==="focus"){
+      if(f.enter||f.pomoIn){
+        const tl=gsap.timeline({defaults:{ease:"power3.out",clearProps:"opacity,visibility,transform"}});
+        tl.from(v.querySelector(".fx-top"),{autoAlpha:0,y:-12,duration:.6})
+          .from(v.querySelector(".fx-dial"),{autoAlpha:0,scale:.92,duration:1,ease:"expo.out"},"-=.4")
+          .from(v.querySelectorAll(".fx-ctrl > *"),{autoAlpha:0,y:14,duration:.5,stagger:.07},"-=.7")
+          .from(v.querySelectorAll(".fx-meta, .fx-foot, .fx-note"),{autoAlpha:0,duration:.6},"-=.3");
+      }else if(f.pomo){
+        gsap.fromTo(v.querySelector(".fx-digits"),{autoAlpha:.4,scale:.96},{autoAlpha:1,scale:1,duration:.55,ease:"power2.out",clearProps:"opacity,visibility,transform"});
+        gsap.from(v.querySelectorAll(".fx-label, .fx-note"),{autoAlpha:0,y:6,duration:.45,ease:"power2.out",clearProps:"opacity,visibility,transform"});
+      }
+      const pn=v.querySelector(".fx-panel");if(pn&&f.panelIn)gsap.from(pn,{autoAlpha:0,x:24,duration:.4,ease:"power3.out",clearProps:"opacity,visibility,transform"});
     }else if(f.enter){
-      const items=[...v.querySelectorAll(":scope > .phead, :scope > .grid > *, :scope > .tiles > *, :scope > .cgrid > *, :scope > .tgrid > *, :scope > .card, :scope > .section-title, :scope > .week, :scope > .sess-head, :scope > .stats, :scope > .sess-grid > *")].slice(0,16);
-      gsap.from(items,{autoAlpha:0,y:10,duration:.4,ease:"power2.out",stagger:.04,clearProps:"opacity,visibility,transform"});
+      if(route==="dashboard")heroIntro(v);
+      const items=[...v.querySelectorAll(":scope > .phead, :scope > .grid > *, :scope > .tiles > *, :scope > .cgrid > *, :scope > .tgrid > *, :scope > .card, :scope > .section-title, :scope > .week, :scope > .sess-head, :scope > .stats, :scope > .sess-grid > *, :scope > .toolbar, :scope > .countline, :scope > .chips")];
+      if(window.ScrollTrigger&&items.length){
+        // Sections rise in as they scroll into view, once. Bars, rings and columns grow to their real values.
+        // Opacity only (not visibility), so hidden-until-scrolled sections stay focusable and clickable.
+        gsap.set(items,{opacity:0,y:22});
+        ScrollTrigger.batch(items,{start:"top 95%",once:true,onEnter:b=>{gsap.to(b,{opacity:1,y:0,duration:.7,ease:"power3.out",stagger:.06,overwrite:true,clearProps:"opacity,transform"});growIn(b);}});
+      }else gsap.from(items.slice(0,16),{autoAlpha:0,y:10,duration:.4,ease:"power2.out",stagger:.04,clearProps:"opacity,visibility,transform"});
     }
+    if(route==="dashboard")heroLive(v);
     v.querySelectorAll("[data-k]").forEach(el=>{const o=prev[el.dataset.k];if(o!=null&&o!==el.style.width)gsap.fromTo(el,{width:o},{width:el.style.width,duration:.55,ease:"power2.out"});});
     const rot=v.querySelector("[data-rot]");
     if(rot&&lastRot!=null&&lastRot!==+rot.dataset.rot){const ind=rot.querySelector(".ind");gsap.fromTo(ind,{xPercent:lastRot*100,x:0},{xPercent:+rot.dataset.rot*100,duration:.45,ease:"power3.inOut"})}
@@ -1454,13 +1816,39 @@ function motionAfter(prev){
     if(f.cur){const el=v.querySelector("[data-cur]");if(el)gsap.from(el,{autoAlpha:0,x:10,duration:.22,ease:"power2.out",clearProps:"opacity,visibility,transform"});}
   },v);
 }
+function growIn(els){
+  els.forEach(el=>{
+    const bars=[...el.querySelectorAll(".bar i:not([data-k])")];if(bars.length)gsap.from(bars,{width:0,duration:1,ease:"power2.out",stagger:.015});
+    const cols=el.querySelectorAll(".cols .col i");if(cols.length)gsap.from(cols,{scaleY:0,transformOrigin:"50% 100%",duration:.8,ease:"power3.out",stagger:.02,clearProps:"transform"});
+  });
+}
+function heroIntro(v){
+  const tl=gsap.timeline({defaults:{ease:"power3.out",clearProps:"opacity,visibility,transform"}});
+  tl.from(v.querySelector(".hx-eyebrow"),{autoAlpha:0,y:12,duration:.6})
+    .from(v.querySelectorAll(".hx-title .w"),{yPercent:115,duration:1.05,stagger:.08,ease:"power4.out"},"-=.45")
+    .from(v.querySelector(".hx-sub"),{autoAlpha:0,y:12,duration:.6},"-=.65")
+    .from(v.querySelectorAll(".hx-cta > *, .hx-links"),{autoAlpha:0,y:16,duration:.6,stagger:.07},"-=.45")
+    .from(v.querySelectorAll(".hx-cell"),{autoAlpha:0,y:22,duration:.7,stagger:.08},"-=.4")
+    .from(v.querySelectorAll(".hx-cell .ring .val"),{strokeDashoffset:RING_C,duration:1.2,ease:"power2.out",clearProps:"strokeDashoffset"},"-=.7");
+}
+// Runs on every home render: the goal line rotates, and the copy eases back as you scroll past it.
+function heroLive(v){
+  const rot=v.querySelector(".hx-rot");
+  if(rot){const L=JSON.parse(rot.dataset.lines||"[]");
+    if(L.length>1){const tl=gsap.timeline({repeat:-1});
+      L.forEach((_,i)=>{const nx=L[(i+1)%L.length];tl.to(rot,{autoAlpha:0,y:-10,duration:.4,ease:"power2.in",delay:4.6}).call(()=>{rot.innerHTML=nx;}).fromTo(rot,{autoAlpha:0,y:10},{autoAlpha:1,y:0,duration:.55,ease:"power2.out",immediateRender:false});});}}
+  const hx=v.querySelector(".hx");
+  if(hx&&window.ScrollTrigger)gsap.to(v.querySelector(".hx-copy"),{y:-70,autoAlpha:.15,ease:"none",scrollTrigger:{trigger:hx,start:"top top",end:"bottom top",scrub:.5}});
+}
 function readHash(){
   const [r,qs]=location.hash.slice(1).split("?");
   route=ROUTES.some(x=>x.id===r)?r:"dashboard";
   if(route==="plan"&&qs!==undefined){const f=new URLSearchParams(qs).get("f");if(f!==null)planFilter=f;}
   if(route==="problems"&&qs!==undefined){const u=new URLSearchParams(qs);Object.assign(pf,{q:u.get("q")||"",topic:u.get("topic")||"",diff:u.get("diff")||"",status:u.get("status")||""});}
 }
-window.addEventListener("hashchange",()=>{readHash();openRow=null;closeNav();fx.enter=true;if(signedIn()){render();window.scrollTo(0,0);const h=$("ptitle");if(h)h.focus({preventScroll:true});}});
+window.addEventListener("hashchange",()=>{const was=route;readHash();if(route==="focus"&&was!=="focus")lastRoute=was;if(route!=="focus")fxPanel=null;openRow=null;closeNav();fx.enter=true;
+  if(signedIn()){window.scrollTo(0,0);render();const h=$("ptitle");if(h)h.focus({preventScroll:true});if(window.ScrollTrigger)ScrollTrigger.refresh();}});
+window.addEventListener("scroll",()=>{const t=$("top");if(t)t.classList.toggle("scrolled",scrollY>40);},{passive:true});
 
 /* ---------- Events ---------- */
 const view=$("view");
@@ -1482,6 +1870,10 @@ view.addEventListener("change",e=>{
     setCfg(path,v);changed();toast("Saved. New intervals apply from the next review.");}
   else if(a==="blk"){const c=C();state.rcfg.blocks=c.blocks.map(b=>({k:b.k,s:b.s,e:b.e,on:b.on!==false}));const b=state.rcfg.blocks.find(x=>x.k===el.dataset.k);
     if(el.dataset.f==="on")b.on=el.checked;else if(el.value)b[el.dataset.f]=el.value;changed();}
+  else if(a==="pomo-item"){const v=el.value,t=curTask();PM.setTask(pm(),taskFor(t.k,v?{type:v[0],id:+v.slice(1)}:null,t.custom));changed();}
+  else if(a==="pomo-custom"){const t=curTask();PM.setTask(pm(),taskFor(t.k,t.item,el.value.trim()));changed();}
+  else if(a==="pomo-cfg"){const v=Math.round(+el.value);if(!(v>0))return;PM.setCfg(pm(),{[el.dataset.k]:Math.min(+el.max||999,v)},Date.now());pomoTick();changed();toast("Saved. A running timer keeps the time already spent.");}
+  else if(a==="pomo-flag"){PM.setCfg(pm(),{[el.dataset.k]:el.checked},Date.now());save();if(el.dataset.k==="ambient")applyAmbient();changed();}
   else if(el.dataset.pf){pf[el.dataset.pf]=el.value;problemsBody();}
 });
 view.addEventListener("input",e=>{if(e.target.id==="pf-q"){pf.q=e.target.value;problemsBody();}
@@ -1501,6 +1893,10 @@ view.addEventListener("click",e=>{
   else if(a==="go-cats"){setTimeout(()=>{const d=$("catsBox");if(d){d.open=true;d.scrollIntoView({behavior:"smooth",block:"start"});}},60);}
   else if(a==="log-open"){openLog();}
   else if(a==="cfg-reset"){const r=state.rcfg;state.rcfg={};["anchor","anchorCat","blocks"].forEach(k=>{if(r[k]!=null)state.rcfg[k]=r[k];});changed();toast("Intervals back to the defaults.");}
+  else if(a==="focus-open"){openFocus(b.dataset.k,b.dataset.pid?{type:"p",id:+b.dataset.pid}:b.dataset.tid?{type:"t",id:+b.dataset.tid}:null);}
+  else if(a==="focus-exit"){fxPanel=null;location.hash="#"+(lastRoute&&lastRoute!=="focus"?lastRoute:"dashboard");}
+  else if(a.startsWith("pomo-")){pomoAction(a,b);}
+  else if(a==="jump-plan"){const c=$("todayCard");if(c){c.scrollIntoView({behavior:motionOK?"smooth":"auto",block:"start"});const cb=c.querySelector("input");if(cb)cb.focus({preventScroll:true});}}
   else if(a.startsWith("s-")&&a!=="s-text"&&a!=="s-ins"){sessAction(a,b);}
   else if(a==="continue"){const cb=view.querySelector(`[data-fk="cb-t${b.dataset.id}"]`);if(cb){cb.closest(".row").scrollIntoView({behavior:"smooth",block:"center"});cb.focus({preventScroll:true});}}
 });
@@ -1532,7 +1928,8 @@ $("q").addEventListener("input",e=>{
 });
 document.addEventListener("keydown",e=>{
   if(e.key==="/"&&!e.target.matches("input,select,textarea")&&signedIn()){e.preventDefault();$("q").focus();}
-  if(e.key==="Escape"){closeNav();$("profile").open=false;}
+  if(e.key==="Escape"){closeNav();$("profile").open=false;if(route==="focus"&&fxPanel){fxPanel=null;render();}}
+  if(e.key===" "&&route==="focus"&&signedIn()&&!e.target.matches("input,select,textarea,button,a,summary,label")){e.preventDefault();pomoAction("pomo-toggle");}
 });
 
 /* mobile nav */
@@ -1554,13 +1951,14 @@ function toast(m){const t=$("toast");t.textContent=m;t.classList.add("on");clear
 $("exportBtn").innerHTML=`${ic("download")}Export progress`;
 $("importLbl").insertAdjacentHTML("afterbegin",`${ic("upload")}Import progress`);
 $("resetBtn").innerHTML=`${ic("reset")}Reset this device`;
+$("ambientBtn").onclick=()=>{setAmbient(pcfg().ambient===false);$("profile").open=false;};
 $("signout").innerHTML=`${ic("logout")}Sign out`;
 $("exportBtn").onclick=()=>{
   const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(state,null,1)],{type:"application/json"}));
   a.download=`prep-progress-${TODAY}.json`;a.click();$("profile").open=false;toast("Progress exported.");};
 $("importFile").onchange=async e=>{
   const f=e.target.files[0];if(!f)return;
-  try{const s=JSON.parse(await f.text());if(!s.done)throw 0;state=Object.assign(blank(),s);loadProblems();settleSession();save();render();toast("Progress imported.");}
+  try{const s=JSON.parse(await f.text());if(!s.done)throw 0;state=Object.assign(blank(),s);loadProblems();settleSession();PM.settle(pm(),Date.now());save();applyAmbient();render();toast("Progress imported.");}
   catch(err){alert("That file doesn't look like a tracker export.");}
   e.target.value="";$("profile").open=false;};
 $("resetBtn").onclick=()=>{if(confirm("Clear all ticks, confidence, notes, bookmarks and revision history on this device?")){state=blank();loadProblems();save();render();toast("Progress cleared on this device.");}$("profile").open=false;};
@@ -1596,8 +1994,15 @@ $("logForm").addEventListener("submit",e=>{
 
 readHash();
 settleSession();
+// Bring the focus timer up to date (it may have finished while the site was closed).
+pomoNewDay();{const ev=PM.settle(pm(),Date.now());if(ev.length)onPomoEvents(ev,true);}save();
+applyAmbient();
 show();
 setInterval(()=>{if(signedIn())tick();},1000);
+setInterval(pomoTick,500);
+document.addEventListener("visibilitychange",()=>{if(!document.hidden&&signedIn()){pomoTick();tick();}});
+// Another tab saved: take its copy so two open tabs never overwrite each other's progress.
+window.addEventListener("storage",e=>{if(e.key!==KEY||!e.newValue)return;try{state=Object.assign(blank(),JSON.parse(e.newValue));loadProblems();if(signedIn())render();}catch(err){}});
 </script>
 </body>
 </html>
