@@ -1609,6 +1609,19 @@ function focusPanel(){
   }
   return "";
 }
+// Focus and break lengths, editable right under the timer: type a number or step it, or pick a preset.
+const LEN_KEYS=[["focus","Focus",180,5],["short","Short break",60,1],["long","Long break",90,5]];
+const LEN_PRESETS=[[25,5,15],[50,10,20],[90,15,30]];
+function lenEditor(){
+  const k=pcfg();
+  return `<div class="fx-len" role="group" aria-label="Session lengths">
+    <div class="fx-len-row">${LEN_KEYS.map(([key,l,max,st])=>`<div class="fx-step" data-on="${pm().cur.mode===key}"><span class="l" id="len-${key}">${l}</span>
+      <div class="ctl"><button data-act="pomo-step" data-k="${key}" data-d="${-st}" data-fk="st-${key}-dn" aria-label="${l} ${st} minute${st>1?"s":""} shorter" ${k[key]<=1?"disabled":""}>&minus;</button>
+      <input type="number" inputmode="numeric" min="1" max="${max}" data-act="pomo-cfg" data-k="${key}" value="${k[key]}" aria-labelledby="len-${key}"><span class="u">min</span>
+      <button data-act="pomo-step" data-k="${key}" data-d="${st}" data-fk="st-${key}-up" aria-label="${l} ${st} minute${st>1?"s":""} longer" ${k[key]>=max?"disabled":""}>+</button></div></div>`).join("")}</div>
+    <div class="fx-presets"><span class="lbl">Presets</span>${LEN_PRESETS.map(([f,s,l])=>`<button data-act="pomo-preset" data-v="${f},${s},${l}" data-fk="pr-${f}" aria-pressed="${k.focus===f&&k.short===s&&k.long===l}">${f} / ${s} / ${l}</button>`).join("")}</div>
+  </div>`;
+}
 function pomoHistory(){
   const L=pm().log.filter(e=>e.d===TODAY).slice().reverse();
   if(!L.length)return `<div class="fld"><span>Today</span><p class="hint" style="margin:0">Finished sessions show up here.</p></div>`;
@@ -1654,6 +1667,7 @@ function pageFocus(){
         <button class="fx-btn main ${run?"is-run":""}" data-act="pomo-toggle" data-fk="pomo-toggle">${ic(run?"pause2":"play2")}${mainLbl}</button>
         <button class="fx-btn" data-act="pomo-skip" data-fk="pomo-skip" aria-label="Skip to ${PM.MODES[nextM].toLowerCase()}">${ic("skip")}<span>Skip</span></button>
       </div>
+      ${lenEditor()}
       <div class="fx-meta"><div class="fx-dots" aria-label="${c.cycle} of ${k.every} focus sessions done in this set">${dots}</div>
         <div>${fs.completed} session${fs.completed===1?"":"s"} · ${hm(fs.focusSec)} focused today</div>
         <div>Next: ${PM.MODES[nextM]} · ${Math.round(PM.durOf(nextM,k)/60)} min${nextM==="focus"?" (starts when you say so)":""}</div></div>
@@ -1677,6 +1691,10 @@ function pomoAction(a,b){
   else if(a==="pomo-ambient"){setAmbient(pcfg().ambient===false);}
   else if(a==="pomo-scene"){PM.setCfg(p,{[b.dataset.f]:b.dataset.v},now);changed();}
   else if(a==="pomo-note-x"){delete p.note;changed();}
+  else if(a==="pomo-step"){const key=b.dataset.k,m=LEN_KEYS.find(x=>x[0]===key),v=Math.min(m[2],Math.max(1,pcfg()[key]+(+b.dataset.d)));
+    PM.setCfg(p,{[key]:v},now);pomoTick();changed();}
+  else if(a==="pomo-preset"){const [f,sh,l]=b.dataset.v.split(",").map(Number);PM.setCfg(p,{focus:f,short:sh,long:l},now);pomoTick();changed();
+    toast(`Set to ${f} min focus, ${sh} min short break, ${l} min long break.${p.cur.status!=="idle"?" The current timer keeps the time already spent.":""}`);}
   else if(a==="pomo-alerts"){if(window.Notification)Notification.requestPermission().then(()=>render());}
 }
 
