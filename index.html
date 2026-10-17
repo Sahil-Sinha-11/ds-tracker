@@ -22,6 +22,7 @@
   --text:#2C4436; --text-2:#5C6B61; --line:#E2E1D5;
   --success:#2F7A55; --warning:#9C661F; --error:#B0434F;
   --success-soft:#E1EEDD; --warning-soft:#F8E9D8; --error-soft:#F7E1E1;
+  --skip:#6D58AE; --skip-soft:#ECE6F8;
   --easy:#2E7553; --easy-bg:#E1EEDD; --med:#94601C; --med-bg:#F8E9D8; --hard:#A93E4B; --hard-bg:#F7E1E1;
   /* sequential steps for charts (0 → full) */
   --s0:#ECEDE2; --s1:#CFE0C9; --s2:#97BC90; --s3:#4F8263;
@@ -36,6 +37,7 @@
   --text:#E9EEE7; --text-2:#A3B0A7; --line:rgba(200,225,205,.12);
   --success:#7FCB9E; --warning:#E8B36F; --error:#EE8F97;
   --success-soft:rgba(127,203,158,.13); --warning-soft:rgba(232,179,111,.13); --error-soft:rgba(238,143,151,.13);
+  --skip:#B9A6EE; --skip-soft:rgba(185,166,238,.14);
   --easy:#8ED3A9; --easy-bg:rgba(127,203,158,.13); --med:#EDBE7F; --med-bg:rgba(232,179,111,.13); --hard:#F2A0A7; --hard-bg:rgba(238,143,151,.14);
   --s0:#222C27; --s1:#2F4A3A; --s2:#4F7A5E; --s3:#8DC49D;
   --hover:rgba(190,225,200,.05); --focus:0 0 0 3px rgba(141,184,216,.5);
@@ -188,6 +190,16 @@ svg.i{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-widt
 .row:hover{background:var(--hover)}
 .row .body{flex:1;min-width:0}
 .row .title{font-weight:500;overflow-wrap:anywhere}
+.row.skipped{background:color-mix(in srgb,var(--skip-soft) 70%,transparent)}
+.row.skipped .title{color:var(--skip)}
+.row.skipped .check span{border-color:var(--skip)}
+.badge.skipped{background:var(--skip-soft);color:var(--skip);gap:4px}
+.badge.skipped svg{width:12px;height:12px}
+.skipbtn{width:28px;height:28px;margin:-4px -6px 0 -8px;color:var(--text-2);opacity:.6}
+@media (hover:none){.skipbtn{opacity:1}}
+.row:hover .skipbtn,.skipbtn:focus-visible{opacity:1}
+.skipbtn:hover,.skipbtn.on{color:var(--skip);opacity:1}
+.skipbtn-gap{width:14px;flex:none}
 .row.done .title{color:var(--text-2);text-decoration:line-through;text-decoration-color:color-mix(in srgb,var(--text-2) 60%,transparent)}
 .row .meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:4px;font-size:12px;color:var(--text-2)}
 .row .meta .dot{width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.6}
@@ -727,7 +739,8 @@ const KEY="dsa-tracker-v1";
 // rlog: finished sessions, sess: the current session, custom: problems added after the docx import,
 // pomo: the Focus Mode timer, its settings and the log of focus and break sessions (see pomodoro.js).
 // oa: OA practice slots by id ({r: solved|partial|missed, q: the question you did, d: date logged}).
-const blank=()=>({done:{},conf:{},notes:{},at:{},pdone:{},pconf:{},pnotes:{},star:{},lec:{},rev:{},rcat:{},rcfg:{},rlog:[],sess:null,custom:[],pomo:null,oa:{}});
+// skip: tasks skipped for now, by id (the date skipped). They count as done in every total but stay unsolved.
+const blank=()=>({done:{},skip:{},conf:{},notes:{},at:{},pdone:{},pconf:{},pnotes:{},star:{},lec:{},rev:{},rcat:{},rcfg:{},rlog:[],sess:null,custom:[],pomo:null,oa:{}});
 let state=blank();
 try{const s=JSON.parse(localStorage.getItem(KEY));if(s)state=Object.assign(blank(),s);}catch(e){}
 const save=()=>store.set(localStorage,KEY,JSON.stringify(state));
@@ -759,11 +772,16 @@ const DIFFS=["Easy","Medium","Hard"];
 const CONF_LABEL={Easy:"Confident",Shaky:"Shaky",Redo:"Redo"};
 const taskByPid=new Map(TASKS.filter(t=>t.pid).map(t=>[t.pid,t]));
 
-const isDone=t=>!!state.done[t.id];
-function setTaskDone(t,v){if(v){state.done[t.id]=true;state.at[t.id]=TODAY;}else{delete state.done[t.id];delete state.at[t.id];}}
+// isDone counts a skipped task as done (calendar, day and plan totals); ticked is a real tick.
+const ticked=t=>!!state.done[t.id];
+const isSkipped=t=>!ticked(t)&&!!state.skip[t.id];
+const isDone=t=>ticked(t)||isSkipped(t);
+function setTaskDone(t,v){delete state.skip[t.id];if(v){state.done[t.id]=true;state.at[t.id]=TODAY;}else{delete state.done[t.id];delete state.at[t.id];}}
+function setTaskSkip(t,v){if(v&&!ticked(t))state.skip[t.id]=TODAY;else delete state.skip[t.id];}
 const ptask=p=>taskByPid.get(p.id);
-const pSolved=p=>{const t=ptask(p);if(t)return isDone(t);return p.id in state.pdone?!!state.pdone[p.id]:p.solved;};
-const pSolvedOn=p=>{const t=ptask(p);if(t)return isDone(t)?state.at[t.id]||null:null;const v=state.pdone[p.id];return typeof v==="string"?v:null;};
+// A skipped problem isn't solved: it stays out of the solved count and the revision queue.
+const pSolved=p=>{const t=ptask(p);if(t)return ticked(t);return p.id in state.pdone?!!state.pdone[p.id]:p.solved;};
+const pSolvedOn=p=>{const t=ptask(p);if(t)return ticked(t)?state.at[t.id]||null:null;const v=state.pdone[p.id];return typeof v==="string"?v:null;};
 function setSolved(p,v){const t=ptask(p);if(t)return setTaskDone(t,v);if(v===p.solved)delete state.pdone[p.id];else state.pdone[p.id]=v?TODAY:0;}
 const pConf=p=>{const t=ptask(p);return t?state.conf[t.id]:state.pconf[p.id];};
 const pNote=p=>{const t=ptask(p);return t?state.notes[t.id]:state.pnotes[p.id];};
@@ -798,16 +816,18 @@ function editFields(kind,id,conf,note){
 }
 let openRow=null;
 function taskRow(t,o={}){
-  const done=isDone(t),p=t.pid&&probById.get(t.pid),c=state.conf[t.id],note=state.notes[t.id],key="t"+t.id;
-  const late=!done&&o.late&&t.date&&t.date<TODAY;
+  const done=ticked(t),sk=isSkipped(t),p=t.pid&&probById.get(t.pid),c=state.conf[t.id],note=state.notes[t.id],key="t"+t.id;
+  const late=!done&&!sk&&o.late&&t.date&&t.date<TODAY;
   const meta=o.bare?[]:[`<span>${esc(t.subject==="Optional DSA"?"DSA":t.subject)}</span>`];
   if(p)meta.push(`<span class="badge ${p.difficulty}">${p.difficulty}</span>`,`<span>${esc(p.topic)}</span>`);
   const x=t.lld;
   if(x){meta.push(`<span class="badge ${x.diff}">${x.diff}</span>`,`<span>${esc(x.concept)}</span>`);if(x.opt)meta.push(`<span class="badge">Optional</span>`);if(x.fav)meta.push(`<span class="badge today">★ Favourite</span>`);}
   if(late)meta.push(`<span class="badge late">From ${fmt(t.date,{day:"numeric",month:"short"})}</span>`);
+  if(sk)meta.unshift(`<span class="badge skipped">${ic("skip")}Skipped for now</span>`);
   if(c)meta.push(confBadge(c));
-  return `<div class="row ${done?"done":""} ${openRow===key?"open":""}">
+  return `<div class="row ${done?"done":""} ${sk?"skipped":""} ${openRow===key?"open":""}">
     <label class="check"><input type="checkbox" data-act="task-done" data-id="${t.id}" data-fk="cb-${key}" ${done?"checked":""} aria-label="${esc(t.task)}"><span></span></label>
+    ${done?`<span class="skipbtn-gap" aria-hidden="true"></span>`:`<button class="iconbtn skipbtn ${sk?"on":""}" data-act="task-skip" data-id="${t.id}" data-fk="sk-${key}" aria-pressed="${sk}" aria-label="${sk?"Un-skip":"Skip for now"}: ${esc(t.task)}" data-tip="${sk?"Un-skip":"Skip for now"}">${ic(sk?"undo":"skip")}</button>`}
     <div class="body"><div class="title">${esc(t.task)}</div>
       ${meta.length?`<div class="meta">${meta.join("")}</div>`:""}
       ${x&&x.hint?`<div class="hint">${esc(x.hint)}</div>`:""}
@@ -842,11 +862,11 @@ const ROUTES=[
 ];
 let route="dashboard";
 
-function dayCompletion(d){const L=october.filter(t=>t.date===d);return {n:L.length,d:L.filter(isDone).length};}
+function dayCompletion(d){const L=october.filter(t=>t.date===d);return {n:L.length,d:L.filter(isDone).length,s:L.filter(isSkipped).length};}
 function calCell(d){
-  const {n,d:k}=dayCompletion(d),future=d>TODAY,p=pct(k,n);
+  const {n,d:k,s}=dayCompletion(d),future=d>TODAY,p=pct(k,n);
   const lvl=future?"future":k===0?"":p<50?"l1":p<100?"l2":"l3";
-  const tip=`${fmt(d)}: ${future?"upcoming":`${k} of ${n} tasks done`}`;
+  const tip=`${fmt(d)}: ${future?"upcoming":`${k} of ${n} tasks done${s?` (${s} skipped)`:""}`}`;
   return `<div class="c ${lvl} ${d===TODAY?"is-today":""}" tabindex="0" data-tip="${tip}" aria-label="${tip}">${+d.slice(8)}</div>`;
 }
 function calendar(){
@@ -2017,6 +2037,7 @@ view.addEventListener("click",e=>{
   else if(a.startsWith("pomo-")){pomoAction(a,b);}
   else if(a==="jump-plan"){const c=$("todayCard");if(c){c.scrollIntoView({behavior:motionOK?"smooth":"auto",block:"start"});const cb=c.querySelector("input");if(cb)cb.focus({preventScroll:true});}}
   else if(a.startsWith("s-")&&a!=="s-text"&&a!=="s-ins"){sessAction(a,b);}
+  else if(a==="task-skip"){const t=TASKS.find(x=>x.id===+b.dataset.id),v=!isSkipped(t);setTaskSkip(t,v);fx.flash=`[data-fk="${b.dataset.fk}"]`;changed();toast(v?"Skipped for now. It counts as done; tick it or un-skip it any time.":"Un-skipped. It's back on your list.");}
   else if(a==="continue"){const cb=view.querySelector(`[data-fk="cb-t${b.dataset.id}"]`);if(cb){cb.closest(".row").scrollIntoView({behavior:"smooth",block:"center"});cb.focus({preventScroll:true});}}
 });
 function sessAction(a,b){
