@@ -15,7 +15,7 @@ Tick a task or problem to mark it done. The pencil button sets confidence (Confi
 
 The page has a simple sign-in screen. Only a salted hash of the ID and password is stored in the code. Progress is saved in the browser (localStorage); use **Export / Import** in the profile menu to move it to another device. Light theme by default, with a dark theme toggle in the top bar.
 
-- `tasks.js` is the October plan (DSA tasks link to problems with `pid`; System Design tasks carry an `lld` object with the problem number, concept, difficulty and section).
+- `tasks.js` is the October plan (DSA tasks link to problems with `pid`; System Design tasks carry an `lld` object with the problem number, concept, difficulty and section; core DBMS tasks carry `dbms.segs`, the video segments to watch with timestamps, and `low: true` marks a low-priority task, which never shows as left over).
 - `problems.js` is the problem list from the tracker docx (`solved` = done before October, `star` = bookmarked).
 - `revision.js` is the revision engine: topic rotation, queue building, adaptive review intervals, session clock and trends. It has no UI code and also runs under Node.
 

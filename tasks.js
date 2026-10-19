@@ -476,13 +476,6 @@ window.TASKS = [
   "pid": 206
  },
  {
-  "id": 45,
-  "date": "2026-10-18",
-  "week": "Week 2",
-  "subject": "DBMS",
-  "task": "Intro, DBMS vs file system, ER model, keys (super/candidate/primary/foreign), relational model"
- },
- {
   "id": 166,
   "date": "2026-10-18",
   "week": "Week 2",
@@ -553,13 +546,6 @@ window.TASKS = [
   "pid": 207
  },
  {
-  "id": 51,
-  "date": "2026-10-19",
-  "week": "Week 2",
-  "subject": "DBMS",
-  "task": "Functional dependencies, anomalies, 1NF/2NF/3NF/BCNF (be able to normalize a small table)"
- },
- {
   "id": 169,
   "date": "2026-10-19",
   "week": "Week 2",
@@ -613,7 +599,21 @@ window.TASKS = [
   "date": "2026-10-20",
   "week": "Week 2",
   "subject": "DBMS",
-  "task": "SQL: joins, GROUP BY/HAVING, subqueries, nth-highest salary; ~10 problems from LeetCode SQL 50"
+  "task": "ER diagrams: ER model and extended ER features",
+  "dbms": {
+   "segs": [
+    {
+     "title": "ER Model",
+     "from": "01:56:00",
+     "to": "02:50:09"
+    },
+    {
+     "title": "Extended ER Features",
+     "from": "02:50:09",
+     "to": "03:20:02"
+    }
+   ]
+  }
  },
  {
   "id": 171,
@@ -699,7 +699,21 @@ window.TASKS = [
   "date": "2026-10-21",
   "week": "Week 2",
   "subject": "DBMS",
-  "task": "SQL: window functions (RANK, DENSE_RANK, ROW_NUMBER, LAG), views; ~10 more SQL 50 problems"
+  "task": "ER diagram design practice: then design one yourself (e.g. Instagram or a library)",
+  "dbms": {
+   "segs": [
+    {
+     "title": "How to Think and Formulate ER Diagram",
+     "from": "03:20:02",
+     "to": "03:45:59"
+    },
+    {
+     "title": "Designing ER Model of Facebook",
+     "from": "03:45:59",
+     "to": "04:05:29"
+    }
+   ]
+  }
  },
  {
   "id": 174,
@@ -771,7 +785,16 @@ window.TASKS = [
   "date": "2026-10-22",
   "week": "Week 2",
   "subject": "DBMS",
-  "task": "Transactions: ACID, schedules, conflict serializability, locking & 2PL, isolation levels (dirty/non-repeatable/phantom reads), recovery basics"
+  "task": "Normalization forms: 1NF, 2NF, 3NF, BCNF (normalize a small table yourself)",
+  "dbms": {
+   "segs": [
+    {
+     "title": "Normalisation",
+     "from": "05:33:43",
+     "to": "06:32:06"
+    }
+   ]
+  }
  },
  {
   "id": 176,
@@ -843,7 +866,21 @@ window.TASKS = [
   "date": "2026-10-23",
   "week": "Week 2",
   "subject": "DBMS",
-  "task": "Indexing (B/B+ tree idea, clustered vs non-clustered), SQL vs NoSQL, replication & sharding (light). Make a 1-page DBMS cheat sheet"
+  "task": "Transactions & ACID properties, then indexes & query optimization",
+  "dbms": {
+   "segs": [
+    {
+     "title": "ACID Properties and Transactions",
+     "from": "06:32:06",
+     "to": "07:08:42"
+    },
+    {
+     "title": "Indexing in DBMS",
+     "from": "07:29:25",
+     "to": "08:26:58"
+    }
+   ]
+  }
  },
  {
   "id": 178,
@@ -890,7 +927,47 @@ window.TASKS = [
   "date": "2026-10-24",
   "week": "Week 2",
   "subject": "DBMS",
-  "task": "20 DBMS questions out loud + 5 SQL problems timed"
+  "task": "Revise the 5 core topics: ER, ER design, normalization, ACID, indexing. Answer 15 questions on them out loud"
+ },
+ {
+  "id": 45,
+  "date": "2026-10-24",
+  "week": "Week 2",
+  "subject": "DBMS",
+  "task": "Intro, DBMS vs file system, keys (super/candidate/primary/foreign), relational model",
+  "low": true
+ },
+ {
+  "id": 191,
+  "date": "2026-10-24",
+  "week": "Week 2",
+  "subject": "DBMS",
+  "task": "SQL: joins, GROUP BY/HAVING, subqueries, nth-highest salary; ~10 problems from LeetCode SQL 50",
+  "low": true
+ },
+ {
+  "id": 192,
+  "date": "2026-10-24",
+  "week": "Week 2",
+  "subject": "DBMS",
+  "task": "SQL: window functions (RANK, DENSE_RANK, ROW_NUMBER, LAG), views; ~10 more SQL 50 problems",
+  "low": true
+ },
+ {
+  "id": 193,
+  "date": "2026-10-24",
+  "week": "Week 2",
+  "subject": "DBMS",
+  "task": "Transactions in depth: schedules, conflict serializability, locking & 2PL, isolation levels, recovery",
+  "low": true
+ },
+ {
+  "id": 194,
+  "date": "2026-10-24",
+  "week": "Week 2",
+  "subject": "DBMS",
+  "task": "SQL vs NoSQL, replication & sharding, 1-page DBMS cheat sheet",
+  "low": true
  },
  {
   "id": 180,
