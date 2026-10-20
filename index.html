@@ -204,6 +204,17 @@ svg.i{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-widt
 .row .meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:4px;font-size:12px;color:var(--text-2)}
 .row .meta .dot{width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.6}
 .row .note{font-size:13px;color:var(--text-2);margin-top:4px}
+.segs{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:4px}
+.segs a.seg{color:inherit;text-decoration:none;border-radius:6px;margin:0 -6px;padding:2px 6px}
+.segs a.seg:hover .lt{text-decoration:underline}
+.segs a.seg:hover,.segs a.seg:focus-visible{background:var(--surface-2)}
+.segs a.seg{display:grid;grid-template-columns:14px minmax(0,1fr) auto 52px;align-items:center;gap:8px;font-size:13px;color:var(--text-2)}
+.segs a.seg svg{width:14px;height:14px}
+.segs .lt{color:var(--text)}
+.segs .ts{white-space:nowrap}
+.segs .dur{text-align:right;white-space:nowrap}
+@media (max-width:560px){.segs a.seg{grid-template-columns:14px minmax(0,1fr) auto;row-gap:0}.segs .ts{grid-column:2;grid-row:2;font-size:12px}.segs .dur{grid-column:3;grid-row:1}}
+.badge.low{background:transparent;border:1px dashed var(--line);color:var(--text-2)}
 .row .hint{font-size:12px;color:var(--text-2);margin-top:4px;font-style:italic}
 .row .edit{display:none;gap:8px;margin-top:10px;flex-wrap:wrap}
 .row.open .edit{display:flex}
@@ -806,6 +817,13 @@ function lectureBlock(t){
     ${open?`<ul class="lecs">${L.map(lecItem).join("")}</ul>${opt.length?`<div class="lec-opt">Optional, only if you're ahead (${opt.length})</div><ul class="lecs">${opt.map(lecItem).join("")}</ul>`:""}
     <a class="link" href="${OS_PLAYLIST}" target="_blank" rel="noopener" style="margin-top:6px">Open the Gate Smashers OS playlist${ic("ext")}</a>`:""}`;
 }
+const DBMS_VIDEO=window.DBMS_VIDEO||"https://youtu.be/dl00fOOYLOM";
+const tsec=x=>x.split(":").reduce((a,v)=>a*60+ +v,0);
+function segBlock(t){
+  const S=t.dbms&&t.dbms.segs;if(!S||!S.length)return "";
+  const sec=S.reduce((a,x)=>a+tsec(x.to)-tsec(x.from),0);
+  return `<ul class="segs">${S.map(x=>`<li><a class="seg" href="${DBMS_VIDEO}?t=${tsec(x.from)}" target="_blank" rel="noopener" aria-label="Watch ${esc(x.title)} from ${x.from}">${ic("play")}<span class="lt">${esc(x.title)}</span><span class="ts num">${x.from} – ${x.to}</span><span class="dur num">${dur(tsec(x.to)-tsec(x.from))}</span></a></li>`).join("")}</ul><div class="lec-opt" style="margin-top:4px">Video ${dur(sec)}, about ${dur(sec/1.5)} at 1.5x</div>`;
+}
 const ltc=p=>p.url||`https://leetcode.com/problemset/?search=${encodeURIComponent(p.name)}`;
 
 /* ---------- Shared pieces ---------- */
@@ -822,6 +840,8 @@ function taskRow(t,o={}){
   if(p)meta.push(`<span class="badge ${p.difficulty}">${p.difficulty}</span>`,`<span>${esc(p.topic)}</span>`);
   const x=t.lld;
   if(x){meta.push(`<span class="badge ${x.diff}">${x.diff}</span>`,`<span>${esc(x.concept)}</span>`);if(x.opt)meta.push(`<span class="badge">Optional</span>`);if(x.fav)meta.push(`<span class="badge today">★ Favourite</span>`);}
+  if(t.low)meta.push(`<span class="badge low">Low priority</span>`);
+  else if(t.dbms)meta.push(`<span class="badge today">Core topic</span>`);
   if(late)meta.push(`<span class="badge late">From ${fmt(t.date,{day:"numeric",month:"short"})}</span>`);
   if(sk)meta.unshift(`<span class="badge skipped">${ic("skip")}Skipped for now</span>`);
   if(c)meta.push(confBadge(c));
@@ -831,7 +851,7 @@ function taskRow(t,o={}){
     <div class="body"><div class="title">${esc(t.task)}</div>
       ${meta.length?`<div class="meta">${meta.join("")}</div>`:""}
       ${x&&x.hint?`<div class="hint">${esc(x.hint)}</div>`:""}
-      ${lectureBlock(t)}
+      ${lectureBlock(t)}${segBlock(t)}
       ${note?`<div class="note">${esc(note)}</div>`:""}
       <div class="edit">${editFields("task",t.id,c,note)}${p?catSelect(p):""}</div>
     </div>
@@ -919,7 +939,7 @@ function heroHome(o){
 function pageDashboard(){
   const h=new Date().getHours(),greet=h<12?"Good morning":h<17?"Good afternoon":"Good evening";
   const todays=october.filter(t=>t.date===TODAY),tdone=todays.filter(isDone).length;
-  const overdue=october.filter(t=>t.date<TODAY&&!isDone(t));
+  const overdue=october.filter(t=>t.date<TODAY&&!isDone(t)&&!t.low);
   const next=todays.find(t=>!isDone(t))||overdue[0];
   const solved=PROBLEMS.filter(pSolved).length,total=PROBLEMS.length;
   const planDone=october.filter(isDone).length;
@@ -1091,8 +1111,8 @@ function pageTopics(){
     return `<a class="card tcard" href="#problems?topic=${encodeURIComponent(tp)}"><div class="t1"><b>${esc(tp)}</b><span class="num">${d}/${L.length}</span></div><div class="bar"><i style="width:${pct(d,L.length)}%"></i></div><div class="diffs">${diffs}</div><div class="next">${nextTxt}</div></a>`;
   }).join("");
   const subj=[["OS","Week 1 · 11–17 Oct"],["DBMS","Week 2 · 18–24 Oct"],["CN","Week 3 · 25–31 Oct"],["System Design","LLD problems: OOP → patterns → LLD rounds"]].map(([s,w])=>{
-    const L=october.filter(t=>t.subject===s),d=L.filter(isDone).length,nx=L.find(t=>!isDone(t));
-    return `<div class="card tcard" style="cursor:default"><div class="t1"><b>${s}</b><span class="num">${d}/${L.length}</span></div><div class="bar"><i style="width:${pct(d,L.length)}%"></i></div><div class="diffs"><span>${w}</span>${s==="OS"?`<span>Lectures ${LEC_REQ.filter(x=>state.lec[x.code]).length}/${LEC_REQ.length}</span>`:""}</div><div class="next">${nx?`Next: <b>${esc(nx.task.split(/[:,(]/)[0])}</b>`:"All done"}</div></div>`;
+    const L=october.filter(t=>t.subject===s),d=L.filter(isDone).length,nx=L.find(t=>!isDone(t)&&!t.low)||L.find(t=>!isDone(t)),low=L.filter(t=>t.low).length;
+    return `<div class="card tcard" style="cursor:default"><div class="t1"><b>${s}</b><span class="num">${d}/${L.length}</span></div><div class="bar"><i style="width:${pct(d,L.length)}%"></i></div><div class="diffs"><span>${w}</span>${s==="OS"?`<span>Lectures ${LEC_REQ.filter(x=>state.lec[x.code]).length}/${LEC_REQ.length}</span>`:""}${low?`<span>${low} low priority</span>`:""}</div><div class="next">${nx?`Next: <b>${esc(nx.task.split(/[:,(]/)[0])}</b>`:"All done"}</div></div>`;
   }).join("");
   const LLD=TASKS.filter(t=>t.lld),secs=[...new Set(LLD.map(t=>t.lld.section))];
   const lld=secs.map(sec=>{
