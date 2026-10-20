@@ -1,4 +1,5 @@
 // Edit this list to change the plan. Each task needs a unique id.
+window.DBMS_VIDEO = "https://youtu.be/dl00fOOYLOM"; // the DBMS video the core-topic timestamps point into
 window.TASKS = [
  {
   "id": 1,
