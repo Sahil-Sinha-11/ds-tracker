@@ -566,6 +566,23 @@ dialog.dlg::backdrop{background:rgba(22,26,22,.3)}
 </head>
 <body>
 
+<!-- Intro: plays once per tab session, before the sign-in screen or the desk -->
+<div id="intro" aria-hidden="true">
+  <div class="intro-lock">
+    <div class="intro-bloom"></div>
+    <div class="intro-row">
+      <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" pathLength="1" stroke-dasharray="1"/></svg></span>
+      <span class="intro-name"><span class="intro-ch"><i>P</i></span><span class="intro-ch"><i>r</i></span><span class="intro-ch"><i>e</i></span><span class="intro-ch"><i>p</i></span><span class="intro-ch"><i> </i></span><span class="intro-ch"><i>D</i></span><span class="intro-ch"><i>e</i></span><span class="intro-ch"><i>s</i></span><span class="intro-ch"><i>k</i></span></span>
+    </div>
+    <i class="intro-line"></i>
+    <span class="intro-sub">Morning Bloom</span>
+  </div>
+</div>
+<script>
+// Before first paint: skip the intro if this tab has seen it, and start in the saved theme so the cover matches.
+try{if(sessionStorage.getItem("prep-intro"))document.documentElement.classList.add("intro-off");if(localStorage.getItem("prep-theme-bloom")==="dark")document.documentElement.dataset.theme="dark";}catch(e){}
+</script>
+
 <!-- Sign in -->
 <section id="login" class="hidden" aria-label="Sign in">
   <div id="loginScene" aria-hidden="true"></div>
@@ -2152,12 +2169,59 @@ $("logForm").addEventListener("submit",e=>{
   save();$("logDlg").close();render();toast(`${p.name} logged under ${catName(RV.catOf(p,state))}.`);
 });
 
+/* ---------- Intro ----------
+   The brand lockup plays once per tab session on a cover that shares the page's wash. The site is
+   rendered as the cover lifts, so the home entrance plays into view instead of under the cover.
+   Any key, click or tap jumps to the exit. No GSAP, an error, or the 4.5 s cap all open the site. */
+const INTRO="prep-intro";
+function intro(open){
+  const el=$("intro"),root=document.documentElement;
+  if(!el||root.classList.contains("intro-off")||!window.gsap){if(el)el.remove();open();return;}
+  store.set(sessionStorage,INTRO,"1");
+  let opened=false,tl=null;
+  const reveal=()=>{if(opened)return;opened=true;el.style.pointerEvents="none";open();};
+  const done=()=>{clearTimeout(cap);removeEventListener("keydown",skip,true);el.removeEventListener("pointerdown",skip);if(tl)tl.kill();reveal();el.remove();};
+  const skip=()=>{if(tl&&tl.time()<tl.labels.exit)tl.seek("exit",false);};
+  const cap=setTimeout(done,4500);
+  addEventListener("keydown",skip,true);el.addEventListener("pointerdown",skip);
+  const q=s=>el.querySelector(s),lock=q(".intro-lock"),row=q(".intro-row"),mark=q(".mark"),bloom=q(".intro-bloom");
+  const fonts=document.fonts?Promise.all([document.fonts.load('600 64px Inter'),document.fonts.load('italic 400 20px "Instrument Serif"')]).catch(()=>{}):Promise.resolve();
+  // Webfonts first (cached after the first visit), so the letters never swap mid-reveal. Never waits more than 0.8 s.
+  Promise.race([fonts,new Promise(r=>setTimeout(r,800))]).then(()=>{
+    try{
+      tl=gsap.timeline({onComplete:done});
+      if(!motionOK){
+        // Reduced motion: the lockup fades in, holds a moment, and the cover fades out. Nothing moves.
+        tl.fromTo(lock,{autoAlpha:0},{autoAlpha:1,duration:.3}).addLabel("exit","+=.45").call(reveal,null,"exit").to(el,{autoAlpha:0,duration:.35},"exit");
+        return;
+      }
+      const ch=el.querySelectorAll(".intro-ch i"),mid=(ch.length-1)/2;
+      tl.set(lock,{autoAlpha:1})
+        .fromTo(bloom,{scale:.35,autoAlpha:0},{scale:1,autoAlpha:1,duration:1.4,ease:"power2.out"},0)
+        .fromTo(mark,{scale:.5,rotation:-14,autoAlpha:0},{scale:1,rotation:0,autoAlpha:1,duration:.75,ease:"back.out(1.6)"},.05)
+        .fromTo(q("path"),{strokeDashoffset:1},{strokeDashoffset:0,duration:.45,ease:"power2.inOut"},.32)
+        // Letters rise out of their own clip while the tracking closes in toward the middle.
+        .fromTo(ch,{yPercent:115,x:i=>(i-mid)*7},{yPercent:0,x:0,duration:.85,ease:"expo.out",stagger:{each:.035,from:"center"}},.3)
+        .fromTo(q(".intro-line"),{scaleX:0,autoAlpha:1},{scaleX:1,duration:.65,ease:"power3.inOut"},.62)
+        .fromTo(q(".intro-sub"),{autoAlpha:0,y:8},{autoAlpha:1,y:0,duration:.55,ease:"power3.out"},.8)
+        .addLabel("exit","+=.2")
+        // Exit: the lockup pushes toward you from the mark and the cover dissolves into the page.
+        // The lockup is gone before the page shows through, so the two never overlap.
+        .to(row,{scale:1.4,autoAlpha:0,transformOrigin:()=>mark.offsetWidth/2+"px 50%",duration:.42,ease:"power3.in"},"exit")
+        .to([q(".intro-line"),q(".intro-sub")],{autoAlpha:0,y:-6,duration:.28,ease:"power2.in"},"exit")
+        .to(bloom,{scale:1.7,autoAlpha:0,duration:.6,ease:"power2.in"},"exit")
+        .call(reveal,null,"exit+=.3")
+        .to(el,{autoAlpha:0,duration:.5,ease:"power1.inOut"},"exit+=.3");
+    }catch(e){done();}
+  });
+}
+
 readHash();
 settleSession();
 // Bring the focus timer up to date (it may have finished while the site was closed).
 pomoNewDay();{const ev=PM.settle(pm(),Date.now());if(ev.length)onPomoEvents(ev,true);}save();
 applyAmbient();
-show();
+intro(show);
 setInterval(()=>{if(signedIn())tick();},1000);
 setInterval(pomoTick,500);
 document.addEventListener("visibilitychange",()=>{if(!document.hidden&&signedIn()){pomoTick();tick();}});
