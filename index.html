@@ -677,6 +677,7 @@ try{if(sessionStorage.getItem("prep-intro"))document.documentElement.classList.a
 <script src="revision.js"></script>
 <script src="pomodoro.js"></script>
 <script src="oa.js"></script>
+<script src="quiz.js"></script>
 <script src="scene.js"></script>
 <script>
 /* ---------- Icons (outline, 24px grid) ---------- */
@@ -714,6 +715,7 @@ const ICONS={
   sliders:'<path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/>',
   bell:'<path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 2h-15l1.5-2zM10 20.5a2 2 0 0 0 4 0"/>',
   image:'<rect x="3.5" y="5" width="17" height="14" rx="2"/><path d="M3.5 16l5-5 4 4 2.5-2.5 5.5 5.5"/><circle cx="15.5" cy="9.5" r="1.5"/>',
+  quiz:'<circle cx="12" cy="12" r="8.5"/><path d="M9.6 9.6a2.5 2.5 0 1 1 3.4 2.3c-.6.3-1 .8-1 1.5v.4M12 16.6v.1"/>',
   target:'<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r=".8"/>',
   coffee:'<path d="M4.5 9.5h12v4.5a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5V9.5zM16.5 11h1.5a2.5 2.5 0 0 1 0 5h-1.6M8 3.5c-.6 1 .6 1.8 0 3M12 3.5c-.6 1 .6 1.8 0 3"/>',
 };
@@ -766,6 +768,7 @@ const KEY="dsa-tracker-v1";
 // rev: per-problem revision history, rcat: revision-topic overrides, rcfg: revision settings,
 // rlog: finished sessions, sess: the current session, custom: problems added after the docx import,
 // pomo: the Focus Mode timer, its settings and the log of focus and break sessions (see pomodoro.js).
+// quiz: quiz results by question id (r) and the current pass through each lecture (runs), see quiz.js.
 // oa: OA practice slots by id ({r: solved|partial|missed, q: the question you did, d: date logged}).
 // skip: tasks skipped for now, by id (the date skipped). They count as done in every total but stay unsolved.
 const blank=()=>({done:{},skip:{},conf:{},notes:{},at:{},pdone:{},pconf:{},pnotes:{},star:{},lec:{},rev:{},rcat:{},rcfg:{},rlog:[],sess:null,custom:[],pomo:null,oa:{}});
@@ -859,6 +862,8 @@ function taskRow(t,o={}){
   if(x){meta.push(`<span class="badge ${x.diff}">${x.diff}</span>`,`<span>${esc(x.concept)}</span>`);if(x.opt)meta.push(`<span class="badge">Optional</span>`);if(x.fav)meta.push(`<span class="badge today">★ Favourite</span>`);}
   if(t.low)meta.push(`<span class="badge low">Low priority</span>`);
   else if(t.dbms)meta.push(`<span class="badge today">Core topic</span>`);
+  const ql=window.QUIZ?QUIZ.LECS.filter(l=>l.tasks&&l.tasks.includes(t.id)):[];
+  if(ql.length)meta.push(ql.length>3?`<a class="badge qz-link" href="#${ql[0].subject}">${ic("quiz")}Quiz: ${ql.length} lectures</a>`:ql.map(l=>`<a class="badge qz-link" href="#${l.subject}?l=${l.key}">${ic("quiz")}Quiz LEC-${l.n}</a>`).join(""));
   if(late)meta.push(`<span class="badge late">From ${fmt(t.date,{day:"numeric",month:"short"})}</span>`);
   if(sk)meta.unshift(`<span class="badge skipped">${ic("skip")}Skipped for now</span>`);
   if(c)meta.push(confBadge(c));
@@ -892,9 +897,11 @@ const ROUTES=[
   {id:"problems",label:"Problems",icon:"problems"},
   {id:"plan",label:"Study plan",icon:"plan"},
   {id:"revision",label:"Revision",icon:"revision"},
-  {id:"oa",label:"OA practice",icon:"target"},
   {id:"topics",label:"Topics",icon:"topics"},
   {id:"analytics",label:"Analytics",icon:"analytics"},
+  {id:"oa",label:"OA practice",icon:"target",group:"Practice"},
+  {id:"dbms",label:"DBMS quiz",icon:"quiz",group:"Practice",quiz:true},
+  {id:"os",label:"OS quiz",icon:"quiz",group:"Practice",quiz:true},
   {id:"session",label:"Revision session",icon:"revision",hidden:true},
 ];
 let route="dashboard";
@@ -1197,6 +1204,137 @@ function pageOA(){
     </div>
     <div class="section-title"><h2>Full sequence</h2><span>15 nights · mocks on Saturdays and 28 Oct</span></div>
     <div class="card oa-seq">${seq}</div>`;
+}
+
+/* Quizzes (questions and engine in quiz.js) */
+const QZ=window.QUIZ;
+// Each subject is its own route (#dbms, #os) under Practice; ?l= opens a lecture or "review-<subject>".
+let qzKey=null;
+const isQuiz=()=>!!(ROUTES.find(r=>r.id===route)||{}).quiz;
+const qzQ=()=>QZ.ensure(state);
+const qzSub=k=>QZ.SUBJECTS.find(s=>s.k===k)||QZ.SUBJECTS[0];
+const qzReviewIds=k=>{const Q=qzQ();return qzSub(k).lecs.flatMap(l=>l.qs).filter(x=>Q.r[x.id]&&!Q.r[x.id].ok).map(x=>x.id);};
+const qzWrongAll=()=>QZ?QZ.SUBJECTS.reduce((n,s)=>n+qzReviewIds(s.k).length,0):0;
+const qzLecName=l=>`LEC-${l.n}`;
+// The list a key stands for: a lecture ("dbms-3") or the mistakes of a subject ("review-dbms").
+function qzSet(key){
+  if(key.startsWith("review-")){const s=qzSub(key.slice(7));return {key,review:true,subj:s,title:"Mistakes <em>review</em>",sub:`Every ${s.name} question you last got wrong, across lectures. Get one right and it leaves this list.`,ids:qzReviewIds(s.k)};}
+  const l=QZ.lecByKey.get(key);if(!l)return null;
+  return {key,lec:l,subj:qzSub(l.subject),title:`${qzLecName(l)} <em>${esc(l.title)}</em>`,sub:`${l.qs.length} questions${l.core?" · core topic":""} · from your ${qzSub(l.subject).name} notes`,ids:l.qs.map(x=>x.id)};
+}
+function qzRun(set,fresh){
+  const Q=qzQ();let r=Q.runs[set.key];
+  if(fresh||!r||r.ids.some(id=>!QZ.byId.has(id))){r=Q.runs[set.key]=QZ.newRun(set.key,fresh||set.ids);}
+  return r;
+}
+function qzLecCard(l){
+  const Q=qzQ(),st=QZ.stats(Q,l.qs),r=Q.runs[l.key],mul=l.qs.filter(QZ.multi).length;
+  const next=r&&!r.done&&Object.keys(r.ans).length?`Resume at question <b>${r.i+1}</b>`:st.seen===st.n?(st.wrong?`<b>${st.wrong}</b> to review`:"<b>All right</b> · retake any time"):st.seen?`${st.n-st.seen} not answered yet`:"Not started";
+  return `<a class="card tcard qz-lec ${st.seen===st.n&&!st.wrong?"is-done":""}" href="#${l.subject}?l=${l.key}"><div class="t1"><span class="badge ${l.core?"core":""}">${qzLecName(l)}</span><b>${esc(l.title)}</b><span class="num">${st.ok}/${st.n}</span></div>
+    <div class="bar"><i style="width:${pct(st.ok,st.n)}%"></i></div>
+    <div class="diffs"><span>${st.n} questions</span>${mul?`<span>${mul} with several answers</span>`:""}${st.seen?`<span>${pct(st.first,st.seen)}% right first try</span>`:""}</div>
+    <div class="next">${next}</div></a>`;
+}
+function pageQuiz(){
+  if(!QZ)return phead("Quizzes","The question bank (quiz.js) didn't load.");
+  if(qzKey){const set=qzSet(qzKey);if(set&&set.subj.k===route)return pageQuizRun(set);}
+  const S=qzSub(route),Q=qzQ(),all=S.lecs.flatMap(l=>l.qs),st=QZ.stats(Q,all),wrong=qzReviewIds(S.k).length;
+  const fin=S.lecs.filter(l=>l.qs.every(x=>Q.r[x.id])).length,byN=n=>S.lecs.find(l=>l.n===n);
+  const groups=S.groups.map(g=>({g,L:g.lecs.map(byN).filter(Boolean)}));
+  const firstOpen=groups.flatMap(x=>x.L).find(l=>l.qs.some(x=>!Q.r[x.id]));
+  const acts=`${wrong?`<a class="btn primary" href="#${S.k}?l=review-${S.k}">${ic("revision")}Review ${wrong} mistake${wrong>1?"s":""}</a>`:""}${firstOpen?`<a class="btn ${wrong?"":"primary"}" href="#${S.k}?l=${firstOpen.key}">${ic("play")}${Q.runs[firstOpen.key]?"Continue":"Start"} ${qzLecName(firstOpen)}</a>`:""}`;
+  return phead(`${esc(S.name)} <em>quiz</em>`,`${all.length} questions from your ${esc(S.name)} notes, lecture by lecture. Some have more than one right answer, and every one has a hint and an explanation.`,acts)+`
+    <div class="tiles">
+      <div class="card tile"><div class="lbl">Answered</div><div class="v num">${st.seen} <small>/ ${st.n}</small></div></div>
+      <div class="card tile"><div class="lbl">Right on the first try</div><div class="v num">${st.seen?pct(st.first,st.seen)+"%":"–"}</div></div>
+      <div class="card tile"><div class="lbl">To review</div><div class="v num">${wrong}</div></div>
+      <div class="card tile"><div class="lbl">Lectures finished</div><div class="v num">${fin} <small>/ ${S.lecs.length}</small></div></div>
+    </div>
+    ${groups.map(({g,L},i)=>`<div class="section-title" ${i?"":'style="margin-top:8px"'}><h2>${esc(g.name)}</h2><span>${esc(g.sub)}</span></div><div class="tgrid">${L.map(qzLecCard).join("")}</div>`).join("")}
+    ${S.missing?`<p class="hint qz-missing">${esc(S.missing)}</p>`:""}`;
+}
+const QZ_KEYS="ABCDEF";
+function qzDots(r){
+  return `<div class="qz-dots" role="list" aria-label="Questions">${r.ids.map((id,i)=>{const a=r.ans[id],c=a?(a.ok?"ok":"bad"):"";
+    return `<button role="listitem" class="qz-dot ${c} ${i===r.i?"cur":""}" data-act="qz-go" data-i="${i}" data-fk="qzd-${i}" aria-label="Question ${i+1}${a?(a.ok?", right":", wrong"):""}" ${i===r.i?'aria-current="step"':""}>${i+1}</button>`;}).join("")}</div>`;
+}
+function qzQuestion(r,x){
+  const a=r.ans[x.id],pick=(r.pick&&r.pick[x.id])||[],multi=QZ.multi(x),ord=QZ.order(x,r.seed),hint=a?a.h:r.hint&&r.hint[x.id];
+  const opts=ord.map((oi,k)=>{
+    const on=(a?a.s:pick).includes(oi),right=x.a.includes(oi);
+    const cls=a?(right&&on?"ok":on?"bad":right?"miss":""):on?"on":"";
+    const tag=a?(right&&on?`<span class="qz-tag">${ic("check")}Right</span>`:on?`<span class="qz-tag">${ic("close")}Wrong</span>`:right?`<span class="qz-tag">${ic("check")}Missed</span>`:""):"";
+    return `<label class="qz-opt ${cls}"><input type="${multi?"checkbox":"radio"}" name="qz-${x.id}" data-act="qz-pick" data-v="${oi}" data-fk="qzo-${k}" ${on?"checked":""} ${a?"disabled":""}><span class="qz-key" aria-hidden="true">${QZ_KEYS[k]}</span><span class="qz-txt">${esc(x.o[oi])}</span>${tag}</label>`;
+  }).join("");
+  const last=r.i===r.ids.length-1,left=r.ids.filter(id=>!r.ans[id]).length;
+  const verdict=a?(a.ok?`<b class="ok">${ic("check")}Right${a.h?" (with the hint)":""}</b>`:`<b class="bad">${ic("close")}Not quite</b>${multi?` <span class="muted">· pick all ${x.a.length} right options and nothing else</span>`:""}`):"";
+  return `<section class="card qz-card" data-qid="${x.id}">
+    <div class="qz-top"><span class="num muted">Question ${r.i+1} of ${r.ids.length}</span><span class="badge ${multi?"qz-multi":""}">${multi?"More than one answer is right":"Pick one"}</span>${r.ids.length&&qzKey.startsWith("review-")?`<span class="badge">${esc(qzLecName(QZ.lecByKey.get(x.lec)))}</span>`:""}</div>
+    <h2 class="qz-q">${esc(x.q)}</h2>
+    <fieldset class="qz-opts"><legend class="sr">${multi?"Select all that apply":"Select one"}</legend>${opts}</fieldset>
+    ${hint?`<div class="qz-hint">${ic("sparkle")}<div><b>Hint</b> ${esc(x.h)}</div></div>`:""}
+    ${a?`<div class="qz-exp ${a.ok?"ok":"bad"}"><div class="qz-verdict">${verdict}</div><p>${esc(x.e)}</p></div>`:""}
+    <div class="qz-foot">
+      <button class="btn ghost" data-act="qz-prev" data-fk="qz-prev" ${r.i?"":"disabled"}>Previous</button>
+      ${!a&&!hint?`<button class="btn ghost" data-act="qz-hint" data-fk="qz-hint">${ic("sparkle")}Show hint</button>`:""}
+      <span class="qz-gap"></span>
+      ${a?(!left?`<button class="btn primary" data-act="qz-finish" data-fk="qz-next">See results ${ic("arrow")}</button>`:`<button class="btn primary" data-act="qz-next" data-fk="qz-next">${last?"Unanswered question":"Next question"} ${ic("arrow")}</button>`)
+        :`<button class="btn" data-act="qz-skip" data-fk="qz-skip">Skip</button><button class="btn primary" data-act="qz-check" data-fk="qz-check" ${pick.length?"":"disabled"}>Check answer</button>`}
+    </div>
+    <p class="qz-keys hint">Keys: A–${QZ_KEYS[x.o.length-1]} pick · H hint · Enter check / next · ← → move</p>
+  </section>`;
+}
+function qzResults(set,r){
+  const ids=r.ids,right=ids.filter(id=>r.ans[id]&&r.ans[id].ok),wrong=ids.filter(id=>r.ans[id]&&!r.ans[id].ok),skipped=ids.filter(id=>!r.ans[id]),hints=ids.filter(id=>r.ans[id]&&r.ans[id].h).length;
+  const f=ids.length?right.length/ids.length:0;
+  const msg=f===1?"Every one right.":f>=.8?"Strong. Clear the few misses below.":f>=.5?"Getting there. Read the explanations for the misses, then retry them.":"Re-read this lecture's notes, then retry the misses.";
+  const order=set.subj.groups.flatMap(g=>g.lecs),next=set.lec?set.subj.lecs.find(l=>l.n===order[order.indexOf(set.lec.n)+1]):null;
+  const list=wrong.concat(skipped).map(id=>{const x=QZ.byId.get(id),a=r.ans[id];
+    return `<div class="row"><div class="body"><div class="title">${esc(x.q)}</div><div class="meta">${a?`<span class="badge late">Wrong</span>`:`<span class="badge">Skipped</span>`}${set.review?`<span>${qzLecName(QZ.lecByKey.get(x.lec))}</span>`:""}<span>Answer: ${x.a.map(i=>esc(x.o[i])).join(" · ")}</span></div><div class="note">${esc(x.e)}</div></div></div>`;}).join("");
+  return `<div class="grid qz-res-grid">
+    <section class="card span-12 qz-res"><div class="qz-score">${ringSvg(f,`${Math.round(f*100)}%`)}<div><h2>${right.length} of ${ids.length} right</h2><p class="muted">${msg}${hints?` You used ${hints} hint${hints>1?"s":""}.`:""}</p></div></div>
+      <div class="qz-foot">${wrong.length+skipped.length?`<button class="btn primary" data-act="qz-retry" data-v="miss">${ic("revision")}Retry the ${wrong.length+skipped.length} I missed</button>`:""}
+        ${set.review?"":`<button class="btn" data-act="qz-retry" data-v="all">Start the lecture again</button>`}
+        ${next?`<a class="btn" href="#${next.subject}?l=${next.key}">${qzLecName(next)}: ${esc(next.title)} ${ic("arrow")}</a>`:""}
+        <a class="btn ghost" href="#${set.subj.k}">All lectures</a></div></section>
+    ${list?`<section class="card span-12"><div class="card-h"><h2>To go over</h2><span class="right num">${wrong.length+skipped.length}</span></div><div class="rows">${list}</div></section>`:""}
+  </div>`;
+}
+function pageQuizRun(set){
+  const back=`<a class="btn" href="#${set.subj.k}">${ic("undo")}All lectures</a>`;
+  if(!set.ids.length)return phead(set.title,set.sub,back)+`<section class="card empty"><b>No mistakes to review</b>Everything you've answered so far is right. Wrong answers collect here.</section>`;
+  const r=qzRun(set);
+  if(r.done)return phead(set.title,set.sub,back)+qzResults(set,r);
+  r.i=Math.min(r.i,r.ids.length-1);
+  const x=QZ.byId.get(r.ids[r.i]),n=Object.keys(r.ans).length,ok=Object.values(r.ans).filter(a=>a.ok).length;
+  return phead(set.title,set.sub,back)+`
+    <div class="card qz-prog"><div class="qz-prog-h"><span><b class="num">${n}</b> of ${r.ids.length} answered</span><span class="num">${ok} right</span></div><div class="bar"><i data-k="qzbar" style="width:${pct(n,r.ids.length)}%"></i></div>${qzDots(r)}</div>
+    ${qzQuestion(r,x)}`;
+}
+function qzCur(){const set=qzKey&&qzSet(qzKey);if(!set||!set.ids.length)return null;const r=qzRun(set);if(r.done)return null;return {set,r,x:QZ.byId.get(r.ids[r.i])};}
+function qzGo(i){const c=qzCur();if(!c)return;c.r.i=Math.max(0,Math.min(c.r.ids.length-1,i));fx.pop=".qz-card";changed();window.scrollTo({top:0,behavior:motionOK?"smooth":"auto"});}
+// want: true/false from a checkbox, or undefined to toggle (keyboard).
+function qzPick(oi,want){
+  const c=qzCur();if(!c||c.r.ans[c.x.id])return;const r=c.r,P=r.pick||(r.pick={});let s=P[c.x.id]||[];
+  if(QZ.multi(c.x)){const has=s.includes(oi),w=want===undefined?!has:want;s=w?(has?s:s.concat(oi)):s.filter(v=>v!==oi);}else s=[oi];
+  if(s.length)P[c.x.id]=s;else delete P[c.x.id];changed();
+}
+function qzAction(a,b){
+  const c=qzCur();
+  if(a==="qz-retry"){const set=qzSet(qzKey),r=qzQ().runs[qzKey];if(!set)return;
+    const ids=b.dataset.v==="miss"&&r?r.ids.filter(id=>!(r.ans[id]&&r.ans[id].ok)):set.ids;qzRun(set,ids);fx.enter=true;changed();window.scrollTo(0,0);return;}
+  if(!c)return;const {r,x}=c;
+  if(a==="qz-go")qzGo(+b.dataset.i);
+  else if(a==="qz-prev")qzGo(r.i-1);
+  // Next steps through in order; Skip (and Next on the last question) jumps to the next unanswered one.
+  else if(a==="qz-skip"||a==="qz-next"){const L=r.ids.length;let j=r.i;
+    if(a==="qz-next"&&r.i<L-1)j=r.i+1;else for(let k=1;k<=L;k++){const t=(r.i+k)%L;if(!r.ans[r.ids[t]]){j=t;break;}}
+    qzGo(j);}
+  else if(a==="qz-hint"){(r.hint||(r.hint={}))[x.id]=1;changed();const h=view.querySelector(".qz-hint");if(h&&motionOK)gsap.from(h,{autoAlpha:0,y:-6,duration:.3,ease:"power2.out",clearProps:"opacity,visibility,transform"});}
+  else if(a==="qz-check"){const s=(r.pick&&r.pick[x.id])||[];if(!s.length)return;const h=!!(r.hint&&r.hint[x.id]);
+    const ok=QZ.record(qzQ(),x,s,h,TODAY);r.ans[x.id]={s:s.slice(),ok,h};delete r.pick[x.id];fx.pop=".qz-exp";changed();
+    const f=view.querySelector('[data-fk="qz-next"]');if(f)f.focus({preventScroll:true});}
+  else if(a==="qz-finish"){r.done=true;fx.enter=true;changed();window.scrollTo(0,0);}
 }
 
 /* Analytics */
@@ -1904,13 +2042,16 @@ function syncAtmo(){
 
 /* ---------- Render & routing ---------- */
 function renderChrome(){
+  let grp="";
   $("nav").innerHTML=ROUTES.filter(r=>!r.hidden).map(r=>{
+    const head=r.group&&r.group!==grp?`<div class="navlabel">${esc(r.group)}</div>`:"";grp=r.group||"";
     let cnt="";
     if(r.id==="dashboard"){const L=october.filter(t=>t.date===TODAY);if(L.length)cnt=`${L.filter(isDone).length}/${L.length}`;}
     if(r.id==="revision"){const n=overdueAll().length;if(n)cnt=n;}
+    if(r.quiz){const n=qzReviewIds(r.id).length;if(n)cnt=n;}
     if(r.id==="oa"){const D=oaToday();if(D&&D.date===TODAY)cnt=`${D.slots.filter(oaDone).length}/${D.slots.length}`;}
     const live=r.id==="focus"&&pm().cur.status==="running";
-    return `<a href="#${r.id}" ${route===r.id||(r.id==="revision"&&route==="session")?'aria-current="page"':""} ${r.id==="revision"&&cnt!==""?`data-tip="${cnt} overdue for revision"`:live?'data-tip="Timer running"':""}>${ic(r.icon)}${r.label}${cnt!==""?`<span class="cnt">${cnt}</span>`:""}${live?'<span class="live" aria-label="running"></span>':""}</a>`;}).join("");
+    return `${head}<a href="#${r.id}" ${route===r.id||(r.id==="revision"&&route==="session")?'aria-current="page"':""} ${r.id==="revision"&&cnt!==""?`data-tip="${cnt} overdue for revision"`:r.quiz&&cnt!==""?`data-tip="${cnt} to review"`:live?'data-tip="Timer running"':""}>${ic(r.icon)}${r.label}${cnt!==""?`<span class="cnt">${cnt}</span>`:""}${live?'<span class="live" aria-label="running"></span>':""}</a>`;}).join("");
   const s=PROBLEMS.filter(pSolved).length;
   $("sideFoot").innerHTML=`<div style="display:flex;justify-content:space-between"><span>DSA progress</span><span class="num">${pct(s,PROBLEMS.length)}%</span></div><div class="bar"><i style="width:${pct(s,PROBLEMS.length)}%"></i></div><span class="num">${s} of ${PROBLEMS.length} solved</span>`;
   const dn=studyDay(),wk=weekOf(TODAY);
@@ -1923,7 +2064,7 @@ function render(){
   $("app").classList.toggle("focus",route==="session"&&!!activeSess());
   $("app").classList.toggle("immersive",route==="focus");
   $("app").dataset.route=route;
-  const page={dashboard:pageDashboard,focus:pageFocus,problems:pageProblems,plan:pagePlan,revision:pageRevision,oa:pageOA,topics:pageTopics,analytics:pageAnalytics,session:pageSession}[route];
+  const page={dashboard:pageDashboard,focus:pageFocus,problems:pageProblems,plan:pagePlan,revision:pageRevision,oa:pageOA,dbms:pageQuiz,os:pageQuiz,topics:pageTopics,analytics:pageAnalytics,session:pageSession}[route];
   v.innerHTML=page();
   if(route==="problems")problemsBody();
   if(fk){const el=v.querySelector(`[data-fk="${fk}"]`);if(el)el.focus({preventScroll:true});}
@@ -2010,11 +2151,13 @@ function heroLive(v){
 }
 function readHash(){
   const [r,qs]=location.hash.slice(1).split("?");
-  route=ROUTES.some(x=>x.id===r)?r:"dashboard";
+  route=r==="quiz"?"dbms":ROUTES.some(x=>x.id===r)?r:"dashboard";
   if(route==="plan"&&qs!==undefined){const f=new URLSearchParams(qs).get("f");if(f!==null)planFilter=f;}
+  qzKey=isQuiz()&&qs!==undefined?new URLSearchParams(qs).get("l"):null;
   if(route==="problems"&&qs!==undefined){const u=new URLSearchParams(qs);Object.assign(pf,{q:u.get("q")||"",topic:u.get("topic")||"",diff:u.get("diff")||"",status:u.get("status")||""});}
 }
 window.addEventListener("hashchange",()=>{const was=route;readHash();if(route==="focus"&&was!=="focus")lastRoute=was;if(route!=="focus")fxPanel=null;openRow=null;closeNav();fx.enter=true;
+  if(qzKey&&qzKey.startsWith("review-")&&QZ){const R=qzQ().runs;if(R[qzKey]&&R[qzKey].done)delete R[qzKey];}
   if(signedIn()){window.scrollTo(0,0);render();const h=$("ptitle");if(h)h.focus({preventScroll:true});if(window.ScrollTrigger)ScrollTrigger.refresh();}});
 window.addEventListener("scroll",()=>{const t=$("top");if(t)t.classList.toggle("scrolled",scrollY>40);},{passive:true});
 
@@ -2029,6 +2172,7 @@ view.addEventListener("change",e=>{
   else if(a==="task-conf"||a==="task-note"){const k=a==="task-conf"?"conf":"notes";if(el.value.trim())state[k][id]=el.value.trim();else delete state[k][id];changed();}
   else if(a==="p-conf"||a==="p-note"){setMeta(probById.get(id),a==="p-conf"?"conf":"note",el.value.trim());changed();}
   else if(a==="p-cat"){setCat(probById.get(id),el.value);fx.flash=`[data-fk="${el.dataset.fk}"]`;changed();toast(`${probById.get(id).name} → ${catName(RV.catOf(probById.get(id),state))}.`);}
+  else if(a==="qz-pick"){qzPick(+el.dataset.v,el.checked);}
   else if(a==="oa-q"){const o=oaEntry(id);o.q=el.value.trim();oaClean(id);changed();}
   else if(a==="s-text"){setSessText(id,el.dataset.f,el.value.trim());save();}
   else if(a==="s-ins"){const s=activeSess();if(s&&s.cur!=null){draftOf(s,s.cur).ins=el.checked;changed();}}
@@ -2062,6 +2206,7 @@ view.addEventListener("click",e=>{
   else if(a==="clear-pf"){Object.assign(pf,{q:"",topic:"",diff:"",status:""});$("q").value="";render();}
   else if(a==="plan-f"){planFilter=b.dataset.v;render();}
   else if(a==="jump-today"){const c=$("today-card");if(c){c.scrollIntoView({behavior:"smooth",block:"start"});const cb=c.querySelector("input");if(cb)cb.focus({preventScroll:true});}}
+  else if(a.startsWith("qz-")){qzAction(a,b);}
   else if(a==="oa-res"){const id=+b.dataset.id,o=oaEntry(id),v=b.dataset.v;if(o.r===v)delete o.r;else{o.r=v;o.d=TODAY;}oaClean(id);fx.flash=`[data-oa="${id}"]`;changed();}
   else if(a==="rev-start"){startSession();}
   else if(a==="rev-resume"){fx.sessIn=true;location.hash="#session";}
@@ -2106,6 +2251,12 @@ $("q").addEventListener("input",e=>{
 document.addEventListener("keydown",e=>{
   if(e.key==="/"&&!e.target.matches("input,select,textarea")&&signedIn()){e.preventDefault();$("q").focus();}
   if(e.key==="Escape"){closeNav();$("profile").open=false;if(route==="focus"&&fxPanel){fxPanel=null;render();}}
+  if(isQuiz()&&signedIn()&&!e.metaKey&&!e.ctrlKey&&!e.altKey&&!e.target.matches('input:not([type=radio]):not([type=checkbox]),select,textarea')){const c=qzCur();
+    if(c){const k=e.key.length===1?e.key.toUpperCase():e.key,i=QZ_KEYS.indexOf(k),done=!!c.r.ans[c.x.id],onInput=e.target.matches("input");
+      if(k.length===1&&i>=0&&i<c.x.o.length&&!done){e.preventDefault();qzPick(QZ.order(c.x,c.r.seed)[i]);}
+      else if(k==="H"&&!done){e.preventDefault();qzAction("qz-hint");}
+      else if(k==="Enter"&&!e.target.matches("button,a,summary")){e.preventDefault();const b=view.querySelector('[data-fk="qz-next"],[data-fk="qz-check"]:not(:disabled)');if(b)b.click();}
+      else if((k==="ArrowRight"||k==="ArrowLeft")&&!onInput){e.preventDefault();qzGo(c.r.i+(k==="ArrowRight"?1:-1));}}}
   if(e.key===" "&&route==="focus"&&signedIn()&&!e.target.matches("input,select,textarea,button,a,summary,label")){e.preventDefault();pomoAction("pomo-toggle");}
 });
 
