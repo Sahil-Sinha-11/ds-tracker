@@ -453,3 +453,23 @@ button.hx-cell{border:0;background:none;text-align:left;cursor:pointer;font:inhe
 .oa-day > summary .num:first-child{min-width:92px;color:var(--text-2)}
 .oa-day > summary .right{margin-left:auto}
 .oa-day.is-today > summary{background:var(--success-soft)}
+
+/* ---------- Intro: the brand lockup, once per tab session ----------
+   A cover over the page that shares its daylight wash. Only transform and opacity move; the bloom
+   behind the mark is a static gradient that scales. Hidden from assistive tech, and it never holds
+   focus: the site underneath isn't shown until the cover starts to lift. */
+#intro{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:0 16px;overflow:hidden;background:inherit;color:var(--ink);cursor:default;animation:intro-bail .4s 6s forwards}
+.intro-off #intro{display:none}
+@keyframes intro-bail{to{opacity:0;visibility:hidden}}
+.intro-lock{position:relative;display:grid;justify-items:center;gap:clamp(14px,2.2vw,22px);visibility:hidden}
+.intro-bloom{position:absolute;left:50%;top:42%;width:min(760px,150vw);aspect-ratio:1;margin:calc(min(760px,150vw) / -2) 0 0 calc(min(760px,150vw) / -2);border-radius:50%;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(168,194,160,.42),rgba(141,184,216,.22) 48%,rgba(231,224,244,.16) 68%,transparent)}
+:root[data-theme="dark"] .intro-bloom{background:radial-gradient(closest-side,rgba(141,184,154,.16),rgba(141,184,216,.08) 50%,transparent)}
+.intro-row{position:relative;display:flex;align-items:center;gap:clamp(12px,1.6vw,18px);font-size:clamp(38px,9vw,84px)}
+.intro-row .mark{width:1.04em;height:1.04em;border-radius:.28em;box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 18px 36px -16px rgba(60,106,82,.75)}
+.intro-row .mark svg{width:.6em;height:.6em;stroke-width:2.6}
+.intro-name{display:flex;font-weight:600;line-height:1;letter-spacing:-.045em;white-space:pre}
+.intro-ch{display:block;overflow:hidden;padding:.06em .01em .14em;margin:-.06em -.01em -.14em}
+.intro-ch i{display:block;font-style:normal}
+.intro-line{position:relative;width:100%;height:2px;border-radius:2px;background:var(--grad-bar);transform-origin:0 50%}
+.intro-sub{position:relative;font-family:var(--serif);font-style:italic;font-size:clamp(17px,2.2vw,22px);line-height:1;color:var(--ink-2);margin-top:-4px}
