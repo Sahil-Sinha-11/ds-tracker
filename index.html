@@ -563,6 +563,7 @@ dialog.dlg::backdrop{background:rgba(22,26,22,.3)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 <link rel="stylesheet" href="bloom.css">
+<link rel="stylesheet" href="halloween.css">
 </head>
 <body>
 
@@ -580,7 +581,7 @@ dialog.dlg::backdrop{background:rgba(22,26,22,.3)}
 </div>
 <script>
 // Before first paint: skip the intro if this tab has seen it, and start in the saved theme so the cover matches.
-try{if(sessionStorage.getItem("prep-intro"))document.documentElement.classList.add("intro-off");if(localStorage.getItem("prep-theme-bloom")==="dark")document.documentElement.dataset.theme="dark";}catch(e){}
+try{if(sessionStorage.getItem("prep-intro"))document.documentElement.classList.add("intro-off");var t=localStorage.getItem("prep-theme-bloom");if(t==="dark"||t==="halloween")document.documentElement.dataset.theme="dark";if(t==="halloween"){document.documentElement.dataset.look="halloween";document.querySelector(".intro-sub").textContent="Jack-o'-Lantern";}}catch(e){}
 </script>
 
 <!-- Sign in -->
@@ -588,7 +589,7 @@ try{if(sessionStorage.getItem("prep-intro"))document.documentElement.classList.a
   <div id="loginScene" aria-hidden="true"></div>
   <form class="login-card" id="loginForm" autocomplete="on">
     <div class="brand"><span class="mark" id="markLogin"></span>Prep Desk</div>
-    <h1>Good to see you. <em>Let's bloom.</em></h1>
+    <h1 id="loginTitle">Good to see you. <em>Let's bloom.</em></h1>
     <p>Sign in to open your study desk.</p>
     <label class="field"><span>ID</span><input class="input" id="uid" name="username" autocomplete="username" required></label>
     <label class="field"><span>Password</span><input class="input" id="pwd" name="password" type="password" autocomplete="current-password" required></label>
@@ -602,7 +603,7 @@ try{if(sessionStorage.getItem("prep-intro"))document.documentElement.classList.a
 <!-- App -->
 <div id="app" class="shell hidden">
   <aside class="side" id="side" aria-label="Main navigation">
-    <div class="brand"><span class="mark" id="markSide"></span><div>Prep Desk<small>Morning Bloom</small></div></div>
+    <div class="brand"><span class="mark" id="markSide"></span><div>Prep Desk<small class="look-name">Morning Bloom</small></div></div>
     <nav class="nav" id="nav"></nav>
     <div class="side-foot" id="sideFoot"></div>
   </aside>
@@ -628,6 +629,7 @@ try{if(sessionStorage.getItem("prep-intro"))document.documentElement.classList.a
           <button id="exportBtn" type="button"></button>
           <label id="importLbl"><input type="file" id="importFile" accept="application/json" hidden></label>
           <button id="ambientBtn" type="button" aria-pressed="true"></button>
+          <button id="lookBtn" type="button" aria-pressed="false"></button>
           <button id="resetBtn" type="button"></button>
           <div class="note">Progress is saved in this browser. Export it to move it between your phone and laptop.</div>
           <hr>
@@ -691,6 +693,7 @@ const ICONS={
   search:'<circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/>',
   star:'<path d="M12 3.8l2.5 5.1 5.6.8-4.05 3.95.96 5.6L12 16.6l-5.01 2.64.96-5.6L3.9 9.7l5.6-.8L12 3.8z"/>',
   menu:'<path d="M4 7h16M4 12h16M4 17h16"/>',
+  pumpkin:'<path d="M12 6.5c-1.2-.6-2.6-.7-3.9-.2C5.4 7.3 4 9.9 4 13s1.6 5.8 4.4 6.6c1.3.4 2.5.2 3.6-.4 1.1.6 2.3.8 3.6.4C18.4 18.8 20 16.1 20 13s-1.4-5.7-4.1-6.7c-1.3-.5-2.7-.4-3.9.2z"/><path d="M12 6.5c0-1.6.6-2.8 1.8-3.5M12 7v12.2"/>',
   moon:'<path d="M19.5 14.5A7.5 7.5 0 0 1 9.5 4.5a7.5 7.5 0 1 0 10 10z"/>',
   sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4L6 18M18 6l1.4-1.4"/>',
   logout:'<path d="M14.5 4H18a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3.5M10 16.5L5.5 12 10 7.5M5.5 12H15"/>',
@@ -752,15 +755,30 @@ $("signout").onclick=()=>{store.del(SESSION);$("profile").open=false;show();};
 
 /* ---------- Theme (Morning Bloom light by default) ---------- */
 // A new key: the Midnight theme defaulted to dark, Morning Bloom starts light for everyone.
+// Values: light, dark (Morning Bloom evening) or halloween (Jack-o'-Lantern, dark-based, see halloween.css).
+// The theme button steps light → dark → halloween → light.
 const THEME="prep-theme-bloom";
+const THEMES={light:{next:"dark",icon:"moon",label:"Switch to the evening theme",color:"#F7F5EE",name:"Morning Bloom"},
+  dark:{next:"halloween",icon:"pumpkin",label:"Switch to the Halloween theme",color:"#141A17",name:"Morning Bloom"},
+  halloween:{next:"light",icon:"sun",label:"Switch to the light theme",color:"#120C17",name:"Jack-o'-Lantern"}};
+let theme="light";
+const lookName=()=>THEMES[theme].name;
+const spooky=()=>theme==="halloween";
 function applyTheme(t){
-  document.documentElement.dataset.theme=t;
-  document.querySelector('meta[name="theme-color"]').content=t==="dark"?"#141A17":"#F7F5EE";
-  $("themeBtn").innerHTML=ic(t==="dark"?"sun":"moon");
-  $("themeBtn").setAttribute("aria-label",t==="dark"?"Switch to light theme":"Switch to dark theme");
+  theme=THEMES[t]?t:"light";const T=THEMES[theme],el=document.documentElement;
+  el.dataset.theme=theme==="light"?"light":"dark";
+  if(spooky())el.dataset.look="halloween";else delete el.dataset.look;
+  document.querySelector('meta[name="theme-color"]').content=T.color;
+  $("themeBtn").innerHTML=ic(T.icon);
+  $("themeBtn").setAttribute("aria-label",T.label);$("themeBtn").dataset.tip=T.label;
+  document.querySelectorAll(".look-name").forEach(e=>e.textContent=T.name);
+  $("loginTitle").innerHTML=spooky()?"Trick or treat? <em>Let's carve.</em>":"Good to see you. <em>Let's bloom.</em>";
+  const b=$("lookBtn");if(b){b.setAttribute("aria-pressed",spooky());b.innerHTML=`${ic("pumpkin")}Halloween theme: ${spooky()?"on":"off"}`;}
 }
-applyTheme(store.get(localStorage,THEME)==="dark"?"dark":"light");
-$("themeBtn").onclick=()=>{const t=document.documentElement.dataset.theme==="dark"?"light":"dark";store.set(localStorage,THEME,t);applyTheme(t);};
+function setTheme(t){store.set(localStorage,THEME,t);applyTheme(t);if(!$("app").classList.contains("hidden"))render();}
+applyTheme(store.get(localStorage,THEME));
+$("themeBtn").onclick=()=>setTheme(THEMES[theme].next);
+$("lookBtn").onclick=()=>{setTheme(spooky()?"light":"halloween");$("profile").open=false;};
 
 /* ---------- Data & state ---------- */
 const TASKS=window.TASKS;
@@ -946,7 +964,7 @@ function heroHome(o){
   return `<section class="hx" aria-labelledby="ptitle">
     <div class="hx-copy">
       <div class="hx-eyebrow"><span class="pulse"></span><span>${esc(o.greet)}, Sahil</span><span class="sep"></span><span>${esc(o.sub.replace(/\. Small steps.*$/,"").replace(/Small steps.*$/,"")||fmt(TODAY,{weekday:"long",day:"numeric",month:"long"}))}</span></div>
-      <h1 class="hx-title" id="ptitle" tabindex="-1"><span class="ln"><span class="w">Let's</span> <span class="w">grow</span></span><span class="ln"><em class="w">a little today.</em></span></h1>
+      <h1 class="hx-title" id="ptitle" tabindex="-1">${spooky()?`<span class="ln"><span class="w">Carve</span> <span class="w">out</span></span><span class="ln"><em class="w">some code.</em></span>`:`<span class="ln"><span class="w">Let's</span> <span class="w">grow</span></span><span class="ln"><em class="w">a little today.</em></span>`}</h1>
       <p class="hx-sub"><span class="sr">${lines.map(x=>x.replace(/<[^>]+>/g,"")).join(" ")}</span><span class="hx-rot" aria-hidden="true" data-lines="${esc(JSON.stringify(lines))}">${lines[0]}</span></p>
       <div class="hx-cta">${revOpen&&!live?revBtn("primary")+`<button class="btn soft xl" data-act="focus-open">${ic("play2")}Start focus session</button>`
         :`<button class="btn primary xl" data-act="focus-open">${ic(live?"timer":"play2")}${live?"Back to focus":"Start focus session"}</button>${revBtn("soft")}`}</div>
@@ -1918,7 +1936,7 @@ function pageFocus(){
   const mainLbl=run?"Pause":idle?(c.mode==="focus"?"Start focus":"Start break"):"Resume";
   return `<div class="fx" data-mode="${c.mode}">
     <div class="fx-top">
-      <a class="fx-brand" href="#dashboard"><span class="mark">${ic("check")}</span><span>Focus Mode<small>Morning Bloom</small></span></a>
+      <a class="fx-brand" href="#dashboard"><span class="mark">${ic("check")}</span><span>Focus Mode<small>${lookName()}</small></span></a>
       <div class="fx-seg" role="group" aria-label="Timer mode">${Object.entries(PM.MODES).map(([m,l])=>`<button data-act="pomo-mode" data-v="${m}" aria-pressed="${c.mode===m}" ${run&&c.mode!==m?"disabled":""}>${l}</button>`).join("")}</div>
       <div class="fx-tools">
         <button class="fx-ic" data-act="pomo-ambient" aria-pressed="${k.ambient!==false}" aria-label="Ambient effects ${k.ambient!==false?"on":"off"}" data-tip="Ambient effects">${ic("sparkle")}<span>Ambience</span></button>
