@@ -67,3 +67,19 @@
 /* Phones: keep the moon and bats behind the hero, drop the hill so it never sits behind the text and buttons */
 @media (max-width:900px){:root[data-look="halloween"] .atmo-photo::after{opacity:.5}:root[data-look="halloween"] .atmo .scn::after{display:none}}
 @media (prefers-reduced-motion:reduce){:root[data-look="halloween"] *::before,:root[data-look="halloween"] *::after{animation:none!important}}
+
+/* ---------- Intro: harvest moon, bats and a pumpkin-stem mark ----------
+   The moon and bats exist in every theme's markup but only show here; index.html animates them. */
+.intro-moon,.intro-bats{display:none}
+:root[data-look="halloween"] .intro-moon{display:block;position:absolute;left:50%;top:42%;width:min(440px,90vw);aspect-ratio:1;margin:calc(min(440px,90vw) / -2) 0 0 calc(min(440px,90vw) / -2);border-radius:50%;pointer-events:none;visibility:hidden;
+  background:radial-gradient(circle at 38% 34%,rgba(255,231,176,.5),rgba(242,166,90,.32) 55%,rgba(242,166,90,.12) 70%,transparent 71%);
+  box-shadow:0 0 120px 30px rgba(255,138,43,.16)}
+:root[data-look="halloween"] .intro-bats{display:block;position:absolute;left:50%;top:50%;width:0;height:0;pointer-events:none}
+:root[data-look="halloween"] .intro-bats i{position:absolute;left:-28px;top:-10px;width:56px;visibility:hidden}
+:root[data-look="halloween"] .intro-bats svg{display:block;width:100%;fill:#0B0710;filter:drop-shadow(0 0 6px rgba(255,138,43,.25))}
+:root[data-look="halloween"] .intro-bloom{background:radial-gradient(closest-side,rgba(255,122,26,.22),rgba(155,107,255,.10) 55%,transparent)}
+:root[data-look="halloween"] .intro-name{font-family:"Creepster",var(--font);font-weight:400;letter-spacing:.02em;color:#F8ECDD;text-shadow:0 0 24px rgba(255,138,43,.45)}
+:root[data-look="halloween"] .intro-row .mark{position:relative;overflow:visible;box-shadow:0 0 0 6px rgba(255,122,26,.12),0 18px 40px -12px rgba(255,122,26,.8)}
+:root[data-look="halloween"] .intro-row .mark::before{content:"";position:absolute;left:50%;top:-.16em;width:.12em;height:.22em;margin-left:-.06em;border-radius:.05em;background:#5B7A2A;transform:rotate(12deg)}
+:root[data-look="halloween"] .intro-sub{font-style:normal;color:#FFA35A}
+@media (prefers-reduced-motion:reduce){:root[data-look="halloween"] .intro-bats{display:none}}

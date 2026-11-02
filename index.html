@@ -569,6 +569,8 @@ dialog.dlg::backdrop{background:rgba(22,26,22,.3)}
 
 <!-- Intro: plays once per tab session, before the sign-in screen or the desk -->
 <div id="intro" aria-hidden="true">
+  <div class="intro-moon"></div>
+  <div class="intro-bats"><i><svg viewBox="0 0 64 22"><path d="M32 9 L34 3.5 L35.6 8.4 C42 5.6 52 2.6 63 6 C59 8 57.2 11.8 57 16 C53.4 13 49.4 13 46.2 16.2 C44.2 13.2 40.4 13 38 16.4 C36.2 14.4 34 14.6 32 18.5 Z M32 9 L30 3.5 L28.4 8.4 C22 5.6 12 2.6 1 6 C5 8 6.8 11.8 7 16 C10.6 13 14.6 13 17.8 16.2 C19.8 13.2 23.6 13 26 16.4 C27.8 14.4 30 14.6 32 18.5 Z"/></svg></i><i><svg viewBox="0 0 64 22"><path d="M32 9 L34 3.5 L35.6 8.4 C42 5.6 52 2.6 63 6 C59 8 57.2 11.8 57 16 C53.4 13 49.4 13 46.2 16.2 C44.2 13.2 40.4 13 38 16.4 C36.2 14.4 34 14.6 32 18.5 Z M32 9 L30 3.5 L28.4 8.4 C22 5.6 12 2.6 1 6 C5 8 6.8 11.8 7 16 C10.6 13 14.6 13 17.8 16.2 C19.8 13.2 23.6 13 26 16.4 C27.8 14.4 30 14.6 32 18.5 Z"/></svg></i><i><svg viewBox="0 0 64 22"><path d="M32 9 L34 3.5 L35.6 8.4 C42 5.6 52 2.6 63 6 C59 8 57.2 11.8 57 16 C53.4 13 49.4 13 46.2 16.2 C44.2 13.2 40.4 13 38 16.4 C36.2 14.4 34 14.6 32 18.5 Z M32 9 L30 3.5 L28.4 8.4 C22 5.6 12 2.6 1 6 C5 8 6.8 11.8 7 16 C10.6 13 14.6 13 17.8 16.2 C19.8 13.2 23.6 13 26 16.4 C27.8 14.4 30 14.6 32 18.5 Z"/></svg></i><i><svg viewBox="0 0 64 22"><path d="M32 9 L34 3.5 L35.6 8.4 C42 5.6 52 2.6 63 6 C59 8 57.2 11.8 57 16 C53.4 13 49.4 13 46.2 16.2 C44.2 13.2 40.4 13 38 16.4 C36.2 14.4 34 14.6 32 18.5 Z M32 9 L30 3.5 L28.4 8.4 C22 5.6 12 2.6 1 6 C5 8 6.8 11.8 7 16 C10.6 13 14.6 13 17.8 16.2 C19.8 13.2 23.6 13 26 16.4 C27.8 14.4 30 14.6 32 18.5 Z"/></svg></i><i><svg viewBox="0 0 64 22"><path d="M32 9 L34 3.5 L35.6 8.4 C42 5.6 52 2.6 63 6 C59 8 57.2 11.8 57 16 C53.4 13 49.4 13 46.2 16.2 C44.2 13.2 40.4 13 38 16.4 C36.2 14.4 34 14.6 32 18.5 Z M32 9 L30 3.5 L28.4 8.4 C22 5.6 12 2.6 1 6 C5 8 6.8 11.8 7 16 C10.6 13 14.6 13 17.8 16.2 C19.8 13.2 23.6 13 26 16.4 C27.8 14.4 30 14.6 32 18.5 Z"/></svg></i><i><svg viewBox="0 0 64 22"><path d="M32 9 L34 3.5 L35.6 8.4 C42 5.6 52 2.6 63 6 C59 8 57.2 11.8 57 16 C53.4 13 49.4 13 46.2 16.2 C44.2 13.2 40.4 13 38 16.4 C36.2 14.4 34 14.6 32 18.5 Z M32 9 L30 3.5 L28.4 8.4 C22 5.6 12 2.6 1 6 C5 8 6.8 11.8 7 16 C10.6 13 14.6 13 17.8 16.2 C19.8 13.2 23.6 13 26 16.4 C27.8 14.4 30 14.6 32 18.5 Z"/></svg></i></div>
   <div class="intro-lock">
     <div class="intro-bloom"></div>
     <div class="intro-row">
@@ -581,7 +583,7 @@ dialog.dlg::backdrop{background:rgba(22,26,22,.3)}
 </div>
 <script>
 // Before first paint: skip the intro if this tab has seen it, and start in the saved theme so the cover matches.
-try{if(sessionStorage.getItem("prep-intro"))document.documentElement.classList.add("intro-off");var t=localStorage.getItem("prep-theme-bloom");if(t==="dark"||t==="halloween")document.documentElement.dataset.theme="dark";if(t==="halloween"){document.documentElement.dataset.look="halloween";document.querySelector(".intro-sub").textContent="Jack-o'-Lantern";}}catch(e){}
+try{if(sessionStorage.getItem("prep-intro"))document.documentElement.classList.add("intro-off");var t=localStorage.getItem("prep-theme-v2")||"halloween";if(t==="dark"||t==="halloween")document.documentElement.dataset.theme="dark";if(t==="halloween"){document.documentElement.dataset.look="halloween";document.querySelector(".intro-sub").textContent="Jack-o'-Lantern";}}catch(e){}
 </script>
 
 <!-- Sign in -->
@@ -754,10 +756,10 @@ $("loginForm").addEventListener("submit",async e=>{
 $("signout").onclick=()=>{store.del(SESSION);$("profile").open=false;show();};
 
 /* ---------- Theme (Morning Bloom light by default) ---------- */
-// A new key: the Midnight theme defaulted to dark, Morning Bloom starts light for everyone.
-// Values: light, dark (Morning Bloom evening) or halloween (Jack-o'-Lantern, dark-based, see halloween.css).
+// Values: light (Morning Bloom), dark (Morning Bloom evening) or halloween (Jack-o'-Lantern, dark-based, see halloween.css).
+// Halloween is the default. A new key (was prep-theme-bloom) so an earlier light or dark pick doesn't hide it.
 // The theme button steps light → dark → halloween → light.
-const THEME="prep-theme-bloom";
+const THEME="prep-theme-v2";
 const THEMES={light:{next:"dark",icon:"moon",label:"Switch to the evening theme",color:"#F7F5EE",name:"Morning Bloom"},
   dark:{next:"halloween",icon:"pumpkin",label:"Switch to the Halloween theme",color:"#141A17",name:"Morning Bloom"},
   halloween:{next:"light",icon:"sun",label:"Switch to the light theme",color:"#120C17",name:"Jack-o'-Lantern"}};
@@ -776,7 +778,7 @@ function applyTheme(t){
   const b=$("lookBtn");if(b){b.setAttribute("aria-pressed",spooky());b.innerHTML=`${ic("pumpkin")}Halloween theme: ${spooky()?"on":"off"}`;}
 }
 function setTheme(t){store.set(localStorage,THEME,t);applyTheme(t);if(!$("app").classList.contains("hidden"))render();}
-applyTheme(store.get(localStorage,THEME));
+applyTheme(store.get(localStorage,THEME)||"halloween");
 $("themeBtn").onclick=()=>setTheme(THEMES[theme].next);
 $("lookBtn").onclick=()=>{setTheme(spooky()?"light":"halloween");$("profile").open=false;};
 
@@ -2354,7 +2356,7 @@ function intro(open){
   const cap=setTimeout(done,4500);
   addEventListener("keydown",skip,true);el.addEventListener("pointerdown",skip);
   const q=s=>el.querySelector(s),lock=q(".intro-lock"),row=q(".intro-row"),mark=q(".mark"),bloom=q(".intro-bloom");
-  const fonts=document.fonts?Promise.all([document.fonts.load('600 64px Inter'),document.fonts.load('italic 400 20px "Instrument Serif"')]).catch(()=>{}):Promise.resolve();
+  const fonts=document.fonts?Promise.all([document.fonts.load('600 64px Inter'),document.fonts.load('italic 400 20px "Instrument Serif"'),...(spooky()?[document.fonts.load('400 64px Creepster')]:[])]).catch(()=>{}):Promise.resolve();
   // Webfonts first (cached after the first visit), so the letters never swap mid-reveal. Never waits more than 0.8 s.
   Promise.race([fonts,new Promise(r=>setTimeout(r,800))]).then(()=>{
     try{
@@ -2372,13 +2374,24 @@ function intro(open){
         // Letters rise out of their own clip while the tracking closes in toward the middle.
         .fromTo(ch,{yPercent:115,x:i=>(i-mid)*7},{yPercent:0,x:0,duration:.85,ease:"expo.out",stagger:{each:.035,from:"center"}},.3)
         .fromTo(q(".intro-line"),{scaleX:0,autoAlpha:1},{scaleX:1,duration:.65,ease:"power3.inOut"},.62)
-        .fromTo(q(".intro-sub"),{autoAlpha:0,y:8},{autoAlpha:1,y:0,duration:.55,ease:"power3.out"},.8)
-        .addLabel("exit","+=.2")
+        .fromTo(q(".intro-sub"),{autoAlpha:0,y:8},{autoAlpha:1,y:0,duration:.55,ease:"power3.out"},.8);
+      const bats=el.querySelectorAll(".intro-bats i");
+      if(spooky()){
+        // Halloween: the harvest moon rises behind the lockup, bats burst out from the mark,
+        // and the letters flicker like candlelight once before the cover lifts.
+        tl.fromTo(q(".intro-moon"),{yPercent:30,scale:.7,autoAlpha:0},{yPercent:0,scale:1,autoAlpha:1,duration:1.3,ease:"power2.out"},0)
+          .fromTo(bats,{x:0,y:0,scale:.15,autoAlpha:0},{x:i=>[-300,-200,-90,110,230,320][i]+"%",y:i=>[-260,-420,-560,-500,-380,-230][i]+"%",
+            scale:i=>[.9,.7,1,.8,1.1,.75][i],rotation:i=>[-18,-8,6,-4,10,16][i],autoAlpha:1,duration:1.1,ease:"power3.out",stagger:.05},.2)
+          .to(ch,{opacity:.3,duration:.07,repeat:3,yoyo:true,ease:"none",stagger:{each:.03,from:"random"}},1.05);
+      }
+      tl.addLabel("exit","+=.2")
         // Exit: the lockup pushes toward you from the mark and the cover dissolves into the page.
         // The lockup is gone before the page shows through, so the two never overlap.
         .to(row,{scale:1.4,autoAlpha:0,transformOrigin:()=>mark.offsetWidth/2+"px 50%",duration:.42,ease:"power3.in"},"exit")
         .to([q(".intro-line"),q(".intro-sub")],{autoAlpha:0,y:-6,duration:.28,ease:"power2.in"},"exit")
         .to(bloom,{scale:1.7,autoAlpha:0,duration:.6,ease:"power2.in"},"exit")
+        .to(bats,{x:i=>[-300,-200,-90,110,230,320][i]*3+"%",y:i=>[-260,-420,-560,-500,-380,-230][i]*2.2+"%",autoAlpha:0,duration:.6,ease:"power2.in"},"exit")
+        .to(q(".intro-moon"),{autoAlpha:0,scale:1.15,duration:.6,ease:"power2.in"},"exit")
         .call(reveal,null,"exit+=.3")
         .to(el,{autoAlpha:0,duration:.5,ease:"power1.inOut"},"exit+=.3");
     }catch(e){done();}
