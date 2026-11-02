@@ -14,7 +14,7 @@
 
 Tick a task or problem to mark it done. The pencil button sets confidence (Confident / Shaky / Redo) and a note. Press `/` to search.
 
-The page has a simple sign-in screen. Only a salted hash of the ID and password is stored in the code. Progress is saved in the browser (localStorage); use **Export / Import** in the profile menu to move it to another device. Light theme by default, with a dark theme toggle in the top bar.
+The page has a simple sign-in screen. Only a salted hash of the ID and password is stored in the code. Progress is saved in the browser (localStorage); use **Export / Import** in the profile menu to move it to another device. Light theme by default. The theme button in the top bar steps through light, dark and the Halloween theme; the profile menu also has a Halloween on/off switch.
 
 - `tasks.js` is the October plan (DSA tasks link to problems with `pid`; System Design tasks carry an `lld` object with the problem number, concept, difficulty and section; core DBMS tasks carry `dbms.segs`, the video segments to watch with timestamps, and `low: true` marks a low-priority task, which never shows as left over).
 - `problems.js` is the problem list from the tracker docx (`solved` = done before October, `star` = bookmarked).
@@ -46,7 +46,7 @@ Everything lives in the same localStorage key under `pomo` (settings, the curren
 
 Motion stops when it isn't seen: canvases pause off screen and in hidden tabs, the home scene is still on other pages, and Focus Mode tears its scene down when you leave. With reduced motion turned on in the OS, or **Ambient effects: off** in the profile menu or Focus Mode, the figures and photos stay as a still composition and the site works the same.
 
-Theme: Morning Bloom (light) by default: warm ivory, forest-green text, sage and powder blue for actions, peach and lavender as accents. A soft evening (dark) theme is on the sun/moon toggle.
+Theme: Morning Bloom (light) by default: warm ivory, forest-green text, sage and powder blue for actions, peach and lavender as accents. A soft evening (dark) theme is on the sun/moon toggle. Jack-o'-Lantern, the Halloween theme, is the third step of that toggle (and a switch in the profile menu): a purple night with pumpkin-orange actions, a harvest moon, bats, a haunted house and glowing pumpkins drawn in inline SVG. It lives in `halloween.css` and turns on with `data-look="halloween"` on `<html>`, on top of the dark theme. The choice is saved under `prep-theme-bloom` (`light`, `dark` or `halloween`).
 
 ### Photo credits
 
